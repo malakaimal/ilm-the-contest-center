@@ -264,8 +264,52 @@
     <p>© 2026 ILM The Contest Center. All Rights Reserved.</p>
 </footer>
 
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
+
+<script>
+const loginForm = document.getElementById("loginForm");
+const loginMessage = document.getElementById("loginMessage");
+
+loginForm.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const email = document.getElementById("studentId").value.trim();
+    const password = document.getElementById("password").value;
+    const button = loginForm.querySelector(".login-btn-main");
+
+    loginMessage.style.display = "block";
+    loginMessage.textContent = "Signing in...";
+
+    button.disabled = true;
+    button.textContent = "Please wait...";
+
+    try {
+        const { data, error } =
+            await supabaseClient.auth.signInWithPassword({
+                email: email,
+                password: password
+            });
+
+        if (error) throw error;
+
+        loginMessage.textContent = "Login successful! Opening your student portal...";
+
+        window.location.href = "student-dashboard.html";
+
+    } catch (error) {
+        loginMessage.textContent =
+            "Login failed: " + error.message;
+    } finally {
+        button.disabled = false;
+        button.textContent = "Sign In";
+    }
+});
+</script>
+
+</body>
+</html>
 
 </body>
 </html>
