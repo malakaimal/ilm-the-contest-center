@@ -1,0 +1,359 @@
+
+/* =====================================
+   ILM THE CONTEST CENTER
+   Premium Website Design
+   ===================================== */
+
+:root {
+  --navy: #092b55;
+  --blue: #1265b0;
+  --gold: #d6a638;
+  --white: #ffffff;
+  --light: #f4f7fc;
+  --dark: #172b45;
+  --text: #65748b;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--dark);
+  background: var(--white);
+  line-height: 1.7;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* HEADER */
+
+.header {
+  min-height: 85px;
+  padding: 15px 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background: white;
+  box-shadow: 0 3px 20px rgba(0,0,0,0.06);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.logo span {
+  font-size: 34px;
+  font-weight: 900;
+  color: var(--navy);
+  letter-spacing: 2px;
+}
+
+.logo small {
+  color: var(--gold);
+  font-size: 9px;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+}
+
+.header nav {
+  display: flex;
+  align-items: center;
+  gap: 23px;
+}
+
+.header nav a {
+  font-size: 13px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.header nav a:hover {
+  color: var(--gold);
+}
+
+.login-btn {
+  background: var(--navy);
+  color: white;
+  padding: 11px 20px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.login-btn:hover {
+  background: var(--gold);
+  color: var(--navy);
+}
+
+/* HERO SECTION */
+
+.hero {
+  min-height: 580px;
+  padding: 100px 8%;
+  display: flex;
+  align-items: center;
+  background:
+    linear-gradient(110deg,
+    rgba(5, 30, 64, 0.97),
+    rgba(12, 75, 135, 0.84)),
+    url("https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1800")
+    center/cover;
+  color: white;
+}
+
+.hero-content {
+  max-width: 720px;
+}
+
+.tag {
+  display: inline-block;
+  color: var(--gold);
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin-bottom: 18px;
+}
+
+.hero h1 {
+  font-size: clamp(38px, 5vw, 62px);
+  line-height: 1.15;
+  margin-bottom: 24px;
+  font-weight: 800;
+}
+
+.hero p {
+  max-width: 620px;
+  color: #e0e9f5;
+  font-size: 17px;
+  margin-bottom: 32px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.primary-btn,
+.secondary-btn {
+  display: inline-block;
+  padding: 13px 25px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.primary-btn {
+  background: var(--gold);
+  color: var(--navy);
+}
+
+.primary-btn:hover {
+  background: white;
+  transform: translateY(-3px);
+}
+
+.secondary-btn {
+  border: 1px solid white;
+  color: white;
+}
+
+.secondary-btn:hover {
+  background: white;
+  color: var(--navy);
+}
+
+/* INTRODUCTION */
+
+.intro {
+  padding: 90px 10%;
+  text-align: center;
+  background: white;
+}
+
+.intro h2,
+.programs h2 {
+  color: var(--navy);
+  font-size: clamp(27px, 4vw, 38px);
+  margin-bottom: 20px;
+}
+
+.intro p {
+  max-width: 760px;
+  margin: auto;
+  color: var(--text);
+  font-size: 16px;
+}
+
+/* PROGRAMS */
+
+.programs {
+  padding: 85px 7%;
+  text-align: center;
+  background: var(--light);
+}
+
+.program-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  margin-top: 40px;
+  text-align: left;
+}
+
+.program-card {
+  background: white;
+  padding: 35px 28px;
+  border-radius: 10px;
+  border-bottom: 4px solid var(--gold);
+  box-shadow: 0 8px 30px rgba(10,40,80,0.06);
+  transition: 0.3s;
+}
+
+.program-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(10,40,80,0.12);
+}
+
+.program-card h3 {
+  color: var(--navy);
+  font-size: 21px;
+  margin-bottom: 15px;
+}
+
+.program-card p {
+  color: var(--text);
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.program-card a {
+  color: var(--blue);
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* CALL TO ACTION */
+
+.cta {
+  padding: 75px 8%;
+  text-align: center;
+  background: var(--navy);
+  color: white;
+}
+
+.cta h2 {
+  font-size: 32px;
+  margin-bottom: 15px;
+}
+
+.cta p {
+  color: #d4e0ef;
+  margin-bottom: 25px;
+}
+
+/* FOOTER */
+
+footer {
+  padding: 45px 7%;
+  background: #061c37;
+  color: white;
+  text-align: center;
+}
+
+footer h3 {
+  color: var(--gold);
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+footer p {
+  font-size: 13px;
+  color: #bdc9d8;
+  margin: 7px 0;
+}
+
+/* RESPONSIVE DESIGN */
+
+@media (max-width: 1000px) {
+  .header {
+    flex-wrap: wrap;
+  }
+
+  .header nav {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  .program-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .header {
+    padding: 15px 5%;
+  }
+
+  .header nav {
+    justify-content: flex-start;
+    gap: 12px;
+  }
+
+  .header nav a {
+    font-size: 12px;
+  }
+
+  .login-btn {
+    padding: 9px 12px;
+    font-size: 11px;
+  }
+
+  .hero {
+    min-height: 500px;
+    padding: 75px 7%;
+  }
+
+  .hero h1 {
+    font-size: 38px;
+  }
+
+  .hero p {
+    font-size: 15px;
+  }
+
+  .intro,
+  .programs {
+    padding: 60px 6%;
+  }
+
+  .program-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cta h2 {
+    font-size: 26px;
+  }
+}
