@@ -322,34 +322,8 @@
     <p>© 2026 ILM The Contest Center. All Rights Reserved.</p>
 </footer>
 
-<script>
-    document.getElementById("signupForm")
-        .addEventListener("submit", function(event) {
-
-            event.preventDefault();
-
-            const password =
-                document.getElementById("password").value;
-
-            const confirmPassword =
-                document.getElementById("confirmPassword").value;
-
-            const message =
-                document.getElementById("signupMessage");
-
-            if (password !== confirmPassword) {
-                alert("Passwords do not match. Please try again.");
-                return;
-            }
-
-            message.style.display = "block";
-
-            message.scrollIntoView({
-                behavior: "smooth",
-                block: "nearest"
-            });
-        });
-</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
 
 </body>
 </html>
