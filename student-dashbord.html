@@ -2,405 +2,287 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Dashboard | ILM The Contest Center</title>
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Dashboard | ILM The Contest Center</title>
+<link rel="stylesheet" href="styles.css">
 
-    <style>
-        body {
-            background: #f3f6fb;
-        }
-
-        .dashboard-layout {
-            display: grid;
-            grid-template-columns: 245px 1fr;
-            min-height: 85vh;
-        }
-
-        .sidebar {
-            background: #092b55;
-            color: white;
-            padding: 30px 18px;
-        }
-
-        .sidebar h3 {
-            padding: 0 12px;
-            margin-bottom: 28px;
-            font-size: 19px;
-        }
-
-        .sidebar a {
-            display: block;
-            color: #dce8f6;
-            text-decoration: none;
-            padding: 13px 14px;
-            margin-bottom: 7px;
-            border-radius: 6px;
-            font-size: 14px;
-        }
-
-        .sidebar a:hover,
-        .sidebar a.active {
-            background: #174d83;
-            color: white;
-        }
-
-        .dashboard-main {
-            padding: 35px;
-            min-width: 0;
-        }
-
-        .dashboard-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
-        }
-
-        .dashboard-top h1 {
-            color: #092b55;
-            font-size: 28px;
-        }
-
-        .dashboard-top p {
-            color: #718096;
-            margin-top: 7px;
-        }
-
-        .student-badge {
-            background: #fff;
-            padding: 12px 18px;
-            border-radius: 8px;
-            color: #092b55;
-            font-weight: bold;
-            border: 1px solid #e7edf5;
-        }
-
-        .welcome-card {
-            background: linear-gradient(120deg, #092b55, #1265b0);
-            color: white;
-            padding: 30px;
-            border-radius: 12px;
-            margin-bottom: 28px;
-        }
-
-        .welcome-card h2 {
-            margin-bottom: 10px;
-        }
-
-        .welcome-card p {
-            color: #dce8f6;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 18px;
-            margin-bottom: 30px;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 23px;
-            border-radius: 10px;
-            border: 1px solid #e8edf4;
-        }
-
-        .stat-card p {
-            color: #718096;
-            font-size: 13px;
-            margin-bottom: 12px;
-        }
-
-        .stat-card h2 {
-            color: #092b55;
-            font-size: 27px;
-        }
-
-        .dashboard-panel {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            border: 1px solid #e8edf4;
-        }
-
-        .dashboard-panel h2 {
-            color: #092b55;
-            font-size: 20px;
-            margin-bottom: 18px;
-        }
-
-        .empty-state {
-            background: #f7f9fc;
-            padding: 25px;
-            text-align: center;
-            border-radius: 8px;
-            color: #718096;
-            line-height: 1.7;
-        }
-
-        .quick-links {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-        }
-
-        .quick-link {
-            padding: 20px;
-            background: #f4f7fc;
-            border-radius: 8px;
-            text-decoration: none;
-            color: #092b55;
-            font-weight: bold;
-        }
-
-        .quick-link:hover {
-            background: #e8f0fa;
-        }
-
-        .quick-link span {
-            display: block;
-            color: #718096;
-            font-size: 12px;
-            font-weight: normal;
-            margin-top: 8px;
-        }
-
-        .dashboard-note {
-            font-size: 13px;
-            color: #8995a5;
-            margin-top: 15px;
-        }
-
-        @media(max-width:1000px) {
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .quick-links {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media(max-width:700px) {
-            .dashboard-layout {
-                grid-template-columns: 1fr;
-            }
-
-            .sidebar {
-                padding: 15px;
-            }
-
-            .sidebar h3 {
-                margin-bottom: 10px;
-            }
-
-            .sidebar a {
-                display: inline-block;
-                padding: 10px;
-                margin: 3px;
-            }
-
-            .dashboard-main {
-                padding: 20px 15px;
-            }
-
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-            }
-
-            .stat-card {
-                padding: 16px;
-            }
-
-            .quick-links {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+<style>
+body{background:#f3f6fb}
+.dashboard-layout{display:grid;grid-template-columns:245px 1fr;min-height:85vh}
+.sidebar{background:#092b55;color:white;padding:30px 18px}
+.sidebar h3{padding:0 12px;margin-bottom:28px;font-size:19px}
+.sidebar a{display:block;color:#dce8f6;text-decoration:none;padding:13px 14px;margin-bottom:7px;border-radius:6px;font-size:14px}
+.sidebar a:hover,.sidebar a.active{background:#174d83;color:white}
+.sidebar button{width:100%;padding:13px 14px;margin-top:10px;border:0;border-radius:6px;background:#b58b35;color:white;font-weight:bold;cursor:pointer;text-align:left}
+.dashboard-main{padding:35px;min-width:0}
+.dashboard-top{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:30px}
+.dashboard-top h1{color:#092b55;font-size:28px}
+.dashboard-top p{color:#718096;margin-top:7px}
+.student-badge{background:white;padding:12px 18px;border-radius:8px;color:#092b55;font-weight:bold;border:1px solid #e7edf5}
+.welcome-card{background:linear-gradient(120deg,#092b55,#1265b0);color:white;padding:30px;border-radius:12px;margin-bottom:28px}
+.welcome-card h2{margin-bottom:10px}
+.welcome-card p{color:#dce8f6}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-bottom:30px}
+.stat-card{background:white;padding:23px;border-radius:10px;border:1px solid #e8edf4}
+.stat-card p{color:#718096;font-size:13px;margin-bottom:12px}
+.stat-card h2{color:#092b55;font-size:27px}
+.dashboard-panel{background:white;padding:25px;border-radius:10px;margin-bottom:25px;border:1px solid #e8edf4}
+.dashboard-panel h2{color:#092b55;font-size:20px;margin-bottom:18px}
+.profile-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
+.profile-item{background:#f7f9fc;padding:15px;border-radius:7px}
+.profile-item small{display:block;color:#718096;margin-bottom:6px}
+.profile-item strong{color:#092b55;overflow-wrap:anywhere}
+.empty-state{background:#f7f9fc;padding:25px;text-align:center;border-radius:8px;color:#718096;line-height:1.7}
+.quick-links{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.quick-link{padding:20px;background:#f4f7fc;border-radius:8px;text-decoration:none;color:#092b55;font-weight:bold}
+.quick-link:hover{background:#e8f0fa}
+.quick-link span{display:block;color:#718096;font-size:12px;font-weight:normal;margin-top:8px}
+.dashboard-note{font-size:13px;color:#8995a5;margin-top:15px}
+#dashboardMessage{padding:15px;margin-bottom:20px;background:#fff8e8;color:#74571c;border-radius:7px;display:none}
+@media(max-width:1000px){.stats-grid{grid-template-columns:repeat(2,1fr)}.quick-links{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.dashboard-layout{grid-template-columns:1fr}.sidebar{padding:15px}.sidebar h3{margin-bottom:10px}.sidebar a{display:inline-block;padding:10px;margin:3px}.sidebar button{width:auto;margin:5px}.dashboard-main{padding:20px 15px}.quick-links{grid-template-columns:1fr}.profile-grid{grid-template-columns:1fr}}
+</style>
 </head>
 
 <body>
 
 <header class="header">
-    <a href="index.html" class="logo">
-        <span>ILM</span>
-        <small>THE CONTEST CENTER</small>
-    </a>
-
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="programs.html">Programs</a>
-        <a href="results.html">Results</a>
-        <a href="contact.html">Contact</a>
-    </nav>
-
-    <a href="login.html" class="login-btn">Login</a>
+<a href="index.html" class="logo">
+<span>ILM</span><small>THE CONTEST CENTER</small>
+</a>
+<nav>
+<a href="index.html">Home</a>
+<a href="programs.html">Programs</a>
+<a href="results.html">Results</a>
+<a href="contact.html">Contact</a>
+</nav>
 </header>
 
 <main>
+<div class="dashboard-layout">
 
-    <div class="dashboard-layout">
+<aside class="sidebar">
+<h3>Student Portal</h3>
+<a href="student-dashboard.html" class="active">Dashboard</a>
+<a href="#profile">My Profile</a>
+<a href="#registrations">My Registrations</a>
+<a href="#competitions">Competitions</a>
+<a href="#tests">Online Tests</a>
+<a href="results.html">Examination Results</a>
+<a href="certificates.html">My Certificates</a>
+<a href="contact.html">Help & Support</a>
+<button type="button" id="logoutButton">Logout</button>
+</aside>
 
-        <aside class="sidebar">
+<section class="dashboard-main">
 
-            <h3>Student Portal</h3>
+<div id="dashboardMessage" role="status"></div>
 
-            <a href="student-dashboard.html" class="active">
-                Dashboard
-            </a>
+<div class="dashboard-top">
+<div>
+<h1>Student Dashboard</h1>
+<p>Welcome to your ILM learning portal.</p>
+</div>
+<div class="student-badge">Verified Student Portal</div>
+</div>
 
-            <a href="#profile">My Profile</a>
-            <a href="#registrations">My Registrations</a>
-            <a href="#competitions">Competitions</a>
-            <a href="#tests">Online Tests</a>
-            <a href="results.html">Examination Results</a>
-            <a href="certificates.html">My Certificates</a>
-            <a href="contact.html">Help & Support</a>
-            <a href="login.html">Logout</a>
+<div class="welcome-card">
+<h2>Welcome, <span id="studentName">Student</span>!</h2>
+<p>Your academic journey starts here. Explore competitions, online tests and student services.</p>
+</div>
 
-        </aside>
+<div class="stats-grid">
+<div class="stat-card"><p>My Registrations</p><h2 id="registrationCount">0</h2></div>
+<div class="stat-card"><p>Available Tests</p><h2>0</h2></div>
+<div class="stat-card"><p>My Results</p><h2 id="resultCount">0</h2></div>
+<div class="stat-card"><p>Certificates</p><h2 id="certificateCount">0</h2></div>
+</div>
 
-        <section class="dashboard-main">
+<div class="dashboard-panel" id="profile">
+<h2>My Profile</h2>
+<div class="profile-grid">
+<div class="profile-item"><small>Full Name</small><strong id="profileName">Loading...</strong></div>
+<div class="profile-item"><small>Email</small><strong id="profileEmail">Loading...</strong></div>
+<div class="profile-item"><small>Father's Name</small><strong id="profileFather">Not provided</strong></div>
+<div class="profile-item"><small>Phone</small><strong id="profilePhone">Not provided</strong></div>
+<div class="profile-item"><small>District</small><strong id="profileDistrict">Not provided</strong></div>
+<div class="profile-item"><small>School</small><strong id="profileSchool">Not provided</strong></div>
+<div class="profile-item"><small>Class</small><strong id="profileGrade">Not provided</strong></div>
+<div class="profile-item"><small>Selected Program</small><strong id="profileProgram">Not provided</strong></div>
+</div>
+</div>
 
-            <div class="dashboard-top">
-                <div>
-                    <h1>Student Dashboard</h1>
-                    <p>Welcome to your ILM learning portal.</p>
-                </div>
+<div class="dashboard-panel" id="registrations">
+<h2>My Registrations</h2>
+<div id="registrationList" class="empty-state">Loading registrations...</div>
+</div>
 
-                <div class="student-badge">
-                    Student Portal
-                </div>
-            </div>
+<div class="dashboard-panel" id="competitions">
+<h2>My Competitions</h2>
+<div class="empty-state">Your registered competitions will appear in My Registrations.</div>
+</div>
 
-            <div class="welcome-card">
-                <h2>Welcome to ILM!</h2>
-                <p>
-                    Your academic journey starts here.
-                    Explore competitions, online tests
-                    and student services.
-                </p>
-            </div>
+<div class="dashboard-panel" id="tests">
+<h2>Online Tests</h2>
+<div class="empty-state">Online test access will appear here when the examination system is connected.</div>
+</div>
 
-            <div class="stats-grid">
+<div class="dashboard-panel">
+<h2>Quick Access</h2>
+<div class="quick-links">
+<a href="programs.html" class="quick-link">Explore Programs<span>Discover ILM programs</span></a>
+<a href="results.html" class="quick-link">Check Results<span>View examination results</span></a>
+<a href="certificates.html" class="quick-link">Certificates<span>View your certificates</span></a>
+</div>
+<p class="dashboard-note">Your dashboard information is retrieved from your secure student account.</p>
+</div>
 
-                <div class="stat-card">
-                    <p>My Registrations</p>
-                    <h2>--</h2>
-                </div>
-
-                <div class="stat-card">
-                    <p>Available Tests</p>
-                    <h2>--</h2>
-                </div>
-
-                <div class="stat-card">
-                    <p>My Results</p>
-                    <h2>--</h2>
-                </div>
-
-                <div class="stat-card">
-                    <p>Certificates</p>
-                    <h2>--</h2>
-                </div>
-
-            </div>
-
-            <div class="dashboard-panel" id="profile">
-
-                <h2>My Profile</h2>
-
-                <div class="empty-state">
-                    Your student profile will appear here
-                    after secure registration and login
-                    are connected.
-                </div>
-
-            </div>
-
-            <div class="dashboard-panel" id="registrations">
-
-                <h2>My Registrations</h2>
-
-                <div class="empty-state">
-                    No registration records are connected yet.
-                    Your approved competition registrations
-                    will appear here.
-                </div>
-
-            </div>
-
-            <div class="dashboard-panel" id="competitions">
-
-                <h2>My Competitions</h2>
-
-                <div class="empty-state">
-                    Your registered competitions and their
-                    schedules will appear here.
-                </div>
-
-            </div>
-
-            <div class="dashboard-panel" id="tests">
-
-                <h2>Online Tests</h2>
-
-                <div class="empty-state">
-                    Online test access will appear here
-                    when the secure examination system
-                    is connected.
-                </div>
-
-            </div>
-
-            <div class="dashboard-panel">
-
-                <h2>Quick Access</h2>
-
-                <div class="quick-links">
-
-                    <a href="programs.html" class="quick-link">
-                        Explore Programs
-                        <span>Discover ILM programs</span>
-                    </a>
-
-                    <a href="results.html" class="quick-link">
-                        Check Results
-                        <span>View examination results</span>
-                    </a>
-
-                    <a href="certificates.html" class="quick-link">
-                        Certificates
-                        <span>Verify certificates</span>
-                    </a>
-
-                </div>
-
-                <p class="dashboard-note">
-                    Dashboard data will be populated after
-                    database and authentication integration.
-                </p>
-
-            </div>
-
-        </section>
-
-    </div>
-
+</section>
+</div>
 </main>
 
 <footer>
-    <h3>ILM THE CONTEST CENTER</h3>
-    <p>Empowering Minds. Inspiring Excellence.</p>
-    <p>Email: ilmthecontestcenter@gmail.com</p>
-    <p>© 2026 ILM The Contest Center. All Rights Reserved.</p>
+<h3>ILM THE CONTEST CENTER</h3>
+<p>Empowering Minds. Inspiring Excellence.</p>
+<p>Email: ilmthecontestcenter@gmail.com</p>
+<p>© 2026 ILM The Contest Center. All Rights Reserved.</p>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+
+<script>
+const message = document.getElementById("dashboardMessage");
+
+function showMessage(text) {
+    message.textContent = text;
+    message.style.display = "block";
+}
+
+async function loadDashboard() {
+    try {
+        const { data: authData, error: authError } =
+            await supabaseClient.auth.getUser();
+
+        if (authError || !authData.user) {
+            window.location.replace("login.html");
+            return;
+        }
+
+        const user = authData.user;
+
+        const { data: profile, error: profileError } =
+            await supabaseClient
+                .from("profiles")
+                .select("*")
+                .eq("id", user.id)
+                .single();
+
+        if (profileError) throw profileError;
+
+        document.getElementById("studentName").textContent =
+            profile.full_name || "Student";
+
+        document.getElementById("profileName").textContent =
+            profile.full_name || "Not provided";
+
+        document.getElementById("profileEmail").textContent =
+            user.email || "Not available";
+
+        document.getElementById("profileFather").textContent =
+            profile.father_name || "Not provided";
+
+        document.getElementById("profilePhone").textContent =
+            profile.phone || "Not provided";
+
+        document.getElementById("profileDistrict").textContent =
+            profile.district || "Not provided";
+
+        document.getElementById("profileSchool").textContent =
+            profile.school_name || "Not provided";
+
+        document.getElementById("profileGrade").textContent =
+            profile.grade || "Not provided";
+
+        document.getElementById("profileProgram").textContent =
+            profile.program_interest || "Not provided";
+
+        const [registrations, results, certificates] = await Promise.all([
+            supabaseClient.from("registrations")
+                .select("id", { count: "exact", head: true })
+                .eq("student_id", user.id),
+
+            supabaseClient.from("results")
+                .select("id", { count: "exact", head: true })
+                .eq("student_id", user.id),
+
+            supabaseClient.from("certificates")
+                .select("id", { count: "exact", head: true })
+                .eq("student_id", user.id)
+        ]);
+
+        if (registrations.error) throw registrations.error;
+        if (results.error) throw results.error;
+        if (certificates.error) throw certificates.error;
+
+        document.getElementById("registrationCount").textContent =
+            registrations.count ?? 0;
+
+        document.getElementById("resultCount").textContent =
+            results.count ?? 0;
+
+        document.getElementById("certificateCount").textContent =
+            certificates.count ?? 0;
+
+        const { data: registrationRows, error: registrationError } =
+            await supabaseClient
+                .from("registrations")
+                .select("status, created_at, competitions(title)")
+                .eq("student_id", user.id)
+                .order("created_at", { ascending: false });
+
+        if (registrationError) throw registrationError;
+
+        const list = document.getElementById("registrationList");
+
+        if (!registrationRows || registrationRows.length === 0) {
+            list.textContent = "You have not registered for any competitions yet.";
+        } else {
+            list.textContent = "";
+            registrationRows.forEach(item => {
+                const row = document.createElement("p");
+                row.style.padding = "10px";
+                row.style.borderBottom = "1px solid #e8edf4";
+                row.textContent =
+                    (item.competitions?.title || "Competition") +
+                    " | Status: " + item.status;
+                list.appendChild(row);
+            });
+        }
+
+    } catch (error) {
+        showMessage("Unable to load dashboard: " + error.message);
+    }
+}
+
+document.getElementById("logoutButton").addEventListener("click", async () => {
+    const button = document.getElementById("logoutButton");
+    button.disabled = true;
+
+    const { error } = await supabaseClient.auth.signOut();
+
+    if (error) {
+        showMessage("Logout failed: " + error.message);
+        button.disabled = false;
+        return;
+    }
+
+    window.location.replace("login.html");
+});
+
+loadDashboard();
+</script>
 
 </body>
 </html>
