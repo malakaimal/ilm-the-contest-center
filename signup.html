@@ -323,6 +323,77 @@
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
+    
+<script>
+const signupForm = document.getElementById("signupForm");
+const signupMessage = document.getElementById("signupMessage");
+
+signupForm.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const fullName = document.getElementById("fullName").value.trim();
+    const fatherName = document.getElementById("fatherName").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const district = document.getElementById("district").value.trim();
+    const school = document.getElementById("school").value.trim();
+    const grade = document.getElementById("grade").value;
+    const program = document.getElementById("program").value;
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    signupMessage.style.display = "block";
+
+    if (password.length < 8) {
+        signupMessage.textContent = "Password must be at least 8 characters.";
+        return;
+    }
+
+    if (password !== confirmPassword) {
+        signupMessage.textContent = "Your passwords do not match.";
+        return;
+    }
+
+    const submitButton = signupForm.querySelector(".submit-btn");
+    submitButton.disabled = true;
+    submitButton.textContent = "Creating account...";
+
+    try {
+        const { data, error } = await supabaseClient.auth.signUp({
+            email: email,
+            password: password,
+            options: {
+                data: {
+                    full_name: fullName,
+                    father_name: fatherName,
+                    phone: phone,
+                    district: district,
+                    school_name: school,
+                    grade: grade,
+                    program_interest: program
+                },
+                emailRedirectTo: window.location.origin + "/login.html"
+            }
+        });
+
+        if (error) throw error;
+
+        signupMessage.textContent =
+            "Registration submitted successfully! Please check your email for a confirmation link before logging in.";
+
+        signupForm.reset();
+
+    } catch (error) {
+        signupMessage.textContent = "Registration error: " + error.message;
+    } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = "Submit Registration";
+    }
+});
+</script>
+</body>
+</html>
+
 
 </body>
 </html>
