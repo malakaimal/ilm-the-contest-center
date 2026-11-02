@@ -1,1 +1,126 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Our purpose is to make meaningful academic challenges and learning opportunities accessible to students."><title>About ILM | ILM The Contest Center</title><link rel="stylesheet" href="style.css"></head><body><header id="site-header" class="site-header"><div class="container nav-wrap"><a class="brand" href="index.html"><strong>ILM</strong><small>THE CONTEST CENTER</small></a><button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false">☰</button><nav class="nav-links" id="navLinks"><a href="index.html">Home</a><a class="active" aria-current="page" href="about.html">About Us</a><a href="programs.html">Programs</a><a href="olympiads.html">Olympiads</a><a href="contests.html">Contests</a><a href="results.html">Results</a><a href="certificates.html">Certificates</a><a href="contact.html">Contact</a></nav><div class="nav-actions"><a class="btn btn-blue" href="login.html">Student Portal</a></div></div></header><main><section class="page-hero"><div class="container"><span class="eyebrow">ILM The Contest Center</span><h1>About ILM</h1><p>Our purpose is to make meaningful academic challenges and learning opportunities accessible to students.</p></div></section><section class="section"><div class="container content-copy"><span class="tag">Who we are</span><h2>Learning with purpose. Competing with confidence.</h2><p>ILM The Contest Center is an educational initiative focused on mathematics, academic competitions and student development. We aim to help learners recognise their potential through structured opportunities to practise, participate and grow.</p><h2>Our Vision</h2><p>To encourage a generation of confident, curious and capable learners who use knowledge, creativity and critical thinking to contribute positively to their communities.</p><h2>Our Mission</h2><p>To provide accessible academic programmes, well-organised competitions, fair assessment and meaningful recognition for students.</p><div class="grid-2 spacer-top"><article class="card"><h3>Our Values</h3><ul class="list-check"><li>Integrity and fairness</li><li>Curiosity and lifelong learning</li><li>Respect and inclusion</li><li>Effort, growth and achievement</li></ul></article><article class="card"><h3>Our Approach</h3><ul class="list-check"><li>Student-centred learning</li><li>Clear competition information</li><li>Responsible use of technology</li><li>Transparent results and verification</li></ul></article></div></div></section></main><footer id="site-footer" class="site-footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><strong>ILM</strong><small>THE CONTEST CENTER</small><p style="margin-top:16px">Empowering young minds through mathematics, healthy competition and meaningful learning opportunities.</p></div><div><h4>Explore</h4><div class="footer-links"><a href="about.html">About ILM</a><a href="programs.html">Our Programs</a><a href="olympiads.html">Math Olympiads</a><a href="contests.html">Annual Mega Contest</a></div></div><div><h4>Student Services</h4><div class="footer-links"><a href="signup.html">Student Registration</a><a href="login.html">Student Portal</a><a href="results.html">Check Results</a><a href="certificates.html">Verify Certificate</a></div></div><div><h4>Contact</h4><div class="footer-links"><a href="mailto:ilmthecontestcenter@gmail.com">ilmthecontestcenter@gmail.com</a><a href="tel:+923085372970">+92 308 5373970</a><a href="contact.html">Contact Form</a></div></div></div><div class="footer-bottom">© 2026 ILM The Contest Center. All rights reserved.</div></div></footer><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase.js"></script><script src="script.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Learn about ILM The Contest Center, our purpose, values and student-focused learning community.">
+<title>About ILM | ILM The Contest Center</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.about-brand-panel{display:grid;grid-template-columns:.85fr 1.15fr;gap:34px;align-items:center;background:linear-gradient(135deg,#073f38,#105b78 62%,#164e91);color:#fff;border-radius:24px;padding:34px;overflow:hidden;box-shadow:0 24px 60px rgba(5,52,65,.18)}
+.about-logo{display:grid;place-items:center;min-height:230px;border:1px solid #ffffff38;border-radius:18px;background:radial-gradient(circle at 50% 35%,#ffffff26,transparent 58%),#ffffff0d}
+.about-logo svg{width:min(100%,220px);height:auto;filter:drop-shadow(0 12px 24px #001c2d55)}
+.about-brand-panel h2{color:#fff;font-size:clamp(26px,3vw,38px);margin:10px 0}
+.about-brand-panel p{color:#e2f1ed;line-height:1.85}
+.about-kicker{color:#f4d98e;font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase}
+.about-photo-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:20px;align-items:stretch}
+.about-photo{position:relative;overflow:hidden;border-radius:20px;min-height:300px;background:#dcebe4;box-shadow:0 18px 42px rgba(5,52,65,.13)}
+.about-photo img{width:100%;height:100%;min-height:300px;object-fit:cover;display:block;transition:transform .6s}
+.about-photo:hover img{transform:scale(1.045)}
+.about-photo figcaption{position:absolute;left:14px;bottom:14px;padding:9px 13px;border-radius:9px;background:#062d38d9;color:white;font-size:11px;backdrop-filter:blur(8px)}
+.about-team-note{border:1px solid #d8e9df;border-radius:18px;background:linear-gradient(145deg,#fff,#eff8f2);padding:25px;display:flex;flex-direction:column;justify-content:center}
+.about-team-note h3{color:#0a443e;margin:8px 0}
+.about-role-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.about-role{padding:22px;border-radius:15px;background:#fff;border:1px solid #dcebe2;box-shadow:0 10px 28px rgba(7,53,54,.06)}
+.about-role span{display:inline-grid;place-items:center;width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#e0f3e8,#e8f0fc);color:#075b46;font-weight:900;margin-bottom:13px}
+.about-role h3{font-size:17px;color:#0b3d4a}
+.about-disclaimer{font-size:12px;color:#6d7887;margin-top:12px}
+@media(max-width:760px){.about-brand-panel,.about-photo-grid{grid-template-columns:1fr}.about-brand-panel{padding:22px}.about-logo{min-height:170px}.about-role-grid{grid-template-columns:1fr}.about-photo,.about-photo img{min-height:230px}}
+</style>
+</head>
+<body>
+<header id="site-header"></header>
+<main>
+<section class="page-hero">
+ <div class="container">
+  <span class="eyebrow">Discover ILM</span>
+  <h1>About ILM</h1>
+  <p>Building confidence through mathematics, meaningful challenges and opportunities to grow.</p>
+ </div>
+</section>
+
+<section class="section">
+ <div class="container">
+  <div class="about-brand-panel">
+   <div class="about-logo" aria-label="ILM The Contest Center logo">
+    <svg viewBox="0 0 240 190" role="img" aria-labelledby="ilmLogoTitle">
+     <title id="ilmLogoTitle">ILM The Contest Center</title>
+     <path d="M120 12 206 55v78l-86 45-86-45V55z" fill="none" stroke="#e5c56e" stroke-width="5"/>
+     <path d="M120 28 190 63v61l-70 36-70-36V63z" fill="#ffffff12" stroke="#ffffff80" stroke-width="2"/>
+     <text x="120" y="111" text-anchor="middle" font-family="Arial,sans-serif" font-size="62" font-weight="900" fill="#fff">ILM</text>
+     <path d="M82 126h76" stroke="#e5c56e" stroke-width="4" stroke-linecap="round"/>
+     <text x="120" y="146" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" font-weight="700" letter-spacing="2" fill="#f7dfa0">THE CONTEST CENTER</text>
+    </svg>
+   </div>
+   <div>
+    <span class="about-kicker">Who we are</span>
+    <h2>Learning with purpose. Competing with confidence.</h2>
+    <p>ILM The Contest Center is an educational initiative focused on mathematics, academic competitions and student development. We aim to help learners recognise their potential through structured opportunities to practise, participate and grow.</p>
+    <p>Our work is guided by a simple belief: every learner deserves a chance to think deeply, ask questions and experience the satisfaction of solving a challenge.</p>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="section section-soft">
+ <div class="container">
+  <div class="section-heading">
+   <span class="tag">Our people and community</span>
+   <h2>Learning grows stronger together</h2>
+   <p>ILM brings students, educators and families together around curiosity, effort and achievement.</p>
+  </div>
+  <div class="about-photo-grid">
+   <figure class="about-photo">
+    <img src="https://images.unsplash.com/photo-1758270705696-ec9caffc73dd?auto=format&fit=crop&fm=jpg&q=85&w=1600" alt="Teacher guiding students during a classroom discussion" loading="lazy">
+    <figcaption>Illustrative education photograph</figcaption>
+   </figure>
+   <div class="about-team-note">
+    <span class="about-kicker">Our shared mission</span>
+    <h3>A supportive learning community</h3>
+    <p>Our programmes are designed around clear information, fair participation and student progress. We value the contribution of educators, families and every learner who takes part.</p>
+    <p class="about-disclaimer">Photo note: this is a stock education photograph for visual presentation, not a photograph of ILM staff or students.</p>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="section">
+ <div class="container">
+  <div class="section-heading">
+   <span class="tag">How we work</span>
+   <h2>The people and purpose behind the programme</h2>
+   <p>These are the key areas of work that support the ILM learning experience.</p>
+  </div>
+  <div class="about-role-grid">
+   <article class="about-role"><span>01</span><h3>Academic Development</h3><p>Creating meaningful mathematics activities and opportunities to strengthen reasoning and problem-solving.</p></article>
+   <article class="about-role"><span>02</span><h3>Programme Coordination</h3><p>Organising programme information, competition arrangements and clear participation guidance.</p></article>
+   <article class="about-role"><span>03</span><h3>Student Support</h3><p>Helping learners and families find registration guidance, published results and certificate information.</p></article>
+  </div>
+  <p class="about-disclaimer">These are team functions, not named staff profiles. Individual staff portraits and names can be added when official ILM team details are available.</p>
+ </div>
+</section>
+
+<section class="section section-soft">
+ <div class="container">
+  <div class="grid-2">
+   <article class="card"><span class="tag">Our vision</span><h3>Confident, curious learners</h3><p>To encourage a generation of confident, curious and capable learners who use knowledge, creativity and critical thinking to contribute positively to their communities.</p></article>
+   <article class="card"><span class="tag">Our mission</span><h3>Accessible opportunities</h3><p>To provide accessible academic programmes, well-organised competitions, fair assessment and meaningful recognition for students.</p></article>
+   <article class="card"><h3>Our Values</h3><ul class="list-check"><li>Integrity and fairness</li><li>Curiosity and lifelong learning</li><li>Respect and inclusion</li><li>Effort, growth and achievement</li></ul></article>
+   <article class="card"><h3>Our Approach</h3><ul class="list-check"><li>Student-centred learning</li><li>Clear competition information</li><li>Responsible use of technology</li><li>Transparent results and verification</li></ul></article>
+  </div>
+ </div>
+</section>
+
+<section class="cta-band">
+ <div class="container cta-row">
+  <div><h2>Be part of the ILM learning journey</h2><p>Explore programmes and discover your next opportunity to learn.</p></div>
+  <a class="btn btn-primary" href="programs.html">Explore Our Programmes</a>
+ </div>
+</section>
+</main>
+<footer id="site-footer"></footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
