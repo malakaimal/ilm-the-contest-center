@@ -21,6 +21,32 @@
       <div class="container">
         <div id="adminContent">
           <div class="notice">Checking administrator permissions...</div>
+          <style>
+            .admin-shell{max-width:1180px;margin:auto}
+            .admin-intro{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:24px}
+            .admin-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:22px 0}
+            .admin-stat{padding:22px;border-radius:16px;background:linear-gradient(135deg,#fff,#edf7f1);border:1px solid #d8eade;box-shadow:0 12px 30px #0b49340c}
+            .admin-stat strong{display:block;font-size:30px;color:#07543f}
+            .admin-stat span{font-size:13px;color:#64748b}
+            .bulk-panel{background:linear-gradient(145deg,#fff,#f0f8f4);border:1px solid #cfe5d8;border-radius:20px;padding:28px;box-shadow:0 20px 50px #063c3010;margin:24px 0}
+            .bulk-panel h2{color:#07543f;margin-bottom:8px}
+            .bulk-panel textarea{width:100%;min-height:190px;padding:15px;border:1px solid #cbded3;border-radius:12px;font:13px/1.6 ui-monospace,monospace;background:#fbfefc;color:#183448}
+            .bulk-panel textarea:focus{outline:3px solid #087f5b22;border-color:#087f5b}
+            .bulk-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:14px}
+            .bulk-help{font-size:13px;color:#64748b;line-height:1.7}
+            .admin-section-title{margin:30px 0 14px;color:#092f48}
+            @media(max-width:720px){.admin-stats{grid-template-columns:1fr}.bulk-panel{padding:18px}}
+          </style>
+          <div class="admin-shell">
+            <div class="admin-intro">
+              <div><span class="tag">Administrator workspace</span><h2 id="adminWelcome">ILM Administration</h2><p class="muted">Manage admissions, publish class results and verify certificates.</p></div>
+              <button class="btn btn-light" onclick="signOut()">Sign Out</button>
+            </div>
+            <div class="admin-stats">
+              <div class="admin-stat"><strong id="adminStudents">—</strong><span>Registered students</span></div>
+              <div class="admin-stat"><strong id="adminResults">—</strong><span>Results recorded</span></div>
+              <div class="admin-stat"><strong id="adminPrograms">—</strong><span>Programmes</span></div>
+            </div>
           <section class="bulk-panel">
             <span class="tag">Fast result publishing</span>
             <h2>Upload results for the whole class at once</h2>
