@@ -104,10 +104,21 @@ alter table public.contact_messages enable row level security;
 drop policy if exists "profile owner or admin reads" on public.profiles;
 create policy "profile owner or admin reads" on public.profiles for select to authenticated
 using (user_id=auth.uid() or public.ilm_is_admin());
+-- Profiles are read-only from the browser. This prevents students from
+-- changing their registration ID or promoting themselves to an admin.
 drop policy if exists "profile owner updates" on public.profiles;
-create policy "profile owner updates" on public.profiles for update to authenticated
-using (user_id=auth.uid() or public.ilm_is_admin())
-with check (user_id=auth.uid() or public.ilm_is_admin());
+
+-- Explicit least-privilege grants. RLS policies alone do not remove SQL grants.
+revoke all on public.profiles, public.competitions, public.results,
+  public.certificates, public.contact_messages from anon, authenticated;
+
+grant select on public.competitions, public.results to anon, authenticated;
+grant select on public.profiles, public.certificates to authenticated;
+grant insert on public.contact_messages to anon, authenticated;
+grant select on public.contact_messages to authenticated;
+grant insert, update, delete on public.competitions, public.results, public.certificates to authenticated;
+grant execute on function public.verify_ilm_certificate(text) to anon, authenticated;
+grant execute on function public.ilm_is_admin() to authenticated;
 
 drop policy if exists "public reads non draft competitions" on public.competitions;
 create policy "public reads non draft competitions" on public.competitions for select to anon,authenticated using(status <> 'draft');
