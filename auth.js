@@ -23,3 +23,24 @@ if(signupForm) signupForm.addEventListener("submit",async e=>{
 });
 const forgot=document.getElementById("forgotPassword");
 if(forgot)forgot.addEventListener("click",async e=>{e.preventDefault();const email=document.getElementById("email").value.trim(),msg=document.getElementById("formMessage");if(!email){showMessage(msg,"Enter your email address first, then choose Forgot password.","error");return;}try{const {error}=await supabaseClient.auth.resetPasswordForEmail(email,{redirectTo:location.origin+"/login.html"});if(error)throw error;showMessage(msg,"If this email is registered, a password reset link has been sent.","success");}catch(err){showMessage(msg,err.message,"error");}});
+
+const adminLoginForm=document.getElementById("adminLoginForm");
+if(adminLoginForm) adminLoginForm.addEventListener("submit",async e=>{
+ e.preventDefault();
+ const msg=document.getElementById("adminLoginMessage");
+ const btn=adminLoginForm.querySelector('button[type="submit"]');
+ if(!window.supabaseClient){showMessage(msg,"Authentication library could not load. Refresh and try again.","error");return;}
+ btn.disabled=true;btn.textContent="Checking account...";
+ try{
+  const {error}=await supabaseClient.auth.signInWithPassword({
+   email:document.getElementById("adminEmail").value.trim(),
+   password:document.getElementById("adminPassword").value
+  });
+  if(error)throw error;
+  location.href="admin-dashboard.html";
+ }catch(err){
+  showMessage(msg,err.message||"Unable to sign in. Check your details.","error");
+ }finally{
+  btn.disabled=false;btn.textContent="Sign In to Admin Portal";
+ }
+});
