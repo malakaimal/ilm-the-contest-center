@@ -84,3 +84,75 @@ th{background:#edf3fa}
 .ilm-back-to-top:hover{transform:translateY(-3px)}
 :focus-visible{outline:3px solid #d4ad58;outline-offset:3px}
 ::selection{background:#d9bd78;color:#071b35}
+
+
+/* ILM green + blue + gold identity with subtle animated backgrounds */
+:root{
+  --green:#13835b;
+  --green-dark:#07543f;
+  --blue:#1557a6;
+  --navy:#082744;
+  --gold:#d2ad58;
+  --pale:#f2f8f5;
+}
+body{
+  background-color:#f7fbf9;
+  background-image:
+    radial-gradient(ellipse at 12% 18%,rgba(19,131,91,.11),transparent 34%),
+    radial-gradient(ellipse at 88% 38%,rgba(21,87,166,.09),transparent 32%),
+    radial-gradient(ellipse at 52% 92%,rgba(210,173,88,.08),transparent 35%);
+  background-size:160% 160%;
+  animation:ilmAmbient 22s ease-in-out infinite alternate;
+}
+@keyframes ilmAmbient{
+  0%{background-position:0% 0%}
+  50%{background-position:100% 45%}
+  100%{background-position:25% 100%}
+}
+.hero{
+  background:
+    radial-gradient(ellipse at 82% 18%,rgba(44,154,116,.42),transparent 34%),
+    radial-gradient(ellipse at 12% 92%,rgba(210,173,88,.18),transparent 31%),
+    linear-gradient(125deg,#062b35 0%,#0b4260 54%,#126b61 100%);
+  background-size:140% 140%;
+  animation:ilmHeroFlow 18s ease-in-out infinite alternate;
+}
+@keyframes ilmHeroFlow{
+  0%{background-position:0% 20%}
+  100%{background-position:100% 80%}
+}
+.hero:before{
+  background-image:
+    linear-gradient(rgba(255,255,255,.13) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.13) 1px,transparent 1px);
+}
+.page-hero{
+  background:
+    radial-gradient(circle at 82% 12%,rgba(34,153,112,.34),transparent 32%),
+    linear-gradient(120deg,#082d3c,#155a83 58%,#117052);
+  background-size:150% 150%;
+  animation:ilmHeroFlow 20s ease-in-out infinite alternate;
+}
+.cta-band{
+  background:
+    radial-gradient(circle at 90% 10%,rgba(25,145,99,.3),transparent 32%),
+    linear-gradient(120deg,#062b35,#0c4161 60%,#0c5a4a);
+}
+.site-footer{background:linear-gradient(145deg,#041d29,#073d38)}
+.btn-primary{
+  background:linear-gradient(135deg,#e7cc82,#c9a04a);
+  color:#102b3b;
+}
+.btn-blue{background:linear-gradient(135deg,#08734f,#1557a6)}
+.nav-links a:hover,.nav-links a.active{color:var(--green)}
+.nav-links a:after{background:linear-gradient(90deg,var(--green),var(--gold))}
+.tag,.brand small,.site-footer a:hover{color:var(--gold)}
+.card:hover{border-color:rgba(19,131,91,.42)}
+.icon-box{background:linear-gradient(135deg,#e7f4ed,#fff8e8);color:var(--green-dark);border-color:#d7eadd}
+.step-number{background:linear-gradient(135deg,#e2f2e9,#fff4d9);color:var(--green-dark)}
+.section-soft{background:linear-gradient(135deg,rgba(232,244,238,.92),rgba(241,247,252,.94),rgba(255,250,236,.78))}
+.badge{background:#e6f4ec;color:#086344}
+.form-message.success{background:#e8f6ed;color:#12613f}
+@media(prefers-reduced-motion:reduce){
+  body,.hero,.page-hero{animation:none!important}
+}
