@@ -34,19 +34,21 @@
             <div class="card"><strong id="adminResults">—</strong><p>Results loaded</p></div>
             <div class="card"><strong id="adminPrograms">—</strong><p>Programmes loaded</p></div>
           </div>
+          <div class="notice spacer-top"><b>How to publish results:</b> Find the student's Registration ID in the Registered Students table. Enter that ID and the student's details below, add the score and total marks, then tick <b>Publish this result publicly</b> before selecting <b>Save Result</b>. If the box is not ticked, the result remains unpublished. Students can search published results on the Results page and see their own records in the Student Portal.</div>
           <div class="grid-2 spacer-top">
             <div class="form-card">
               <h3>Add a result</h3>
+              <p class="muted spacer-top" style="margin:0 0 16px">Enter one result record for each student and competition.</p>
               <form id="resultForm">
-                <div class="field"><label for="rReg">Registration ID</label><input id="rReg" required></div>
-                <div class="field"><label for="rName">Student Name</label><input id="rName" required></div>
-                <div class="field"><label for="rGrade">Class</label><input id="rGrade" required></div>
-                <div class="field"><label for="rCompetition">Competition</label><input id="rCompetition" required></div>
+                <div class="field"><label for="rReg">Student Registration ID *</label><input id="rReg" required placeholder="ILM-2026-000001"></div>
+                <div class="field"><label for="rName">Student Full Name *</label><input id="rName" required></div>
+                <div class="field"><label for="rGrade">Class *</label><input id="rGrade" required placeholder="e.g. Class 7"></div>
+                <div class="field"><label for="rCompetition">Olympiad / Competition *</label><input id="rCompetition" required placeholder="e.g. ILM Math Olympiad 1"></div>
                 <div class="form-grid">
-                  <div class="field"><label for="rScore">Score</label><input id="rScore" type="number" min="0" step="0.01" required></div>
-                  <div class="field"><label for="rTotal">Total Marks</label><input id="rTotal" type="number" min="0.01" step="0.01" required></div>
+                  <div class="field"><label for="rScore">Student Score *</label><input id="rScore" type="number" min="0" step="0.01" required></div>
+                  <div class="field"><label for="rTotal">Total Marks *</label><input id="rTotal" type="number" min="0.01" step="0.01" required></div>
                 </div>
-                <div class="field"><label for="rRank">Position (optional)</label><input id="rRank" type="number" min="1"></div>
+                <div class="field"><label for="rRank">Position (optional)</label><input id="rRank" type="number" min="1" placeholder="e.g. 1"></div>
                 <label class="muted"><input id="rPublished" type="checkbox"> Publish this result publicly</label>
                 <button class="btn btn-blue spacer-top" type="submit">Save Result</button>
               </form>
@@ -54,11 +56,11 @@
             <div class="form-card">
               <h3>Issue a certificate</h3>
               <form id="certificateAdminForm">
-                <div class="field"><label for="certReg">Student Registration ID</label><input id="certReg" required placeholder="ILM-2026-000001"></div>
-                <div class="field"><label for="certName">Student Full Name</label><input id="certName" required maxlength="120"></div>
-                <div class="field"><label for="certProgram">Olympiad / Programme</label><input id="certProgram" required maxlength="180"></div>
-                <div class="field"><label for="certNumber">Unique Certificate Number</label><input id="certNumber" required maxlength="80" placeholder="ILM-CERT-2026-0001"></div>
-                <div class="field"><label for="certDate">Issue Date</label><input id="certDate" type="date" required></div>
+                <div class="field"><label for="certReg">Student Registration ID *</label><input id="certReg" required placeholder="ILM-2026-000001"></div>
+                <div class="field"><label for="certName">Student Full Name *</label><input id="certName" required maxlength="120"></div>
+                <div class="field"><label for="certProgram">Olympiad / Programme *</label><input id="certProgram" required maxlength="180"></div>
+                <div class="field"><label for="certNumber">Unique Certificate Number *</label><input id="certNumber" required maxlength="80" placeholder="ILM-CERT-2026-0001"></div>
+                <div class="field"><label for="certDate">Issue Date *</label><input id="certDate" type="date" required></div>
                 <button class="btn btn-blue" type="submit">Save Certificate</button>
               </form>
             </div>
