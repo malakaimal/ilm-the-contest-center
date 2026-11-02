@@ -1,2 +1,93 @@
-
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Student Registration | ILM</title><link rel="stylesheet" href="style.css"></head><body><header id="site-header"></header><main class="section section-soft"><div class="container"><div class="form-card"><div class="section-heading"><span class="tag">Join the ILM community</span><h2>Student Registration</h2><p>Complete the details below. Use an email address you can access to confirm your account.</p></div><form id="signupForm"><div class="form-grid"><div class="field"><label for="fullName">Student Full Name *</label><input id="fullName" required maxlength="120"></div><div class="field"><label for="fatherName">Father's Name *</label><input id="fatherName" required maxlength="120"></div><div class="field"><label for="email">Email Address *</label><input id="email" type="email" required maxlength="180"></div><div class="field"><label for="phone">Phone Number *</label><input id="phone" type="tel" required maxlength="30" placeholder="03XXXXXXXXX"></div><div class="field"><label for="district">District *</label><input id="district" required maxlength="100"></div><div class="field"><label for="school">School Name *</label><input id="school" required maxlength="180"></div><div class="field"><label for="grade">Current Class *</label><select id="grade" required><option value="">Select class</option><option>Class 3</option><option>Class 4</option><option>Class 5</option><option>Class 6</option><option>Class 7</option><option>Class 8</option><option>Class 9</option><option>Class 10</option><option>Other</option></select></div><div class="field"><label for="program">Programme of Interest *</label><select id="program" required><option value="">Select programme</option><option>ILM Math Olympiad 1</option><option>ILM Math Olympiad 2</option><option>Annual Mega Contest</option><option>Regional Math Clubs</option><option>Practice Books</option></select></div><div class="field"><label for="password">Create Password *</label><input id="password" type="password" minlength="8" autocomplete="new-password" required></div><div class="field"><label for="confirmPassword">Confirm Password *</label><input id="confirmPassword" type="password" minlength="8" autocomplete="new-password" required></div></div><label class="muted" style="display:flex;gap:10px;align-items:flex-start;margin:10px 0 20px"><input type="checkbox" id="terms" required style="margin-top:4px"> I confirm that the information is accurate and agree to be contacted about ILM programmes.</label><button class="btn btn-blue" type="submit">Create Student Account</button></form><div id="formMessage" class="form-message" role="status"></div><p class="muted spacer-top text-center">Already registered? <a href="login.html" style="color:var(--blue);font-weight:800">Sign in</a></p></div></div></main><footer id="site-footer"></footer><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase.js"></script><script src="script.js"></script><script src="auth.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Apply for an ILM Math Olympiad or register for an ILM student programme.">
+  <title>Olympiad Admission | ILM The Contest Center</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header id="site-header"></header>
+  <main class="section section-soft">
+    <div class="container">
+      <div class="form-card">
+        <div class="section-heading">
+          <span class="tag">ILM Olympiad Admissions</span>
+          <h2>Student Admission & Registration Form</h2>
+          <p>Complete this form to apply for an ILM Math Olympiad or another ILM programme. Your details will be saved securely in the ILM student database and a Registration ID will be generated for your account.</p>
+        </div>
+        <div class="notice">Please enter accurate student and school information. Use an email address you or your parent/guardian can access. Email confirmation may be required before you can sign in.</div>
+        <form id="signupForm">
+          <div class="form-grid">
+            <div class="field">
+              <label for="fullName">Student Full Name *</label>
+              <input id="fullName" required maxlength="120" autocomplete="name">
+            </div>
+            <div class="field">
+              <label for="fatherName">Father's / Guardian's Name *</label>
+              <input id="fatherName" required maxlength="120">
+            </div>
+            <div class="field">
+              <label for="email">Student / Parent Email Address *</label>
+              <input id="email" type="email" required maxlength="180" autocomplete="email">
+            </div>
+            <div class="field">
+              <label for="phone">Contact Phone Number *</label>
+              <input id="phone" type="tel" required maxlength="30" placeholder="03XXXXXXXXX">
+            </div>
+            <div class="field">
+              <label for="district">District *</label>
+              <input id="district" required maxlength="100" placeholder="e.g. Shangla">
+            </div>
+            <div class="field">
+              <label for="school">School Name *</label>
+              <input id="school" required maxlength="180">
+            </div>
+            <div class="field">
+              <label for="grade">Current Class *</label>
+              <select id="grade" required>
+                <option value="">Select class</option>
+                <option>Class 3</option><option>Class 4</option><option>Class 5</option>
+                <option>Class 6</option><option>Class 7</option><option>Class 8</option>
+                <option>Class 9</option><option>Class 10</option><option>Other</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="program">Olympiad / Programme Applying For *</label>
+              <select id="program" required>
+                <option value="">Select programme</option>
+                <option>ILM Math Olympiad 1</option>
+                <option>ILM Math Olympiad 2</option>
+                <option>Annual Mega Contest</option>
+                <option>Regional Math Clubs</option>
+                <option>Practice Books</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="password">Create Password *</label>
+              <input id="password" type="password" minlength="8" autocomplete="new-password" required>
+            </div>
+            <div class="field">
+              <label for="confirmPassword">Confirm Password *</label>
+              <input id="confirmPassword" type="password" minlength="8" autocomplete="new-password" required>
+            </div>
+          </div>
+          <label class="muted" style="display:flex;gap:10px;align-items:flex-start;margin:10px 0 20px">
+            <input type="checkbox" id="terms" required style="margin-top:4px">
+            I confirm that the information is accurate and agree that ILM may contact me or my parent/guardian about this application.
+          </label>
+          <button class="btn btn-blue" type="submit">Submit Admission & Create Account</button>
+        </form>
+        <div id="formMessage" class="form-message" role="status"></div>
+        <p class="muted spacer-top text-center">Already registered? <a href="login.html" style="color:var(--blue);font-weight:800">Sign in to your Student Portal</a></p>
+      </div>
+    </div>
+  </main>
+  <footer id="site-footer"></footer>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+  <script src="script.js"></script>
+  <script src="auth.js"></script>
+</body>
+</html>
