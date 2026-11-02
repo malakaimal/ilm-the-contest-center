@@ -352,6 +352,111 @@ footer p {
   .program-grid {
     grid-template-columns: 1fr;
   }
+   
+/* =================================
+   ILM SHARED HEADER AND FOOTER
+================================= */
+
+.header {
+    width: 100%;
+    min-height: 85px;
+    padding: 15px 6%;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    box-shadow: 0 3px 18px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 100;
+}
+
+.header .logo {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    color: #092b55;
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.header .logo span {
+    color: #092b55;
+}
+
+.header .logo small {
+    color: #b88b28;
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+.header nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 22px;
+}
+
+.header nav a {
+    color: #092b55;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.header nav a:hover {
+    color: #d6a638;
+}
+
+.login-btn {
+    background: #092b55;
+    color: white !important;
+    text-decoration: none;
+    padding: 12px 22px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.login-btn:hover {
+    background: #d6a638;
+}
+
+footer {
+    background: #061d3b;
+    color: white;
+    padding: 55px 8%;
+    text-align: center;
+}
+
+footer h3 {
+    color: #e0b64f;
+    font-size: 23px;
+    margin-bottom: 15px;
+}
+
+footer p {
+    color: #dce8f6;
+    margin: 10px 0;
+    line-height: 1.7;
+}
+
+@media (max-width: 850px) {
+    .header {
+        flex-direction: column;
+        padding: 20px 5%;
+    }
+
+    .header nav {
+        gap: 14px;
+    }
+
+    .header nav a {
+        font-size: 13px;
+    }
+}
+
 
   .cta h2 {
     font-size: 26px;
