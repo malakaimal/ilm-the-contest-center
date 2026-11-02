@@ -152,7 +152,6 @@ grant select on public.profiles,public.certificates to authenticated;
 grant insert on public.contact_messages to anon,authenticated;
 grant select on public.contact_messages to authenticated;
 grant insert,update,delete on public.competitions,public.results,public.certificates to authenticated;
-grant update on public.profiles to authenticated;
 grant execute on function public.verify_ilm_certificate(text) to anon,authenticated;
 grant execute on function public.ilm_is_admin() to authenticated;
 
