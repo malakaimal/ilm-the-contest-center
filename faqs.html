@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Frequently asked questions about ILM The Contest Center, student registration, programmes, results and certificates.">
+<title>Frequently Asked Questions | ILM The Contest Center</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.faq-list{max-width:900px;margin:auto;display:grid;gap:13px}
+.faq-item{background:#fff;border:1px solid var(--line);border-radius:13px;padding:0 21px;box-shadow:0 8px 25px rgba(7,27,53,.045)}
+.faq-item[open]{border-color:#d4b66d;box-shadow:0 12px 30px rgba(7,27,53,.08)}
+.faq-item summary{cursor:pointer;list-style:none;padding:19px 38px 19px 0;color:var(--navy);font-weight:800;position:relative}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary:after{content:"+";position:absolute;right:2px;top:14px;color:#a47b2b;font-size:25px;font-weight:500}
+.faq-item[open] summary:after{content:"−"}
+.faq-answer{padding:0 0 19px;color:var(--muted);font-size:14px;max-width:780px}
+.faq-search{max-width:600px;margin:0 auto 28px}
+.faq-search input{width:100%;padding:14px 17px;border:1px solid var(--line);border-radius:10px;background:#fff;font:inherit;outline:none}
+.faq-search input:focus{border-color:var(--blue);box-shadow:0 0 0 3px #1557a615}
+.faq-category{color:#a77c25;font-size:11px;letter-spacing:2px;font-weight:900;text-transform:uppercase;margin:34px 0 13px}
+.faq-empty{display:none;text-align:center;color:var(--muted);padding:20px}
+</style>
+</head>
+<body>
+<header id="site-header"></header>
+<main>
+<section class="page-hero"><div class="container"><span class="eyebrow">ILM Help Centre</span><h1>Frequently Asked Questions</h1><p>Clear answers to common questions about programmes, admission and student services.</p></div></section>
+<section class="section"><div class="container">
+<div class="faq-search"><input id="faqSearch" type="search" placeholder="Search a question..." aria-label="Search frequently asked questions"></div>
+<div class="faq-list" id="faqList">
+<p class="faq-category">Getting started</p>
+<details class="faq-item"><summary>What is ILM The Contest Center?</summary><p class="faq-answer">ILM The Contest Center is an educational initiative that provides mathematics learning opportunities, Olympiads and academic contests to encourage problem-solving and student achievement.</p></details>
+<details class="faq-item"><summary>Who can participate in ILM programmes?</summary><p class="faq-answer">Eligibility depends on the individual programme or competition. Please read the relevant programme page and its latest official announcement for grade and location requirements.</p></details>
+<details class="faq-item"><summary>How do I register as a student?</summary><p class="faq-answer">Open the Admission page, complete the student registration form carefully and submit it. Use accurate contact details so the ILM team can communicate with you.</p></details>
+<details class="faq-item"><summary>Is registration open all year?</summary><p class="faq-answer">Registration periods can vary by programme. Check the Olympiads and Contests pages for current announcements and dates.</p></details>
+<p class="faq-category">Programmes and competitions</p>
+<details class="faq-item"><summary>What is the difference between an Olympiad and a contest?</summary><p class="faq-answer">An Olympiad focuses on mathematical thinking and problem-solving, while a contest may cover the subjects and format announced for that specific event. Always check the event details.</p></details>
+<details class="faq-item"><summary>Where can I find the eligibility and competition details?</summary><p class="faq-answer">Visit the relevant Olympiads or Contests page. Official announcements should be treated as the final source for dates, grades, subjects, fees and participation instructions.</p></details>
+<details class="faq-item"><summary>How will I know about upcoming events?</summary><p class="faq-answer">Check the ILM website announcements and follow the official contact channels listed on the Contact page.</p></details>
+<p class="faq-category">Student account and results</p>
+<details class="faq-item"><summary>How do I access the Student Portal?</summary><p class="faq-answer">Use the Student Portal link in the website navigation and sign in with the account details you registered. Do not share your password with anyone.</p></details>
+<details class="faq-item"><summary>How can I check my result?</summary><p class="faq-answer">Open the Results page and follow the instructions shown there. Results will only be available after they have been officially published.</p></details>
+<details class="faq-item"><summary>How can I verify a certificate?</summary><p class="faq-answer">Visit the Certificates page and follow the verification instructions provided. A certificate can only be confirmed if its record has been issued and published by ILM.</p></details>
+<details class="faq-item"><summary>I cannot sign in. What should I do?</summary><p class="faq-answer">Check that you are using the correct registered email and password, then try again. If the issue continues, contact ILM using the details on the Contact page. Never send your password in a message.</p></details>
+<p class="faq-category">Need more help?</p>
+<details class="faq-item"><summary>How can I contact ILM?</summary><p class="faq-answer">Email ilmthecontestcenter@gmail.com or use the contact details and contact form on the Contact page.</p></details>
+<details class="faq-item"><summary>Where can parents or schools ask questions?</summary><p class="faq-answer">Parents and school representatives can contact ILM through the official Contact page and include the programme or event they are asking about.</p></details>
+<p class="faq-empty" id="faqEmpty">No matching questions. Try another search word.</p>
+</div>
+</div></section>
+<section class="cta-band"><div class="container cta-row"><div><h2>Still have a question?</h2><p>Contact the ILM team for further information.</p></div><a class="btn btn-primary" href="contact.html">Contact ILM</a></div></section>
+</main>
+<footer id="site-footer"></footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="script.js"></script>
+<script>
+const faqSearch=document.getElementById("faqSearch");
+faqSearch.addEventListener("input",()=>{
+ const term=faqSearch.value.trim().toLowerCase();
+ const items=[...document.querySelectorAll(".faq-item")];
+ let shown=0;
+ items.forEach(item=>{const match=item.textContent.toLowerCase().includes(term);item.hidden=!match;if(match)shown++;});
+ document.querySelectorAll(".faq-category").forEach(cat=>{
+  let next=cat.nextElementSibling,has=false;
+  while(next&&!next.classList.contains("faq-category")){if(next.classList.contains("faq-item")&&!next.hidden)has=true;next=next.nextElementSibling;}
+  cat.hidden=!has;
+ });
+ document.getElementById("faqEmpty").style.display=shown?"none":"block";
+});
+</script>
+</body></html>
