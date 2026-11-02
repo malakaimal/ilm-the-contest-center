@@ -156,3 +156,199 @@ body{
 @media(prefers-reduced-motion:reduce){
   body,.hero,.page-hero{animation:none!important}
 }
+
+
+/* =========================================================
+   ILM ALL-PAGES DESIGN SYSTEM v2
+   Strong green + blue + gold identity and visible motion
+   ========================================================= */
+:root{
+  --ilm-green:#087f5b;
+  --ilm-green-deep:#064b3b;
+  --ilm-blue:#1557a6;
+  --ilm-blue-deep:#082d50;
+  --ilm-gold:#d8b45c;
+  --ilm-cream:#fff9e9;
+  --ilm-mist:#eef7f3;
+}
+html{scroll-behavior:smooth}
+body{
+  position:relative;
+  isolation:isolate;
+  overflow-x:hidden;
+  background:#f5faf7;
+}
+body:before{
+  content:"";
+  position:fixed;
+  inset:-28%;
+  z-index:-1;
+  pointer-events:none;
+  background:
+    radial-gradient(ellipse at 12% 20%,rgba(8,127,91,.19),transparent 28%),
+    radial-gradient(ellipse at 82% 25%,rgba(21,87,166,.17),transparent 30%),
+    radial-gradient(ellipse at 55% 85%,rgba(216,180,92,.16),transparent 27%),
+    radial-gradient(ellipse at 95% 90%,rgba(8,127,91,.10),transparent 24%);
+  background-size:160% 160%;
+  animation:ilmPageAtmosphere 16s ease-in-out infinite alternate;
+}
+@keyframes ilmPageAtmosphere{
+  0%{transform:translate3d(-2%,0,0) rotate(0deg);background-position:0% 20%}
+  50%{transform:translate3d(2%,-1%,0) rotate(2deg);background-position:100% 60%}
+  100%{transform:translate3d(-1%,2%,0) rotate(-2deg);background-position:35% 100%}
+}
+/* Header and navigation */
+.site-header{border-bottom:1px solid rgba(8,127,91,.15)}
+.brand strong{color:var(--ilm-green-deep)}
+.nav-links a{font-weight:750}
+.nav-links a.active{color:var(--ilm-green-deep)}
+.nav-links a:after{height:3px;border-radius:5px;background:linear-gradient(90deg,var(--ilm-green),var(--ilm-blue),var(--ilm-gold))}
+.menu-toggle{border:1px solid rgba(8,127,91,.25);border-radius:9px;background:#edf7f1;color:var(--ilm-green-deep);padding:8px 12px}
+/* Every internal page gets a bold, animated banner */
+.page-hero{
+  isolation:isolate;
+  overflow:hidden;
+  min-height:245px;
+  display:flex;
+  align-items:center;
+  background:
+    radial-gradient(circle at 12% 15%,rgba(31,181,128,.55),transparent 29%),
+    radial-gradient(circle at 88% 78%,rgba(216,180,92,.28),transparent 25%),
+    linear-gradient(118deg,#063c36 0%,#0b5261 48%,#174f91 100%);
+  background-size:180% 180%;
+  animation:ilmBannerShift 12s ease-in-out infinite alternate;
+}
+@keyframes ilmBannerShift{
+  0%{background-position:0% 35%}
+  100%{background-position:100% 70%}
+}
+.page-hero:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  opacity:.23;
+  background-image:linear-gradient(30deg,transparent 48%,#ffffff22 49%,#ffffff22 50%,transparent 51%),linear-gradient(120deg,transparent 48%,#ffffff18 49%,#ffffff18 50%,transparent 51%);
+  background-size:42px 42px;
+  animation:ilmPatternDrift 24s linear infinite;
+}
+@keyframes ilmPatternDrift{to{background-position:84px 84px}}
+.page-hero:after{
+  width:290px;height:290px;right:7%;bottom:-220px;
+  border:1px solid rgba(255,255,255,.3);
+  box-shadow:0 0 0 24px rgba(255,255,255,.045),0 0 0 54px rgba(255,255,255,.035),0 0 0 86px rgba(255,255,255,.025);
+  animation:ilmOrb 9s ease-in-out infinite alternate;
+}
+@keyframes ilmOrb{to{transform:translate(-35px,-18px) scale(1.12)}}
+.page-hero .container{position:relative;z-index:1}
+.page-hero .eyebrow{
+  display:inline-block;
+  color:#ffe7a8;
+  font-weight:900;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  font-size:11px;
+  padding:8px 13px;
+  margin-bottom:13px;
+  border:1px solid #ffffff45;
+  border-radius:30px;
+  background:#ffffff12;
+  backdrop-filter:blur(8px);
+}
+.page-hero h1{color:#fff;text-shadow:0 5px 22px #001c2d55}
+.page-hero p{color:#e4f5f0}
+/* Sections, cards and content blocks across ALL pages */
+main>section:not(.page-hero){position:relative}
+.section{padding-top:76px;padding-bottom:76px}
+.section-soft{
+  background:linear-gradient(120deg,rgba(232,246,238,.82),rgba(238,245,253,.78),rgba(255,249,231,.75));
+  border-top:1px solid rgba(8,127,91,.07);
+  border-bottom:1px solid rgba(21,87,166,.07);
+}
+.section-heading{margin-bottom:30px}
+.section-heading .tag,.content-copy>.tag,.card>.tag{
+  display:inline-flex;
+  align-items:center;
+  color:var(--ilm-green-deep);
+  background:linear-gradient(90deg,#e0f2e8,#edf3fc);
+  border:1px solid #d3e8dc;
+  border-radius:30px;
+  padding:7px 12px;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:1.7px;
+  text-transform:uppercase;
+}
+.section-heading h2,.content-copy h2{color:#092f48}
+.card{
+  position:relative;
+  overflow:hidden;
+  background:rgba(255,255,255,.94);
+  border:1px solid rgba(8,127,91,.14);
+  box-shadow:0 14px 38px rgba(8,45,65,.07);
+}
+.card:before{
+  content:"";
+  position:absolute;
+  left:0;top:0;width:100%;height:4px;
+  background:linear-gradient(90deg,var(--ilm-green),var(--ilm-blue),var(--ilm-gold));
+  opacity:.9;
+}
+.card:hover{transform:translateY(-7px);box-shadow:0 24px 48px rgba(8,45,65,.13)}
+.card h3{color:#0a3d4b}
+.card p,.content-copy p{line-height:1.85}
+.icon-box{background:linear-gradient(135deg,#e0f3e9,#e9f1fc 68%,#fff5d9);color:var(--ilm-green-deep);border:1px solid #d6e9df}
+.card-link{color:var(--ilm-green-deep)!important}
+.list-check li::marker{color:var(--ilm-green)}
+/* Registration, login, result and contact pages */
+.form-card{
+  position:relative;
+  overflow:hidden;
+  background:rgba(255,255,255,.96);
+  border:1px solid rgba(8,127,91,.17);
+  box-shadow:0 25px 70px rgba(8,45,65,.12);
+}
+.form-card:before{
+  content:"";
+  position:absolute;left:0;top:0;right:0;height:6px;
+  background:linear-gradient(90deg,var(--ilm-green),var(--ilm-blue),var(--ilm-gold));
+}
+.form-card .section-heading h2,.form-card>h2{color:#09384b!important}
+.field label{color:#104d43}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--ilm-green);box-shadow:0 0 0 4px rgba(8,127,91,.12)}
+.field input,.field select,.field textarea{background:#fbfdfc}
+.btn-primary{background:linear-gradient(120deg,#f0d78f,#d4ad55);color:#17364a}
+.btn-blue{background:linear-gradient(120deg,#087b58,#1557a6);box-shadow:0 8px 20px rgba(8,127,91,.2)}
+.btn-blue:hover{filter:brightness(1.08);transform:translateY(-2px)}
+.notice{background:linear-gradient(100deg,#fff8e6,#eef7f2);border-color:#e7d49c;color:#65501f}
+.form-message.success{border:1px solid #c9e8d4}
+.badge{background:#e2f3e9;color:#075b40}
+/* Dashboard pages */
+.dashboard-layout{align-items:start}
+.side-card{background:linear-gradient(155deg,#064b3b,#0b5270 70%,#174f91);border:1px solid #ffffff25}
+.side-card a{border-radius:7px;padding:10px 12px;transition:background .2s,color .2s}
+.side-card a:hover{background:#ffffff17;color:#ffe6a0}
+.dashboard-main>.card{margin-bottom:18px}
+.stats .card{background:linear-gradient(145deg,#fff,#f0f8f3)}
+.stats .card strong{color:var(--ilm-green-deep)}
+/* Footer and calls to action */
+.cta-band{position:relative;overflow:hidden}
+.cta-band:after{content:"";position:absolute;width:330px;height:330px;right:-130px;top:-210px;border:1px solid #ffffff25;border-radius:50%;box-shadow:0 0 0 35px #ffffff08,0 0 0 75px #ffffff06;pointer-events:none}
+.site-footer{border-top:4px solid transparent;border-image:linear-gradient(90deg,var(--ilm-green),var(--ilm-blue),var(--ilm-gold)) 1}
+.site-footer a:hover{color:#f5d98e}
+.footer-brand strong{letter-spacing:4px}
+.ilm-back-to-top{background:linear-gradient(135deg,#0a805a,#1557a6 70%,#d8b45c);color:white}
+/* FAQ page and other detail lists */
+.faq-item{border-color:rgba(8,127,91,.16);box-shadow:0 10px 28px rgba(8,45,65,.06)}
+.faq-item[open]{border-color:var(--ilm-green)}
+.faq-item summary:after{color:var(--ilm-green)}
+.faq-category{color:var(--ilm-green-deep)}
+/* Motion remains gentle and is disabled when requested by device settings */
+@media(prefers-reduced-motion:reduce){
+  body:before,.page-hero,.page-hero:before,.page-hero:after{animation:none!important}
+}
+@media(max-width:760px){
+  .page-hero{min-height:215px;padding:54px 0}
+  .section{padding-top:55px;padding-bottom:55px}
+  .page-hero:after{right:-110px}
+}
