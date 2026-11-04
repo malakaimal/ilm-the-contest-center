@@ -1,4 +1,3 @@
-
 function showMessage(el,text,type){el.textContent=text;el.className="form-message "+(type||"");el.style.display="block";}
 const loginForm=document.getElementById("loginForm");
 if(loginForm) loginForm.addEventListener("submit",async e=>{
@@ -16,12 +15,28 @@ if(signupForm) signupForm.addEventListener("submit",async e=>{
  if(password.length<8){showMessage(msg,"Use a password with at least 8 characters.","error");return;}
  if(password!==confirm){showMessage(msg,"The passwords do not match.","error");return;}
  if(!document.getElementById("terms").checked){showMessage(msg,"Please confirm the registration information.","error");return;}
- btn.disabled=true;btn.textContent="Submitting...";
- try{const {data,error}=await supabaseClient.auth.signUp({email:document.getElementById("email").value.trim(),password,options:{emailRedirectTo:location.origin+"/login.html",data:{full_name:document.getElementById("fullName").value.trim(),father_name:document.getElementById("fatherName").value.trim(),phone:document.getElementById("phone").value.trim(),district:document.getElementById("district").value.trim(),school_name:document.getElementById("school").value.trim(),grade:document.getElementById("grade").value,program_interest:document.getElementById("program").value}}});if(error)throw error;showMessage(msg,data.session?"Registration successful. You can now sign in.":"Registration received. Check your email for the confirmation link, then sign in.","success");signupForm.reset();}
- catch(err){showMessage(msg,err.message||"Registration could not be completed.","error");}
- finally{btn.disabled=false;btn.textContent="Create Student Account";}
+ if(!window.supabaseClient){showMessage(msg,"The account service could not load. Refresh and try again.","error");return;}
+ btn.disabled=true;btn.textContent="Submitting admission...";
+ try{
+  const metadata={
+   full_name:document.getElementById("fullName").value.trim(),
+   father_name:document.getElementById("fatherName").value.trim(),
+   date_of_birth:document.getElementById("dateOfBirth").value,
+   phone:document.getElementById("phone").value.trim(),
+   area:document.getElementById("area").value.trim(),
+   school_name:document.getElementById("school").value.trim(),
+   grade:document.getElementById("grade").value,
+   program_interest:document.getElementById("program").value,
+   previous_ilm_test:document.getElementById("previousTest").value,
+   payment_reference:document.getElementById("paymentReference").value.trim(),
+   payment_date:document.getElementById("paymentDate").value
+  };
+  const {data,error}=await supabaseClient.auth.signUp({email:document.getElementById("email").value.trim(),password,options:{emailRedirectTo:location.origin+"/login.html",data:metadata}});
+  if(error)throw error;
+  showMessage(msg,data.session?"Admission account created. You can now sign in.":"Admission request received. Check your email for the confirmation link, then sign in.","success");
+  signupForm.reset();
+ }catch(err){showMessage(msg,err.message||"Registration could not be completed.","error");}
+ finally{btn.disabled=false;btn.textContent="Submit Admission & Create Account";}
 });
 const forgot=document.getElementById("forgotPassword");
 if(forgot)forgot.addEventListener("click",async e=>{e.preventDefault();const email=document.getElementById("email").value.trim(),msg=document.getElementById("formMessage");if(!email){showMessage(msg,"Enter your email address first, then choose Forgot password.","error");return;}try{const {error}=await supabaseClient.auth.resetPasswordForEmail(email,{redirectTo:location.origin+"/login.html"});if(error)throw error;showMessage(msg,"If this email is registered, a password reset link has been sent.","success");}catch(err){showMessage(msg,err.message,"error");}});
-
-
