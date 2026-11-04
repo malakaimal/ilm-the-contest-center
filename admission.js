@@ -1,5 +1,5 @@
 // ILM admission form: Google Sheets + Google Drive only (no Supabase).
-const ILM_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx-z39zRlcykXuWjbjVlLMtv-2rNpxrPY_t4EOThv6KoUDLr3tWnIyvzR_F3OV_M6Md/exec";
+const ILM_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxz2mBlANzvWwQsBDbCtUHCHVa3EF72DIrBDZokGOEyWdcLf_JBXIdnhfMTrKtxnada/exec";
 function ilmShowFormMessage(text,type){
  const el=document.getElementById("formMessage");
  el.textContent=text;el.className="form-message "+(type||"");el.style.display="block";
