@@ -8,8 +8,8 @@
 <body>
 <header id="site-header"></header>
 <main class="section section-soft"><div class="container"><div class="form-card">
-<div class="section-heading"><span class="tag">ILM Student Admissions</span><h2>Student Admission & Registration</h2><p>Complete this form to apply for an ILM programme and create your Student Portal account.</p></div>
-<div class="notice">Please enter accurate information. Use an email address that you or your parent/guardian can access. Your account password is handled by the sign-in service and is not included in your admission profile.</div>
+<div class="section-heading"><span class="tag">ILM Student Admissions</span><h2>Student Admission & Registration</h2><p>Complete this form to apply for an ILM programme. Your admission details and payment proof will be sent to ILM.</p></div>
+<div class="notice">Please enter accurate information. Your payment screenshot is required. It will be saved in ILM Google Drive, and its file link will be recorded in the admissions spreadsheet.</div>
 <form id="signupForm">
 <h3>Student Information</h3><div class="form-grid">
 <div class="field"><label for="fullName">Student Full Name *</label><input id="fullName" name="fullName" required maxlength="120" autocomplete="name"></div>
@@ -28,15 +28,11 @@
 <div class="field"><label for="paymentDate">Payment Date</label><input id="paymentDate" name="paymentDate" type="date"></div>
 <div class="field"><label for="paymentScreenshot">Payment Screenshot *</label><input id="paymentScreenshot" name="paymentScreenshot" type="file" accept="image/jpeg,image/png,image/webp" required aria-describedby="paymentScreenshotHelp"><small id="paymentScreenshotHelp" class="muted">Required. Upload a clear JPG, PNG or WebP image, maximum 5 MB.</small></div>
 </div>
-<h3 class="spacer-top">Student Portal Account</h3><div class="form-grid">
-<div class="field"><label for="password">Create Password *</label><input id="password" name="password" type="password" minlength="8" autocomplete="new-password" required><small class="muted">Use at least 8 characters. Do not share your password.</small></div>
-<div class="field"><label for="confirmPassword">Confirm Password *</label><input id="confirmPassword" name="confirmPassword" type="password" minlength="8" autocomplete="new-password" required></div>
-</div>
 <label class="muted" style="display:flex;gap:10px;align-items:flex-start;margin:18px 0 20px"><input type="checkbox" id="terms" required style="margin-top:4px">I confirm that the information is accurate and agree that ILM may contact me or my parent/guardian about this application.</label>
-<button class="btn btn-blue" type="submit">Submit Admission & Create Account</button>
+<button class="btn btn-blue" type="submit">Submit Admission</button>
 </form>
 <div id="formMessage" class="form-message" role="status" aria-live="polite"></div>
-<p class="muted spacer-top text-center">Already registered? <a href="login.html" style="color:var(--blue);font-weight:800">Sign in to your Student Portal</a></p>
+
 </div></div></main><footer id="site-footer"></footer>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase.js"></script><script src="script.js"></script><script src="auth.js"></script>
+<script src="script.js"></script><script src="admission.js"></script>
 </body></html>
