@@ -79,8 +79,6 @@ function doGet(e) {
   try {
     const applicationId = clean_(params.applicationId || "",50).toUpperCase();
     if (!applicationId) return jsonp_(callback,{success:false,message:"Enter your Application ID."});
-    const dateOfBirth = clean_(params.dateOfBirth || "",20);
-    if (!dateOfBirth || !verifyStudentDob_(applicationId,dateOfBirth)) return jsonp_(callback,{success:true,results:[]});
     const ss = SpreadsheetApp.openById(ILM_SPREADSHEET_ID);
     const sheet = ss.getSheetByName("Student Results");
     if (!sheet || sheet.getLastRow() < 2) return jsonp_(callback,{success:true,results:[]});
@@ -120,9 +118,8 @@ function nextApplicationId_() {
   const props = PropertiesService.getScriptProperties();
   const year = new Date().getFullYear();
   const key = "ILM_APPLICATION_COUNTER_" + year;
-  const next = Number(props.getProperty(key) || 0) + 1;
-  props.setProperty(key,String(next));
-  return "ILM-" + year + "-" + String(next).padStart(6,"0");
+  const token = Utilities.getUuid().replace(/-/g,"").substring(0,10).toUpperCase();
+  return "ILM-" + year + "-" + token;
 }
 
 function saveScreenshot_(file, applicationId) {
@@ -158,18 +155,3 @@ function setupILMResultsSheet() {
   if (sheet.getLastRow() === 0) sheet.getRange(1,1,1,RESULT_HEADERS.length).setValues([RESULT_HEADERS]);
 }
 
-function verifyStudentDob_(applicationId,dateOfBirth) {
-  const ss = SpreadsheetApp.openById(ILM_SPREADSHEET_ID);
-  const sheet = getRegistrationSheet_(ss);
-  if (sheet.getLastRow() < 2) return false;
-  const values = sheet.getDataRange().getDisplayValues();
-  const headers = values[0].map(function(h){return String(h).trim();});
-  const idCol = headers.indexOf("Application ID");
-  const dobCol = headers.indexOf("Date of Birth");
-  if (idCol < 0 || dobCol < 0) return false;
-  for (let i=1;i<values.length;i++) {
-    if (String(values[i][idCol]).trim().toUpperCase() === applicationId &&
-        String(values[i][dobCol]).trim() === dateOfBirth) return true;
-  }
-  return false;
-}
