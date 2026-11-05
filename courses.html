@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Explore ILM student courses, practice books and learning resources.">
+<title>My Courses | ILM The Contest Center</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.courses-page{padding:42px 0 75px}
+.course-heading{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:28px}
+.course-heading h2{font-size:30px;color:var(--navy);line-height:1.2}
+.course-tools{display:flex;gap:12px;flex-wrap:wrap}
+.course-tools input,.course-tools select{min-width:190px;padding:12px 15px;border:1px solid var(--line);border-radius:30px;background:#fff;color:var(--ink);outline:none}
+.course-tools input:focus,.course-tools select:focus{border-color:var(--blue);box-shadow:0 0 0 3px #1557a615}
+.course-grid{display:grid;gap:17px}
+.course-card{display:grid;grid-template-columns:94px minmax(0,1fr) auto;gap:24px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:17px;padding:20px;box-shadow:0 8px 25px rgba(7,27,53,.045);transition:.2s}
+.course-card:hover{transform:translateY(-3px);box-shadow:0 15px 35px rgba(7,27,53,.09);border-color:#d8c18a}
+.book-mark{width:94px;height:94px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(145deg,#123f78,#1b67ad);color:#fff;font-size:37px}
+.course-card:nth-child(3n+2) .book-mark{background:linear-gradient(145deg,#b58b35,#d8b85f)}
+.course-card:nth-child(3n) .book-mark{background:linear-gradient(145deg,#176f70,#299a8b)}
+.course-info h3{font-size:19px;color:var(--navy);margin-bottom:5px}
+.course-info p{font-size:13px;color:var(--muted);max-width:760px}
+.course-grade{display:inline-block;margin-bottom:7px;padding:4px 9px;border-radius:30px;background:#f5f0e4;color:#8a6826;font-size:10px;font-weight:900;letter-spacing:1px;text-transform:uppercase}
+.course-meta{display:flex;gap:17px;align-items:center;color:#536a84;font-size:12px;white-space:nowrap}
+.course-meta strong{display:block;color:var(--navy);font-size:15px}
+.course-progress{min-width:82px;text-align:center}
+.progress-ring{width:38px;height:38px;border:4px solid #e7ebf0;border-radius:50%;margin:0 auto 5px}
+.course-progress strong{color:#a77c25;font-size:13px}
+.course-progress small{display:block;color:var(--muted);font-size:10px}
+.course-empty{padding:35px;text-align:center;background:#fff;border:1px dashed #cbd7e5;border-radius:14px;color:var(--muted)}
+@media(max-width:760px){.course-card{grid-template-columns:66px 1fr;gap:14px;padding:15px}.book-mark{width:66px;height:66px;font-size:28px}.course-meta{grid-column:2;flex-wrap:wrap;gap:12px}.course-progress{min-width:65px}.course-heading h2{font-size:25px}}
+@media(max-width:420px){.course-card{grid-template-columns:1fr}.book-mark{width:100%;height:65px}.course-meta{grid-column:1}.course-tools{width:100%}.course-tools input,.course-tools select{width:100%}}
+</style>
+</head>
+<body>
+<header id="site-header"></header>
+<main>
+<section class="page-hero"><div class="container"><span class="eyebrow">ILM Student Learning Portal</span><h1>My Courses</h1><p>Explore your grade-level practice books and learning resources.</p></div></section>
+<section class="courses-page"><div class="container">
+<div id="courseWelcome" class="notice">Checking your student account...</div>
+<div class="course-heading"><div><span class="tag">Learning library</span><h2>Explore your courses</h2><p class="muted">Find learning resources by title or grade.</p></div>
+<div class="course-tools"><input id="courseSearch" type="search" placeholder="Search courses..." aria-label="Search courses"><select id="gradeFilter" aria-label="Filter by grade"><option value="all">All Grades</option><option value="4">Grade 4</option><option value="5">Grade 5</option><option value="6">Grade 6</option><option value="7">Grade 7</option><option value="8">Grade 8</option><option value="9">Grade 9</option></select></div></div>
+<div id="courseGrid" class="course-grid" aria-live="polite"></div>
+<p class="muted spacer-top">Course units, question banks and progress tracking will appear here when ILM publishes the learning materials. No sample scores or progress have been added.</p>
+</div></section>
+</main>
+<footer id="site-footer"></footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="script.js"></script>
+<script>
+const books=[];
+for(let grade=4;grade<=9;grade++){for(let book=1;book<=3;book++){books.push({grade,book,title:"Grade "+grade+" Practice Book "+book,description:"A structured ILM learning resource to strengthen mathematical understanding, logical reasoning and problem-solving skills."});}}
+const grid=document.getElementById("courseGrid"),search=document.getElementById("courseSearch"),filter=document.getElementById("gradeFilter");
+function renderCourses(){const q=search.value.trim().toLowerCase(),g=filter.value;const shown=books.filter(b=>(g==="all"||String(b.grade)===g)&&(b.title.toLowerCase().includes(q)||b.description.toLowerCase().includes(q)));grid.innerHTML="";if(!shown.length){grid.innerHTML='<div class="course-empty">No courses match your search. Try another title or grade.</div>';return;}shown.forEach(b=>{const card=document.createElement("article");card.className="course-card";card.innerHTML='<div class="book-mark" aria-hidden="true">▤</div><div class="course-info"><span class="course-grade">Grade '+b.grade+'</span><h3></h3><p></p></div><div class="course-meta"><div><strong>ILM</strong>Learning resource</div><div class="course-progress"><div class="progress-ring"></div><strong>—</strong><small>Progress</small></div></div>';card.querySelector("h3").textContent=b.title;card.querySelector("p").textContent=b.description;grid.appendChild(card);});}
+search.addEventListener("input",renderCourses);filter.addEventListener("change",renderCourses);renderCourses();
+(async()=>{try{const {data,error}=await supabaseClient.auth.getUser();if(error||!data.user){location.replace("login.html");return;}document.getElementById("courseWelcome").textContent="Signed in as "+(data.user.email||"ILM student")+". Welcome to your learning library."; }catch(e){document.getElementById("courseWelcome").textContent="Unable to verify your student session. Please sign in again.";}})();
+</script>
+</body></html>
