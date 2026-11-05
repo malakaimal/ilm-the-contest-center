@@ -46,7 +46,7 @@ function makeQ(topic,n,level){
    if(type%4===0){ans=a+b;question='Calculate '+a+' + '+b+'.';explain=a+' + '+b+' = '+ans+'.';}
    else if(type%4===1){if(b>a)[a,b]=[b,a];ans=a-b;question='Calculate '+a+' − '+b+'.';explain=a+' − '+b+' = '+ans+'.';}
    else if(type%4===2){a=2+(n% (5+scale));b=3+((n+base)%(7+scale));ans=a*b;question='Calculate '+a+' × '+b+'.';explain=a+' × '+b+' = '+ans+'.';}
-   else{b=2+(n%(7+scale));ans=3+((n*2+base)%15);a=b*ans;question='Calculate '+a+' ÷ '+b+'.';explain+'Division check: '+ans+' × '+b+' = '+a+'.';}
+   else{b=2+(n%(7+scale));ans=3+((n*2+base)%15);a=b*ans;question='Calculate '+a+' ÷ '+b+'.';explain='Division check: '+ans+' × '+b+' = '+a+'.';}
  }
  if(challenge){question='Challenge: '+question+' Show the calculation carefully.';}
  const raw=String(ans),num=Number(raw.replace(/[^0-9.-]/g,''));let opts=[raw];let delta=Math.max(1,Math.round(Math.abs(num)*.12));for(const d of [delta,-delta,delta*2,-delta*2]){let v=Number.isFinite(num)?String(num+d):raw+' (estimate)';if(!opts.includes(v))opts.push(v);if(opts.length===4)break;}
