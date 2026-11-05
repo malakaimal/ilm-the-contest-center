@@ -12,7 +12,7 @@ const REGISTRATION_HEADERS = [
   "Application ID","Application Date","Student Full Name","Father / Guardian Name",
   "Date of Birth","Email","Contact Phone","Tehsil / Area","School Name","Current Class",
   "Programme","Attempted Online Test Before","Payment Reference / Trx ID","Payment Date",
-  "Payment Screen Shot","Password","Payment Status","Application Status","Admin Notes"
+  "Payment Screenshot Link","Payment Screen Shot","Password","Payment Status","Application Status","Admin Notes"
 ];
 const RESULT_HEADERS = [
   "Application ID","Student Name","Class","Programme","Total Marks","Obtained Marks",
@@ -33,10 +33,9 @@ function doPost(e) {
       const ss = SpreadsheetApp.openById(ILM_SPREADSHEET_ID);
       const sheet = getRegistrationSheet_(ss);
       const id = nextApplicationId_(sheet);
-      let screenshotUrl = "";
-      if (data.screenshot && data.screenshot.base64) {
-        screenshotUrl = saveScreenshot_(data.screenshot, id);
-      }
+      if (!data.screenshot || !data.screenshot.base64) throw new Error("Payment screenshot was not received by the server.");
+      const screenshotUrl = saveScreenshot_(data.screenshot, id);
+      const screenshotColumn = ensureHeader_(sheet, "Payment Screenshot Link");
       const values = {
         "Application ID": id,
         "Application Date": new Date(),
@@ -52,6 +51,7 @@ function doPost(e) {
         "Attempted Online Test Before": clean_(data.previousTest,10),
         "Payment Reference / Trx ID": clean_(data.paymentReference,100),
         "Payment Date": clean_(data.paymentDate,20),
+        "Payment Screenshot Link": screenshotUrl,
         "Payment Screen Shot": screenshotUrl,
         "Password": "",
         "Payment Status": "Pending Verification",
@@ -112,6 +112,17 @@ function getRegistrationSheet_(ss) {
   const sheet = ss.getSheetByName("Student Registrations") || ss.insertSheet("Student Registrations");
   if (sheet.getLastRow() === 0) sheet.getRange(1,1,1,REGISTRATION_HEADERS.length).setValues([REGISTRATION_HEADERS]);
   return sheet;
+}
+
+function ensureHeader_(sheet, headerName) {
+  const lastColumn = Math.max(sheet.getLastColumn(), 1);
+  const headers = sheet.getRange(1, 1, 1, lastColumn).getDisplayValues()[0].map(function(h) { return String(h).trim(); });
+  let index = headers.indexOf(headerName);
+  if (index < 0) {
+    index = headers.length;
+    sheet.getRange(1, index + 1).setValue(headerName);
+  }
+  return index + 1;
 }
 
 function nextApplicationId_(sheet) {
