@@ -133,7 +133,7 @@ document.getElementById('googleSignIn').addEventListener('click',async()=>{
  try{
   const {error}=await window.supabaseClient.auth.signInWithOAuth({
    provider:'google',
-   options:{redirectTo:location.origin+location.pathname.replace(/signup\\.html?$/,'student-dashbord.html')}
+   options:{redirectTo:location.origin+location.pathname.replace(/signup\.html?$/,'student-dashbord.html')}
   });
   if(error)throw error;
  }catch(error){
