@@ -32,7 +32,7 @@ function doPost(e) {
     try {
       const ss = SpreadsheetApp.openById(ILM_SPREADSHEET_ID);
       const sheet = getRegistrationSheet_(ss);
-      const id = nextApplicationId_();
+      const id = nextApplicationId_(sheet);
       let screenshotUrl = "";
       if (data.screenshot && data.screenshot.base64) {
         screenshotUrl = saveScreenshot_(data.screenshot, id);
@@ -114,12 +114,30 @@ function getRegistrationSheet_(ss) {
   return sheet;
 }
 
-function nextApplicationId_() {
-  const props = PropertiesService.getScriptProperties();
-  const year = new Date().getFullYear();
+function nextApplicationId_(sheet) {
+  const year = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "yyyy");
   const key = "ILM_APPLICATION_COUNTER_" + year;
-  const token = Utilities.getUuid().replace(/-/g,"").substring(0,10).toUpperCase();
-  return "ILM-" + year + "-" + token;
+  const props = PropertiesService.getScriptProperties();
+
+  // Start from the saved counter, but also inspect existing IDs so older
+  // registrations are not overwritten if the script property is missing.
+  let highest = Number(props.getProperty(key) || 0);
+  const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getDisplayValues()[0]
+    .map(function(h) { return String(h).trim(); });
+  const idColumn = headers.indexOf("Application ID") + 1;
+
+  if (idColumn > 0 && sheet.getLastRow() >= 2) {
+    const ids = sheet.getRange(2, idColumn, sheet.getLastRow() - 1, 1).getDisplayValues();
+    const pattern = new RegExp("^ILM" + year + "(\\d{3,})$");
+    ids.forEach(function(item) {
+      const match = String(item[0]).trim().match(pattern);
+      if (match) highest = Math.max(highest, Number(match[1]));
+    });
+  }
+
+  const next = highest + 1;
+  props.setProperty(key, String(next));
+  return "ILM" + year + String(next).padStart(3, "0");
 }
 
 function saveScreenshot_(file, applicationId) {
