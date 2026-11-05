@@ -1,38 +1,53 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Apply for an ILM Math Olympiad or register for an ILM student programme.">
-<title>Student Admission | ILM The Contest Center</title><link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Create your secure ILM Student Portal account.">
+<title>Create Student Account | ILM The Contest Center</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.account-wrap{min-height:78vh;display:grid;place-items:center;padding:65px 0}
+.account-card{width:min(100%,540px);margin:auto}
+.account-intro{text-align:center;margin-bottom:28px}
+.account-mark{width:66px;height:66px;display:grid;place-items:center;margin:0 auto 18px;border-radius:20px;background:linear-gradient(145deg,#087f5b,#1557a6);color:#fff;font-size:25px;font-weight:900;box-shadow:0 12px 28px #087f5b35}
+.account-form{display:grid;gap:17px}
+.account-form .field{margin:0}
+.account-form input{width:100%}
+.account-foot{text-align:center;margin-top:22px;color:var(--muted)}
+.account-foot a{color:var(--ilm-green-deep);font-weight:800}
+.account-note{font-size:13px;color:var(--muted);background:#f1f7f4;border:1px solid #dcebe2;border-radius:10px;padding:13px 15px;margin-bottom:20px}
+</style>
 </head>
 <body>
 <header id="site-header"></header>
-<main class="section section-soft"><div class="container"><div class="form-card">
-<div class="section-heading"><span class="tag">ILM Student Admissions</span><h2>Student Admission & Registration</h2><p>Complete this form to apply for an ILM programme. Your admission details and payment proof will be sent to ILM.</p></div>
-<div class="notice">Please enter accurate information. Your payment screenshot is required. It will be saved in ILM Google Drive, and its file link will be recorded in the admissions spreadsheet.</div>
-<form id="signupForm">
-<h3>Student Information</h3><div class="form-grid">
-<div class="field"><label for="fullName">Student Full Name *</label><input id="fullName" name="fullName" required maxlength="120" autocomplete="name"></div>
-<div class="field"><label for="fatherName">Father's / Guardian's Name *</label><input id="fatherName" name="fatherName" required maxlength="120"></div>
-<div class="field"><label for="dateOfBirth">Date of Birth *</label><input id="dateOfBirth" name="dateOfBirth" type="date" required></div>
-<div class="field"><label for="email">Student / Parent Email Address *</label><input id="email" name="email" type="email" required maxlength="180" autocomplete="email"></div>
-<div class="field"><label for="phone">Contact Phone Number *</label><input id="phone" name="phone" type="tel" required maxlength="30" placeholder="03XXXXXXXXX"></div>
-<div class="field"><label for="area">Tehsil / Area *</label><input id="area" name="area" required maxlength="100" placeholder="e.g. Chakesar"></div>
-<div class="field"><label for="school">School Name *</label><input id="school" name="school" required maxlength="180"></div>
-<div class="field"><label for="grade">Current Class *</label><select id="grade" name="grade" required><option value="">Select class</option><option>Class 3</option><option>Class 4</option><option>Class 5</option><option>Class 6</option><option>Class 7</option><option>Class 8</option><option>Class 9</option><option>Class 10</option><option>Other</option></select></div>
-<div class="field"><label for="program">Programme Applying For *</label><select id="program" name="program" required><option value="">Select programme</option><option>ILM Math Olympiad 1</option><option>ILM Math Olympiad 2</option><option>Annual Mega Contest</option><option>Regional Math Clubs</option><option>Practice Books</option></select></div>
-<div class="field"><label for="previousTest">Have you attempted an ILM online test before? *</label><select id="previousTest" name="previousTest" required><option value="">Please select</option><option>Yes</option><option>No</option></select></div>
+<main class="account-wrap">
+<div class="container">
+<section class="form-card account-card" style="padding:clamp(25px,5vw,45px)">
+<div class="account-intro">
+<div class="account-mark">ILM</div>
+<span class="tag">STUDENT PORTAL</span>
+<h1 style="color:var(--navy);font-size:clamp(27px,4vw,36px);margin:12px 0 8px">Create Your Account</h1>
+<p class="muted">Set up your personal ILM student login to access your dashboard.</p>
 </div>
-<h3 class="spacer-top">Payment Information</h3><div class="form-grid">
-<div class="field"><label for="paymentReference">Payment Reference / Transaction ID</label><input id="paymentReference" name="paymentReference" maxlength="100" placeholder="Enter transaction reference if already paid"></div>
-<div class="field"><label for="paymentDate">Payment Date</label><input id="paymentDate" name="paymentDate" type="date"></div>
-<div class="field"><label for="paymentScreenshot">Payment Screenshot *</label><input id="paymentScreenshot" name="paymentScreenshot" type="file" accept="image/jpeg,image/png,image/webp" required aria-describedby="paymentScreenshotHelp"><small id="paymentScreenshotHelp" class="muted">Required. Upload a clear JPG, PNG or WebP image, maximum 5 MB.</small></div>
-</div>
-<label class="muted" style="display:flex;gap:10px;align-items:flex-start;margin:18px 0 20px"><input type="checkbox" id="terms" required style="margin-top:4px">I confirm that the information is accurate and agree that ILM may contact me or my parent/guardian about this application.</label>
-<button class="btn btn-blue" type="submit">Submit Admission</button>
+<div class="account-note">This creates your portal login only. To apply for an Olympiad or contest, submit the separate admission application after creating your account.</div>
+<form id="signupForm" class="account-form">
+<div class="field"><label for="fullName">Student Full Name</label><input id="fullName" type="text" autocomplete="name" maxlength="120" required placeholder="Enter your full name"></div>
+<div class="field"><label for="email">Email Address</label><input id="email" type="email" autocomplete="email" required placeholder="you@example.com"></div>
+<div class="field"><label for="password">Create Password</label><input id="password" type="password" autocomplete="new-password" minlength="8" required placeholder="At least 8 characters"></div>
+<div class="field"><label for="confirmPassword">Confirm Password</label><input id="confirmPassword" type="password" autocomplete="new-password" minlength="8" required placeholder="Enter password again"></div>
+<label style="display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--muted)"><input id="terms" type="checkbox" required style="margin-top:4px">I confirm that I am creating this account for access to the ILM Student Portal.</label>
+<button class="btn btn-blue" type="submit" id="createAccountButton">Create Student Account</button>
 </form>
 <div id="formMessage" class="form-message" role="status" aria-live="polite"></div>
-
-</div></div></main><footer id="site-footer"></footer>
-<script src="script.js"></script><script src="admission.js"></script>
-</body></html>
+<div class="account-foot">Already have an account? <a href="login.html">Sign in</a><br><span>Applying for a programme? <a href="admission.html">Go to Admission Form</a></span></div>
+</section>
+</div>
+</main>
+<footer id="site-footer"></footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="script.js"></script>
+<script src="auth.js"></script>
+</body>
+</html>
