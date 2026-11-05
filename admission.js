@@ -1,4 +1,4 @@
-// ILM admission form: Google Sheets + Google Drive only (no Supabase).
+// ILM admission form: Google Sheets + Google Drive via the ILM Apps Script web app.
 const ILM_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxz2mBlANzvWwQsBDbCtUHCHVa3EF72DIrBDZokGOEyWdcLf_JBXIdnhfMTrKtxnada/exec";
 function ilmShowFormMessage(text,type){
  const el=document.getElementById("formMessage");
@@ -35,11 +35,11 @@ if(ilmForm) ilmForm.addEventListener("submit",async e=>{
    paymentDate:document.getElementById("paymentDate").value,
    screenshot:{name:file.name,mimeType:file.type,base64:base64}
   };
-  // Apps Script is cross-origin; no-cors sends the request but does not expose its response.
+  // no-cors does not reveal the server response; the success message is deliberately qualified.
   await fetch(ILM_APPS_SCRIPT_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});
-  ilmShowFormMessage("Your admission request has been sent. Please wait for ILM to verify it. If you do not receive confirmation, contact ilmthecontestcenter@gmail.com. Do not submit the form again unless ILM asks you to.","success");
+  ilmShowFormMessage("Your application request was sent. The server response cannot be verified in this browser. Please contact ilmthecontestcenter@gmail.com if your Application ID does not appear in your confirmation from ILM.","success");
   ilmForm.reset();
  }catch(err){
-  ilmShowFormMessage("We could not send your application. Please check your internet connection and try again. "+(err.message||""),"error");
+  ilmShowFormMessage("We could not send your application. Check your connection and try again. "+(err.message||""),"error");
  }finally{btn.disabled=false;btn.textContent="Submit Admission";}
 });
