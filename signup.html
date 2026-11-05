@@ -3,51 +3,127 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Create your secure ILM Student Portal account.">
-<title>Create Student Account | ILM The Contest Center</title>
+<meta name="description" content="Create your ILM Student Portal profile and prepare for your learning journey.">
+<meta name="theme-color" content="#073b46">
+<title>Student Sign Up | ILM The Contest Center</title>
 <link rel="stylesheet" href="style.css">
 <style>
-.account-wrap{min-height:78vh;display:grid;place-items:center;padding:65px 0}
-.account-card{width:min(100%,540px);margin:auto}
-.account-intro{text-align:center;margin-bottom:28px}
-.account-mark{width:66px;height:66px;display:grid;place-items:center;margin:0 auto 18px;border-radius:20px;background:linear-gradient(145deg,#087f5b,#1557a6);color:#fff;font-size:25px;font-weight:900;box-shadow:0 12px 28px #087f5b35}
-.account-form{display:grid;gap:17px}
-.account-form .field{margin:0}
-.account-form input{width:100%}
-.account-foot{text-align:center;margin-top:22px;color:var(--muted)}
-.account-foot a{color:var(--ilm-green-deep);font-weight:800}
-.account-note{font-size:13px;color:var(--muted);background:#f1f7f4;border:1px solid #dcebe2;border-radius:10px;padding:13px 15px;margin-bottom:20px}
+.signup-page{padding:64px 0 82px;min-height:75vh}
+.signup-layout{display:grid;grid-template-columns:1fr 1.12fr;gap:34px;align-items:stretch;max-width:1040px;margin:auto}
+.signup-aside{position:relative;overflow:hidden;border-radius:22px;padding:clamp(28px,4vw,44px);color:#fff;background:radial-gradient(circle at 90% 12%,#268b9a88,transparent 30%),linear-gradient(145deg,#063b38,#0d526b 62%,#174e91);box-shadow:0 24px 60px #082d5030}
+.signup-aside:after{content:"";position:absolute;width:270px;height:270px;border:1px solid #ffffff35;border-radius:50%;right:-125px;bottom:-125px;box-shadow:0 0 0 28px #ffffff0c,0 0 0 58px #ffffff08}
+.signup-logo{width:62px;height:62px;display:grid;place-items:center;border-radius:17px;background:linear-gradient(145deg,#f2d98f,#c9a24e);color:#12334a;font-weight:1000;font-size:22px;letter-spacing:2px;margin-bottom:30px}
+.signup-aside .eyebrow{color:#f4d98f}
+.signup-aside h1{font-size:clamp(32px,4vw,47px);line-height:1.1;margin:0 0 17px;letter-spacing:-1px}
+.signup-aside>p{color:#dcefeb;font-size:15px;line-height:1.8}
+.signup-benefits{display:grid;gap:17px;margin-top:34px}
+.signup-benefit{display:flex;gap:13px;align-items:flex-start}
+.signup-check{flex:0 0 27px;height:27px;border-radius:50%;display:grid;place-items:center;background:#ffffff1c;color:#f4d98f;font-weight:900}
+.signup-benefit strong{display:block;font-size:14px;color:#fff}
+.signup-benefit span{display:block;color:#cce1e2;font-size:12px;margin-top:2px}
+.signup-small{position:relative;z-index:1;margin-top:35px;padding-top:20px;border-top:1px solid #ffffff2b;color:#cce1e2;font-size:12px}
+.signup-card{padding:clamp(24px,4vw,40px);border-radius:22px}
+.signup-card h2{font-size:29px;color:#092f48;margin:5px 0}
+.signup-card .intro{color:var(--muted);font-size:13px;margin-bottom:24px}
+.signup-form{display:grid;gap:15px}
+.signup-form .field{margin:0}
+.signup-form input,.signup-form select{min-height:48px}
+.signup-form .field label{margin-bottom:6px}
+.signup-two{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.password-wrap{position:relative}
+.password-wrap input{padding-right:76px}
+.show-password{position:absolute;right:9px;top:50%;transform:translateY(-50%);border:0;background:#edf5f1;color:#08734f;border-radius:6px;padding:5px 8px;font-size:11px;font-weight:800;cursor:pointer}
+.strength{height:5px;background:#e8edf1;border-radius:20px;overflow:hidden;margin-top:8px}
+.strength span{display:block;height:100%;width:0;background:#c9a24e;transition:width .2s}
+.strength-label{font-size:11px;color:var(--muted);margin-top:4px}
+.signup-consent{display:flex;gap:10px;align-items:flex-start;font-size:12px;color:var(--muted);line-height:1.55}
+.signup-consent input{margin-top:3px;accent-color:#087f5b}
+.signup-submit{width:100%;min-height:49px}
+.signup-status{display:none;padding:13px 15px;border-radius:9px;font-size:13px;line-height:1.6;background:#fff6df;border:1px solid #ead8a8;color:#73591e}
+.signup-status.visible{display:block}
+.signup-status a{font-weight:800;text-decoration:underline}
+.signup-links{text-align:center;margin-top:18px;font-size:13px;color:var(--muted)}
+.signup-links a{color:#08734f;font-weight:800}
+.signup-separation{margin-top:17px;padding:12px 14px;border-radius:9px;background:#eff7f3;border:1px solid #d9eae1;color:#426456;font-size:12px;line-height:1.6}
+@media(max-width:820px){.signup-layout{grid-template-columns:1fr;max-width:620px}.signup-aside{padding:30px}.signup-benefits{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.signup-page{padding:35px 0 55px}.signup-two{grid-template-columns:1fr}.signup-benefits{grid-template-columns:1fr}.signup-aside h1{font-size:34px}}
 </style>
 </head>
 <body>
+<a class="ilm-skip-link" href="#signup">Skip to sign up form</a>
 <header id="site-header"></header>
-<main class="account-wrap">
+<main class="signup-page">
 <div class="container">
-<section class="form-card account-card" style="padding:clamp(25px,5vw,45px)">
-<div class="account-intro">
-<div class="account-mark">ILM</div>
-<span class="tag">STUDENT PORTAL</span>
-<h1 style="color:var(--navy);font-size:clamp(27px,4vw,36px);margin:12px 0 8px">Create Your Account</h1>
-<p class="muted">Set up your personal ILM student login to access your dashboard.</p>
+<div class="signup-layout">
+<aside class="signup-aside">
+<div class="signup-logo">ILM</div>
+<span class="eyebrow">ILM STUDENT PORTAL</span>
+<h1>Your learning journey starts here.</h1>
+<p>Create your student profile to prepare for practice activities, learning resources and your personal portal experience.</p>
+<div class="signup-benefits">
+<div class="signup-benefit"><span class="signup-check">✓</span><div><strong>One student profile</strong><span>Your own account for the ILM portal</span></div></div>
+<div class="signup-benefit"><span class="signup-check">✓</span><div><strong>Practice-ready</strong><span>Designed for future maths and IQ practice tools</span></div></div>
+<div class="signup-benefit"><span class="signup-check">✓</span><div><strong>Separate programme admission</strong><span>Creating an account does not apply you to a contest</span></div></div>
 </div>
-<div class="account-note">This creates your portal login only. To apply for an Olympiad or contest, submit the separate admission application after creating your account.</div>
-<form id="signupForm" class="account-form">
-<div class="field"><label for="fullName">Student Full Name</label><input id="fullName" type="text" autocomplete="name" maxlength="120" required placeholder="Enter your full name"></div>
-<div class="field"><label for="email">Email Address</label><input id="email" type="email" autocomplete="email" required placeholder="you@example.com"></div>
-<div class="field"><label for="password">Create Password</label><input id="password" type="password" autocomplete="new-password" minlength="8" required placeholder="At least 8 characters"></div>
-<div class="field"><label for="confirmPassword">Confirm Password</label><input id="confirmPassword" type="password" autocomplete="new-password" minlength="8" required placeholder="Enter password again"></div>
-<label style="display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--muted)"><input id="terms" type="checkbox" required style="margin-top:4px">I confirm that I am creating this account for access to the ILM Student Portal.</label>
-<button class="btn btn-blue" type="submit" id="createAccountButton">Create Student Account</button>
+<div class="signup-small">ILM The Contest Center<br>Learn with purpose. Think with confidence.</div>
+</aside>
+<section class="form-card signup-card" id="signup">
+<span class="tag">Create your profile</span>
+<h2>Student Sign Up</h2>
+<p class="intro">Enter your details below. Fields marked with * are required.</p>
+<form id="signupForm" class="signup-form" novalidate>
+<div class="field"><label for="fullName">Student Full Name *</label><input id="fullName" name="fullName" type="text" autocomplete="name" maxlength="100" required placeholder="Enter your full name"></div>
+<div class="field"><label for="email">Email Address *</label><input id="email" name="email" type="email" autocomplete="email" maxlength="150" required placeholder="student@example.com"></div>
+<div class="signup-two">
+<div class="field"><label for="grade">Current Class *</label><select id="grade" name="grade" required><option value="">Select class</option><option>Class 4</option><option>Class 5</option><option>Class 6</option><option>Class 7</option><option>Class 8</option><option>Class 9</option><option>Class 10</option><option>Other</option></select></div>
+<div class="field"><label for="school">School Name <span class="muted">(optional)</span></label><input id="school" name="school" type="text" maxlength="120" placeholder="Your school"></div>
+</div>
+<div class="field"><label for="password">Create Password *</label><div class="password-wrap"><input id="password" name="password" type="password" autocomplete="new-password" minlength="8" required placeholder="At least 8 characters"><button class="show-password" type="button" data-target="password">Show</button></div><div class="strength"><span id="strengthBar"></span></div><div class="strength-label" id="strengthLabel">Use at least 8 characters.</div></div>
+<div class="field"><label for="confirmPassword">Confirm Password *</label><div class="password-wrap"><input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" minlength="8" required placeholder="Enter your password again"><button class="show-password" type="button" data-target="confirmPassword">Show</button></div></div>
+<label class="signup-consent"><input id="terms" type="checkbox" required><span>I confirm that the information above is correct and that I have permission from my parent or guardian to create this student account.</span></label>
+<button class="btn btn-blue signup-submit" type="submit">Create Student Account</button>
 </form>
-<div id="formMessage" class="form-message" role="status" aria-live="polite"></div>
-<div class="account-foot">Already have an account? <a href="login.html">Sign in</a><br><span>Applying for a programme? <a href="admission.html">Go to Admission Form</a></span></div>
+<div id="signupStatus" class="signup-status" role="status" aria-live="polite"></div>
+<div class="signup-separation"><strong>Important:</strong> Student account registration is separate from Olympiad or Contest admission. No admission fee or payment details are required here.</div>
+<div class="signup-links">Already have an account? <a href="login.html">Sign in</a><br><span>Want to join a programme? <a href="admission.html">Open the Admission Form</a></span></div>
 </section>
+</div>
 </div>
 </main>
 <footer id="site-footer"></footer>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="supabase.js"></script>
 <script src="script.js"></script>
-<script src="auth.js"></script>
+<script>
+const form=document.getElementById('signupForm');
+const password=document.getElementById('password');
+const confirmPassword=document.getElementById('confirmPassword');
+const statusBox=document.getElementById('signupStatus');
+const strengthBar=document.getElementById('strengthBar');
+const strengthLabel=document.getElementById('strengthLabel');
+password.addEventListener('input',()=>{
+ const value=password.value;
+ let score=0;
+ if(value.length>=8)score++;
+ if(/[A-Z]/.test(value)&&/[a-z]/.test(value))score++;
+ if(/[0-9]/.test(value))score++;
+ if(/[^A-Za-z0-9]/.test(value))score++;
+ strengthBar.style.width=(score*25)+'%';
+ strengthLabel.textContent=value.length===0?'Use at least 8 characters.':['Add more characters for a stronger password.','Fair password. Add a number or symbol.','Good password. Consider adding a symbol.','Strong password.'][Math.max(0,score-1)];
+});
+document.querySelectorAll('.show-password').forEach(button=>button.addEventListener('click',()=>{
+ const field=document.getElementById(button.dataset.target);
+ const visible=field.type==='text';
+ field.type=visible?'password':'text';
+ button.textContent=visible?'Show':'Hide';
+}));
+form.addEventListener('submit',event=>{
+ event.preventDefault();
+ statusBox.classList.remove('visible');
+ if(!form.reportValidity())return;
+ if(password.value.length<8){password.focus();statusBox.textContent='Please use a password with at least 8 characters.';statusBox.classList.add('visible');return;}
+ if(password.value!==confirmPassword.value){confirmPassword.focus();statusBox.textContent='Your passwords do not match. Please check them.';statusBox.classList.add('visible');return;}
+ statusBox.textContent='Your sign-up page is ready. Account creation will be activated when the student portal database is connected. No account has been created and your details have not been submitted or saved.';
+ statusBox.classList.add('visible');
+});
+</script>
 </body>
 </html>
