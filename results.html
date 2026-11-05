@@ -12,7 +12,7 @@
 <section class="page-hero"><div class="container"><span class="eyebrow">ILM The Contest Center</span><h1>Student Results</h1><p>Check your published examination result securely using your Application ID.</p></div></section>
 <section class="section section-soft"><div class="container"><div class="form-card">
 <div class="section-heading"><span class="tag">Student result portal</span><h2>Find Your Result</h2><p>Enter the Application ID provided after registration. Only results marked as Published by ILM will be displayed.</p></div>
-<form id="resultLookup"><div class="field"><label for="applicationId">Application ID</label><input id="applicationId" required maxlength="50" placeholder="Example: ILM-2026-000001" autocomplete="off"></div><div class="field"><label for="dateOfBirth">Date of Birth</label><input id="dateOfBirth" type="date" required></div><button class="btn btn-blue" type="submit" id="resultButton">Search Published Result</button></form>
+<form id="resultLookup"><div class="field"><label for="applicationId">Application ID</label><input id="applicationId" required maxlength="50" placeholder="Example: ILM-2026-000001" autocomplete="off"></div><button class="btn btn-blue" type="submit" id="resultButton">Search Published Result</button></form>
 <div id="resultMessage" class="form-message" role="status" aria-live="polite"></div>
 <div id="resultOutput" class="spacer-top"></div>
 </div></div></section>
@@ -30,7 +30,7 @@ function addResultRow(container,label,value){
  if(value===undefined||value===null||String(value)==="")return;
  const p=document.createElement("p");const strong=document.createElement("strong");strong.textContent=label+": ";p.append(strong,document.createTextNode(String(value)));container.appendChild(p);
 }
-function searchILMResult(id,dob){
+function searchILMResult(id){
  return new Promise((resolve,reject)=>{
   const callback="ilmResultCallback";
   const script=document.createElement("script");
@@ -38,14 +38,14 @@ function searchILMResult(id,dob){
   const timeout=setTimeout(()=>{cleanup();reject(new Error("Request timed out. Please try again."));},15000);
   window[callback]=data=>{clearTimeout(timeout);cleanup();resolve(data);};
   script.onerror=()=>{clearTimeout(timeout);cleanup();reject(new Error("Could not connect to the results service."));};
-  script.src=ILM_RESULT_API+"?applicationId="+encodeURIComponent(id)+"&dateOfBirth="+encodeURIComponent(dob)+"&callback="+callback;
+  script.src=ILM_RESULT_API+"?applicationId="+encodeURIComponent(id)+"&callback="+callback;
   document.body.appendChild(script);
  });
 }
 resultForm.addEventListener("submit",async event=>{
  event.preventDefault();resultOutput.replaceChildren();showResultMessage("Searching published results...");const button=document.getElementById("resultButton");button.disabled=true;
  try{
-  const response=await searchILMResult(document.getElementById("applicationId").value.trim(),document.getElementById("dateOfBirth").value);
+  const response=await searchILMResult(document.getElementById("applicationId").value.trim());
   if(!response.success)throw new Error(response.message||"Result service unavailable.");
   if(!response.results||!response.results.length){showResultMessage("No published result was found for this Application ID. Check the ID or contact ILM.","");return;}
   showResultMessage("Official published result found.","success");
