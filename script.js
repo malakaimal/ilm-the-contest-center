@@ -42,3 +42,13 @@ document.addEventListener("DOMContentLoaded", () => {
     topButton.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
   }
 });
+
+
+/* Shared ILM favicon */
+if (!document.querySelector('link[rel="icon"]')) {
+  const favicon = document.createElement("link");
+  favicon.rel = "icon";
+  favicon.type = "image/svg+xml";
+  favicon.href = "favicon.svg";
+  document.head.appendChild(favicon);
+}
