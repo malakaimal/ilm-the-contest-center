@@ -1,1 +1,64 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Look up published ILM results using your registration number."><title>Student Results | ILM The Contest Center</title><link rel="stylesheet" href="style.css"></head><body><header id="site-header"></header><main><section class="page-hero"><div class="container"><span class="eyebrow">ILM The Contest Center</span><h1>Student Results</h1><p>Look up published ILM results using your registration number.</p></div></section><section class="section section-soft"><div class="container"><div class="form-card"><div class="section-heading"><span class="tag">Result search</span><h2>Find your result</h2><p>Enter the registration number provided by ILM. Only results published by an authorised administrator will appear.</p></div><form id="resultLookup"><div class="field"><label for="resultReg">Registration Number</label><input id="resultReg" required placeholder="Example: ILM-2026-000001"></div><button class="btn btn-blue" type="submit">Search Published Result</button></form><div id="resultMessage" class="form-message" role="status"></div><div id="resultOutput" class="spacer-top"></div></div></div></section><script>document.getElementById("resultLookup").addEventListener("submit",async e=>{e.preventDefault();const m=document.getElementById("resultMessage"),o=document.getElementById("resultOutput");m.className="form-message";m.style.display="block";m.textContent="Searching...";o.innerHTML="";const reg=document.getElementById("resultReg").value.trim();const {data,error}=await supabaseClient.from("results").select("student_name,grade,competition,score,total_marks,rank,result_date").eq("registration_id",reg).eq("is_published",true).order("result_date",{ascending:false});if(error){m.className="form-message error";m.textContent="Result search is not ready. Please contact ILM support.";return;}if(!data.length){m.className="form-message";m.textContent="No published result was found for this registration number.";return;}m.className="form-message success";m.textContent="Published result found.";o.innerHTML=data.map(r=>'<div class="card"><h3>'+String(r.competition).replace(/[<>]/g,"")+'</h3><p><b>Student:</b> '+String(r.student_name).replace(/[<>]/g,"")+'</p><p><b>Class:</b> '+String(r.grade||"—")+'</p><p><b>Score:</b> '+r.score+' / '+r.total_marks+'</p><p><b>Position:</b> '+(r.rank||"—")+'</p><p><b>Date:</b> '+(r.result_date||"—")+'</p></div>').join("");});</script></main><footer id="site-footer"></footer><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase.js"></script><script src="script.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Look up published ILM student results using your Application ID.">
+<title>Student Results | ILM The Contest Center</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header id="site-header"></header>
+<main>
+<section class="page-hero"><div class="container"><span class="eyebrow">ILM The Contest Center</span><h1>Student Results</h1><p>Check your published examination result securely using your Application ID.</p></div></section>
+<section class="section section-soft"><div class="container"><div class="form-card">
+<div class="section-heading"><span class="tag">Student result portal</span><h2>Find Your Result</h2><p>Enter the Application ID provided after registration. Only results marked as Published by ILM will be displayed.</p></div>
+<form id="resultLookup"><div class="field"><label for="applicationId">Application ID</label><input id="applicationId" required maxlength="50" placeholder="Example: ILM-2026-000001" autocomplete="off"></div><button class="btn btn-blue" type="submit" id="resultButton">Search Published Result</button></form>
+<div id="resultMessage" class="form-message" role="status" aria-live="polite"></div>
+<div id="resultOutput" class="spacer-top"></div>
+</div></div></section>
+<section class="section"><div class="container"><div class="section-heading"><h2>Official Result Information</h2><p>Results become visible only after the ILM administration team publishes them. If you need help, contact <a href="mailto:ilmthecontestcenter@gmail.com">ilmthecontestcenter@gmail.com</a>.</p></div></div></section>
+</main>
+<footer id="site-footer"></footer>
+<script src="script.js"></script>
+<script>
+const ILM_RESULT_API = "https://script.google.com/macros/s/AKfycbxz2mBlANzvWwQsBDbCtUHCHVa3EF72DIrBDZokGOEyWdcLf_JBXIdnhfMTrKtxnada/exec";
+const resultForm=document.getElementById("resultLookup");
+const resultMessage=document.getElementById("resultMessage");
+const resultOutput=document.getElementById("resultOutput");
+function showResultMessage(text,type){resultMessage.textContent=text;resultMessage.className="form-message "+(type||"");resultMessage.style.display="block";}
+function addResultRow(container,label,value){
+ if(value===undefined||value===null||String(value)==="")return;
+ const p=document.createElement("p");const strong=document.createElement("strong");strong.textContent=label+": ";p.append(strong,document.createTextNode(String(value)));container.appendChild(p);
+}
+function searchILMResult(id){
+ return new Promise((resolve,reject)=>{
+  const callback="ilmResultCallback";
+  const script=document.createElement("script");
+  const cleanup=()=>{delete window[callback];script.remove();};
+  const timeout=setTimeout(()=>{cleanup();reject(new Error("Request timed out. Please try again."));},15000);
+  window[callback]=data=>{clearTimeout(timeout);cleanup();resolve(data);};
+  script.onerror=()=>{clearTimeout(timeout);cleanup();reject(new Error("Could not connect to the results service."));};
+  script.src=ILM_RESULT_API+"?applicationId="+encodeURIComponent(id)+"&callback="+callback;
+  document.body.appendChild(script);
+ });
+}
+resultForm.addEventListener("submit",async event=>{
+ event.preventDefault();resultOutput.replaceChildren();showResultMessage("Searching published results...");const button=document.getElementById("resultButton");button.disabled=true;
+ try{
+  const response=await searchILMResult(document.getElementById("applicationId").value.trim());
+  if(!response.success)throw new Error(response.message||"Result service unavailable.");
+  if(!response.results||!response.results.length){showResultMessage("No published result was found for this Application ID. Check the ID or contact ILM.","");return;}
+  showResultMessage("Official published result found.","success");
+  response.results.forEach(result=>{
+   const card=document.createElement("div");card.className="card";
+   const heading=document.createElement("h3");heading.textContent=result.Programme||"ILM Examination Result";card.appendChild(heading);
+   addResultRow(card,"Student",result["Student Name"]);addResultRow(card,"Class",result.Class);
+   addResultRow(card,"Total Marks",result["Total Marks"]);addResultRow(card,"Obtained Marks",result["Obtained Marks"]);
+   addResultRow(card,"Percentage",result.Percentage);addResultRow(card,"Position",result.Position);addResultRow(card,"Result",result["Result Status"]);
+   resultOutput.appendChild(card);
+  });
+ }catch(error){showResultMessage(error.message||"Result search failed.","error");}
+ finally{button.disabled=false;}
+});
+</script>
+</body></html>
