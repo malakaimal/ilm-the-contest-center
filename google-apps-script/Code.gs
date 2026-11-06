@@ -61,13 +61,92 @@ function doPost(e) {
       const headers = sheet.getRange(1,1,1,sheet.getLastColumn()).getDisplayValues()[0];
       const row = headers.map(function(h) { return values[String(h).trim()] !== undefined ? values[String(h).trim()] : ""; });
       sheet.appendRow(row);
-      return json_({success:true, applicationId:id});
+      let emailSent = false;
+      try {
+        sendAdmissionConfirmationEmail_(values);
+        emailSent = true;
+      } catch (emailError) {
+        // Keep the saved admission even if the email provider rejects the message.
+        console.error("Admission saved, but confirmation email failed: " + String(emailError.message || emailError));
+      }
+      return json_({success:true, applicationId:id, emailSent:emailSent});
     } finally {
       lock.releaseLock();
     }
   } catch (err) {
     return json_({success:false, error:String(err.message || err)});
   }
+}
+
+
+/**
+ * Send the applicant a confirmation after their admission row is saved.
+ * This is called by doPost because the ILM website submits through fetch(),
+ * not through a Google Forms spreadsheet submission event.
+ */
+function sendAdmissionConfirmationEmail_(values) {
+  const recipient = clean_(values["Email"], 180);
+  if (!recipient || !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(recipient)) {
+    throw new Error("A valid student email address is required to send the confirmation.");
+  }
+
+  const studentName = clean_(values["Student Full Name"], 120);
+  const applicationId = clean_(values["Application ID"], 50);
+  const programme = clean_(values["Programme"], 100);
+  const grade = clean_(values["Current Class"], 30);
+  const subject = "ILM The Contest Center | Admission Received | " + applicationId;
+  const body = [
+    "Dear " + studentName + ",",
+    "",
+    "Thank you for applying to ILM The Contest Center.",
+    "Your admission application has been received and is currently under review.",
+    "",
+    "Application ID: " + applicationId,
+    "Programme: " + programme,
+    "Class: " + grade,
+    "Application Status: Under Review",
+    "",
+    "Please keep your Application ID for future communication. Payment and application details will be reviewed by the ILM team.",
+    "",
+    "Regards,",
+    "Admissions Team",
+    "ILM The Contest Center",
+    "ilmthecontestcenter@gmail.com"
+  ].join("\\n");
+
+  const html = [
+    '<div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;color:#24324a;line-height:1.6">',
+    '<div style="background:#102b55;padding:22px 26px;color:#fff">',
+    '<div style="font-size:20px;font-weight:700">ILM The Contest Center</div>',
+    '<div style="color:#f2c65d">Admission Confirmation</div></div>',
+    '<div style="padding:24px;border:1px solid #e5eaf1">',
+    '<p>Dear ' + escapeHtml_(studentName) + ',</p>',
+    '<p>Thank you for applying to ILM The Contest Center. Your admission application has been received and is currently under review.</p>',
+    '<table style="border-collapse:collapse;width:100%;margin:18px 0">',
+    '<tr><td style="padding:9px;border:1px solid #e5eaf1"><b>Application ID</b></td><td style="padding:9px;border:1px solid #e5eaf1">' + escapeHtml_(applicationId) + '</td></tr>',
+    '<tr><td style="padding:9px;border:1px solid #e5eaf1"><b>Programme</b></td><td style="padding:9px;border:1px solid #e5eaf1">' + escapeHtml_(programme) + '</td></tr>',
+    '<tr><td style="padding:9px;border:1px solid #e5eaf1"><b>Class</b></td><td style="padding:9px;border:1px solid #e5eaf1">' + escapeHtml_(grade) + '</td></tr>',
+    '<tr><td style="padding:9px;border:1px solid #e5eaf1"><b>Status</b></td><td style="padding:9px;border:1px solid #e5eaf1">Under Review</td></tr>',
+    '</table>',
+    '<p>Please keep your Application ID for future communication. Payment and application details will be reviewed by the ILM team.</p>',
+    '<p>Regards,<br><b>Admissions Team</b><br>ILM The Contest Center<br>ilmthecontestcenter@gmail.com</p>',
+    '</div></div>'
+  ].join("");
+
+  MailApp.sendEmail({
+    to: recipient,
+    subject: subject,
+    body: body,
+    htmlBody: html,
+    name: "ILM The Contest Center",
+    replyTo: "ilmthecontestcenter@gmail.com"
+  });
+}
+
+function escapeHtml_(value) {
+  return String(value == null ? "" : value).replace(/[&<>"']/g, function(ch) {
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch];
+  });
 }
 
 function doGet(e) {
