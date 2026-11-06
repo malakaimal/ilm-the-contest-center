@@ -47,7 +47,7 @@ function doGet(e) {
   const action = String((e && e.parameter && e.parameter.action) || "health");
   if (action === "health") return json_({success:true, service:"ILM Exam Portal API", version:"1.0"});
   if (action === "lookup") return json_(lookupAssignedTest_(e.parameter.registrationId, e.parameter.accessCode));
-  if (action === "questions") return json_(getQuestions_(e.parameter.testId));
+  if (action === "questions") return json_(getQuestions_(e.parameter.testId, e.parameter.registrationId, e.parameter.accessCode));
   return json_({success:false,error:"Unknown action"});
 }
 
@@ -90,9 +90,10 @@ function lookupAssignedTest_(registrationId, accessCode) {
   if (!test) return {success:false,error:"Your assigned test is not currently published."};
   return {success:true,test:{id:String(test["Test ID"]),name:String(test["Test Name"]),className:String(test.Class),durationMinutes:Number(test["Duration Minutes"]),instructions:String(test.Instructions || "")}};
 }
-function getQuestions_(testId) {
+function getQuestions_(testId, registrationId, accessCode) {
   const id = String(testId || "").trim();
-  if (!id) return {success:false,error:"Test ID required."};
+  const assignment = lookupAssignedTest_(registrationId, accessCode);
+  if (!assignment.success || assignment.test.id !== id) return {success:false,error:"Test assignment could not be verified."};
   const qs = rows_("Test Questions").filter(r => String(r["Test ID"]) === id).map(r => ({
     id:String(r["Question ID"]), question:String(r.Question),
     options:[String(r["Option A"]),String(r["Option B"]),String(r["Option C"]),String(r["Option D"])],
