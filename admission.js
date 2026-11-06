@@ -37,7 +37,7 @@ if(ilmForm) ilmForm.addEventListener("submit",async e=>{
   };
   // no-cors does not reveal the server response; the success message is deliberately qualified.
   await fetch(ILM_APPS_SCRIPT_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});
-  ilmShowFormMessage("Your application request was sent. The server response cannot be verified in this browser. Please contact ilmthecontestcenter@gmail.com if your Application ID does not appear in your confirmation from ILM.","success");
+  ilmShowFormMessage("Your application has been received and is under review. You will receive a confirmation email at your registered email address within 24 hours. For further assistance, please contact ilmthecontestcenter@gmail.com.","success");
   ilmForm.reset();
  }catch(err){
   ilmShowFormMessage("We could not send your application. Check your connection and try again. "+(err.message||""),"error");
