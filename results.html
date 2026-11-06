@@ -20,57 +20,5 @@
 </main>
 <footer id="site-footer"></footer>
 <script src="script.js"></script>
-<script>
-const ILM_RESULT_API = "https://script.google.com/macros/s/AKfycbx-z39zRlcykXuWjbjVlLMtv-2rNpxrPY_t4EOThv6KoUDLr3tWnIyvzR_F3OV_M6Md/exec";
-const resultForm=document.getElementById("resultLookup");
-const resultMessage=document.getElementById("resultMessage");
-const resultOutput=document.getElementById("resultOutput");
-function showResultMessage(text,type){resultMessage.textContent=text;resultMessage.className="form-message "+(type||"");resultMessage.style.display="block";}
-function addResultRow(container,label,value){
- if(value===undefined||value===null||String(value)==="")return;
- const p=document.createElement("p");const strong=document.createElement("strong");strong.textContent=label+": ";p.append(strong,document.createTextNode(String(value)));container.appendChild(p);
-}
-function searchILMResult(id){
- return new Promise((resolve,reject)=>{
-  const callback="ilmResultCallback";
-  const script=document.createElement("script");
-  const cleanup=()=>{delete window[callback];script.remove();};
-  const timeout=setTimeout(()=>{cleanup();reject(new Error("Request timed out. Please try again."));},15000);
-  window[callback]=data=>{clearTimeout(timeout);cleanup();resolve(data);};
-  script.onerror=()=>{clearTimeout(timeout);cleanup();reject(new Error("Could not connect to the results service."));};
-  script.src=ILM_RESULT_API+"?applicationId="+encodeURIComponent(id)+"&callback="+callback;
-  document.body.appendChild(script);
- });
-}
-resultForm.addEventListener("submit",async event=>{
- event.preventDefault();resultOutput.replaceChildren();showResultMessage("Searching published results...");const button=document.getElementById("resultButton");button.disabled=true;
- try{
-  const response=await searchILMResult(document.getElementById("applicationId").value.trim());
-  if(!response.success)throw new Error(response.message||"Result service unavailable.");
-  // Support both the current Apps Script response (result object)
-  // and the earlier response format (results array).
-  const records = Array.isArray(response.results)
-    ? response.results
-    : (response.result ? [response.result] : []);
-  if(!records.length){showResultMessage("No published result was found for this Application ID. Check the ID and make sure the Published column in Student Results is set to Yes.","");return;}
-  showResultMessage("Official published result found.","success");
-  records.forEach(result=>{
-   const card=document.createElement("div");card.className="card";
-   const heading=document.createElement("h3");heading.textContent=result.Programme||result["Programme"]||"ILM Examination Result";card.appendChild(heading);
-   addResultRow(card,"Student",result["Student Name"]||result["Student Full Name"]);
-   addResultRow(card,"Father / Guardian",result["Father Name"]||result["Father / Guardian Name"]);
-   addResultRow(card,"School",result.School||result["School Name"]);
-   addResultRow(card,"Class",result.Class||result["Current Class"]);
-   addResultRow(card,"Total Marks",result["Total Marks"]);
-   addResultRow(card,"Obtained Marks",result["Obtained Marks"]);
-   addResultRow(card,"Percentage",result.Percentage);
-   addResultRow(card,"Grade",result.Grade);
-   addResultRow(card,"Position",result.Position);
-   addResultRow(card,"Result / Remarks",result["Result Status"]||result.Remarks);
-   resultOutput.appendChild(card);
-  });
- }catch(error){showResultMessage(error.message||"Result search failed.","error");}
- finally{button.disabled=false;}
-});
-</script>
+<script src="results.js"></script>
 </body></html>
