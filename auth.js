@@ -4,7 +4,7 @@ if(loginForm) loginForm.addEventListener("submit",async e=>{
  e.preventDefault();const msg=document.getElementById("formMessage"),btn=loginForm.querySelector("button[type=submit]");
  if(!window.supabaseClient){showMessage(msg,"Authentication library could not load. Refresh and try again.","error");return;}
  btn.disabled=true;btn.textContent="Signing in...";
- try{const {error}=await supabaseClient.auth.signInWithPassword({email:document.getElementById("email").value.trim(),password:document.getElementById("password").value});if(error)throw error;location.href="student-dashbord.html";}
+ try{const {error}=await supabaseClient.auth.signInWithPassword({email:document.getElementById("email").value.trim(),password:document.getElementById("password").value});if(error)throw error;location.href="student-dashboard.html";}
  catch(err){showMessage(msg,err.message||"Unable to sign in. Check your details.","error");}
  finally{btn.disabled=false;btn.textContent="Sign In";}
 });
@@ -25,7 +25,7 @@ if(signupForm) signupForm.addEventListener("submit",async e=>{
    options:{emailRedirectTo:location.origin+"/login.html",data:{full_name:document.getElementById("fullName").value.trim()}}
   });
   if(error)throw error;
-  if(data.session){showMessage(msg,"Your student account is ready. Opening your dashboard...","success");setTimeout(()=>location.assign("student-dashbord.html"),900);}
+  if(data.session){showMessage(msg,"Your student account is ready. Opening your dashboard...","success");setTimeout(()=>location.assign("student-dashboard.html"),900);}
   else{showMessage(msg,"Account created. Check your email for the confirmation link, then sign in to the Student Portal.","success");signupForm.reset();}
  }catch(err){showMessage(msg,err.message||"Account creation failed. Please try again.","error");}
  finally{btn.disabled=false;btn.textContent="Create Student Account";}
