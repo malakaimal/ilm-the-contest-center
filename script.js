@@ -52,3 +52,27 @@ if (!document.querySelector('link[rel="icon"]')) {
   favicon.href = "favicon.svg";
   document.head.appendChild(favicon);
 }
+
+
+/* ILM scroll reveals: progressive enhancement with reduced-motion support */
+(() => {
+  const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduceMotion || !("IntersectionObserver" in window)) return;
+  const revealItems = document.querySelectorAll(
+    "main .section-heading, main .card, main .step-card, main .feature-tile, main .form-card, main .stat"
+  );
+  revealItems.forEach((item, index) => {
+    item.classList.add("ilm-reveal");
+    const delay = index % 4;
+    if (delay) item.setAttribute("data-ilm-delay", String(delay));
+  });
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: "0px 0px -35px 0px" });
+  revealItems.forEach(item => observer.observe(item));
+})();
