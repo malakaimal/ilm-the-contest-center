@@ -12,7 +12,7 @@ const REGISTRATION_HEADERS = [
   "Application ID","Application Date","Student Full Name","Father / Guardian Name",
   "Date of Birth","Email","Contact Phone","Tehsil / Area","School Name","Current Class",
   "Programme","Attempted Online Test Before","Payment Reference / Trx ID","Payment Date",
-  "Payment Screenshot Link","Payment Screen Shot","Password","Payment Status","Application Status","Admin Notes"
+  "Payment Screenshot Link","Payment Screen Shot","Payment Screenshot (Google Drive)","Password","Payment Status","Application Status","Admin Notes"
 ];
 const RESULT_HEADERS = [
   "Application ID","Student Name","Class","Programme","Total Marks","Obtained Marks",
@@ -134,14 +134,14 @@ function outputResponse_(data, callback) {
 }
 
 function getRegistrationSheet_(ss) {
-  const sheets = ss.getSheets();
-  for (let i=0;i<sheets.length;i++) {
-    if (sheets[i].getLastColumn() < 1) continue;
-    const h = sheets[i].getRange(1,1,1,sheets[i].getLastColumn()).getDisplayValues()[0].map(function(x){return String(x).trim();});
-    if (h.indexOf("Application ID") >= 0 && h.indexOf("Student Full Name") >= 0) return sheets[i];
+  // Keep all existing registrations untouched. New admissions go to a fresh tab.
+  const sheetName = "New Student Registrations";
+  let sheet = ss.getSheetByName(sheetName);
+  if (!sheet) sheet = ss.insertSheet(sheetName);
+  if (sheet.getLastRow() === 0) {
+    sheet.getRange(1,1,1,REGISTRATION_HEADERS.length).setValues([REGISTRATION_HEADERS]);
+    sheet.setFrozenRows(1);
   }
-  const sheet = ss.getSheetByName("Student Registrations") || ss.insertSheet("Student Registrations");
-  if (sheet.getLastRow() === 0) sheet.getRange(1,1,1,REGISTRATION_HEADERS.length).setValues([REGISTRATION_HEADERS]);
   return sheet;
 }
 
