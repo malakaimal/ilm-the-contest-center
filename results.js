@@ -1,7 +1,7 @@
 // ILM published-results lookup. Uses the Apps Script JSONP "prefix" parameter.
 (function () {
   "use strict";
-  const API_URL = "https://script.google.com/macros/s/AKfycbx-z39zRlcykXuWjbjVlLMtv-2rNpxrPY_t4EOThv6KoUDLr3tWnIyvzR_F3OV_M6Md/exec";
+  const API_URL = "https://script.google.com/macros/s/AKfycbwGvXpTiN2DBwio0NdnSqAgQBdG1SFV3ISkrFet-mO86UUPUXIyfC1AlmrOdxPGaviF/exec";
   const CALLBACK = "ilmResultCallback";
   const form = document.getElementById("resultLookup");
   const message = document.getElementById("resultMessage");
