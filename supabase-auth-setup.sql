@@ -26,6 +26,7 @@ alter table public.profiles add column if not exists school_name text;
 alter table public.profiles add column if not exists role text default 'student';
 alter table public.profiles add column if not exists created_at timestamptz default now();
 
+create unique index if not exists profiles_id_uidx on public.profiles(id);
 create unique index if not exists profiles_user_id_uidx on public.profiles(user_id);
 create unique index if not exists profiles_registration_id_uidx on public.profiles(registration_id);
 
