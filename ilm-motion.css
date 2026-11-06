@@ -1,0 +1,44 @@
+/* ILM homepage visual layer v2: loaded after the main stylesheet */
+.hero{
+  position:relative!important;
+  isolation:isolate;
+  overflow:hidden;
+  background-color:#061a34!important;
+  background-image:
+    linear-gradient(90deg,rgba(3,18,39,.94) 0%,rgba(5,35,69,.84) 52%,rgba(5,35,69,.45) 100%),
+    url("./assets/ilm-hero-bg.svg")!important;
+  background-size:cover,cover!important;
+  background-position:center,center!important;
+  background-repeat:no-repeat!important;
+  min-height:560px;
+}
+.hero:before{
+  content:"";
+  position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background-image:linear-gradient(rgba(255,255,255,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.10) 1px,transparent 1px);
+  background-size:54px 54px;
+  animation:ilmV2Grid 24s linear infinite;
+}
+.hero:after{
+  content:"";position:absolute;z-index:-1;width:380px;height:380px;
+  right:-120px;bottom:-210px;border:1px solid rgba(241,213,147,.3);
+  border-radius:50%;box-shadow:0 0 0 35px rgba(255,255,255,.035),0 0 0 75px rgba(255,255,255,.025);
+  animation:ilmV2Orbit 18s linear infinite;
+}
+.hero h1{color:#fff;text-shadow:0 8px 35px rgba(0,0,0,.32);animation:ilmV2Up .85s ease both}
+.hero p{color:#e6effa}
+.hero .eyebrow{background:rgba(255,255,255,.10);border:1px solid rgba(226,194,119,.5);padding:8px 14px;border-radius:40px}
+.hero-panel{background:rgba(255,255,255,.12)!important;border:1px solid rgba(255,255,255,.3)!important;box-shadow:0 24px 70px rgba(0,0,0,.24)!important;backdrop-filter:blur(16px);animation:ilmV2Float 6s ease-in-out infinite}
+.hero-panel .big-mark{color:#fff;text-shadow:0 8px 30px rgba(0,0,0,.25)}
+.hero-actions .btn{transition:transform .25s,box-shadow .25s}
+.hero-actions .btn:hover{transform:translateY(-5px);box-shadow:0 14px 30px rgba(0,0,0,.24)}
+main .section-heading,main .card,main .step-card,main .feature-tile{animation:ilmV2Fade .7s ease both}
+main .card{transition:transform .3s,box-shadow .3s}
+main .card:hover{transform:translateY(-8px);box-shadow:0 24px 48px rgba(7,27,53,.14)}
+@keyframes ilmV2Up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes ilmV2Float{0%,100%{transform:translateY(0)}50%{transform:translateY(-11px)}}
+@keyframes ilmV2Grid{from{background-position:0 0,0 0}to{background-position:0 108px,108px 0}}
+@keyframes ilmV2Orbit{to{transform:rotate(360deg)}}
+@keyframes ilmV2Fade{from{opacity:.65}to{opacity:1}}
+@media(max-width:760px){.hero{min-height:0;padding:75px 0!important;background-position:center,62% center!important}.hero-panel{animation:none}}
+@media(prefers-reduced-motion:reduce){.hero:before,.hero:after,.hero h1,.hero-panel,main .section-heading,main .card,main .step-card,main .feature-tile{animation:none!important}}
