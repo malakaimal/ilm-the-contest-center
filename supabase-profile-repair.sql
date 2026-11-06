@@ -75,6 +75,16 @@ create trigger ilm_auth_user_profile_created
 after insert on auth.users
 for each row execute procedure public.ilm_create_student_profile();
 
+-- Repair links on existing profile rows that already have an Auth user.
+update public.profiles
+set user_id = id
+where user_id is null and id is not null;
+
+update public.profiles
+set registration_id = 'ILM' || to_char(now(), 'YYYY') || '-' ||
+  upper(substr(replace(id::text, '-', ''), 1, 8))
+where (registration_id is null or registration_id = '') and id is not null;
+
 -- Backfill profiles for Auth users created before the trigger was repaired.
 insert into public.profiles
   (id, user_id, registration_id, full_name, email, grade, school_name, role)
