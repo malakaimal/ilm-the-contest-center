@@ -31,6 +31,8 @@
       const {data:{session}}=await client.auth.getSession();
       if(!session || !(await isAdmin(session.user))) { await client.auth.signOut(); window.location.replace("admin-login.html"); return; }
       content.style.display="";
+      const gate=document.getElementById("adminAccessGate");
+      if(gate) gate.style.display="none";
       const status=document.getElementById("adminAccessStatus");
       if(status) status.textContent="Signed in as authorised administrator";
       const logout=document.getElementById("adminLogout");
