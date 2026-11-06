@@ -149,6 +149,13 @@ function escapeHtml_(value) {
   });
 }
 
+
+/** Run once from the Apps Script editor to grant the MailApp permission. */
+function authorizeAdmissionEmail() {
+  const remaining = MailApp.getRemainingDailyQuota();
+  Logger.log("Mail service authorized. Remaining daily recipients: " + remaining);
+}
+
 function doGet(e) {
   const params = (e && e.parameter) ? e.parameter : {};
   // Google Apps Script's documented JSONP convention is "prefix".
