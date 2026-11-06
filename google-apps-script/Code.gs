@@ -215,3 +215,18 @@ function setupILMResultsSheet() {
   if (sheet.getLastRow() === 0) sheet.getRange(1,1,1,RESULT_HEADERS.length).setValues([RESULT_HEADERS]);
 }
 
+/**
+ * Run this function manually once from the Apps Script editor.
+ * It creates the separate admissions tab without changing existing student records.
+ */
+function setupNewRegistrationsSheet() {
+  const ss = SpreadsheetApp.openById(ILM_SPREADSHEET_ID);
+  const sheetName = "New Student Registrations";
+  let sheet = ss.getSheetByName(sheetName);
+  if (!sheet) sheet = ss.insertSheet(sheetName);
+  if (sheet.getLastRow() === 0) {
+    sheet.getRange(1, 1, 1, REGISTRATION_HEADERS.length).setValues([REGISTRATION_HEADERS]);
+    sheet.setFrozenRows(1);
+  }
+  Logger.log("Ready: " + sheetName + " in spreadsheet " + ss.getUrl());
+}
