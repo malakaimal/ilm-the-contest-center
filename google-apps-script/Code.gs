@@ -35,7 +35,6 @@ function doPost(e) {
       const id = nextApplicationId_(sheet);
       if (!data.screenshot || !data.screenshot.base64) throw new Error("Payment screenshot was not received by the server.");
       const screenshotUrl = saveScreenshot_(data.screenshot, id);
-      const screenshotColumn = ensureHeader_(sheet, "Payment Screenshot Link");
       const values = {
         "Application ID": id,
         "Application Date": new Date(),
@@ -53,6 +52,7 @@ function doPost(e) {
         "Payment Date": clean_(data.paymentDate,20),
         "Payment Screenshot Link": screenshotUrl,
         "Payment Screen Shot": screenshotUrl,
+        "Payment Screenshot (Google Drive)": screenshotUrl,
         "Password": "",
         "Payment Status": "Pending Verification",
         "Application Status": "Under Review",
