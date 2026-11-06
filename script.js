@@ -1,5 +1,5 @@
 const siteNav = [
-  ["Home","index.html"],["About Us","about.html"],["Programs","programs.html"],
+  ["Home","index.html"],["About Us","about.html"],["Programs","programs.html"],["Exam Centre","exam-portal.html"],
   ["Olympiads","olympiads.html"],["Admission","admission.html"],["Contests","contests.html"],
   ["Results","results.html"],["Certificates","certificates.html"],["FAQs","faqs.html"],["Contact","contact.html"]
 ];
