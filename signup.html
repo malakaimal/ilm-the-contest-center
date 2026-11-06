@@ -133,7 +133,7 @@ document.getElementById('googleSignIn').addEventListener('click',async()=>{
  try{
   const {error}=await window.supabaseClient.auth.signInWithOAuth({
    provider:'google',
-   options:{redirectTo:location.origin+location.pathname.replace(/signup\.html?$/,'student-dashbord.html')}
+   options:{redirectTo:location.origin+location.pathname.replace(/signup\.html?$/,'student-dashboard.html')}
   });
   if(error)throw error;
  }catch(error){
@@ -143,14 +143,48 @@ document.getElementById('googleSignIn').addEventListener('click',async()=>{
  }
 });
 
-form.addEventListener('submit',event=>{
+form.addEventListener('submit',async event=>{
  event.preventDefault();
  statusBox.classList.remove('visible');
  if(!form.reportValidity())return;
+ if(!window.supabaseClient){
+  statusBox.textContent='Supabase could not load. Please refresh and try again.';
+  statusBox.classList.add('visible');return;
+ }
  if(password.value.length<8){password.focus();statusBox.textContent='Please use a password with at least 8 characters.';statusBox.classList.add('visible');return;}
  if(password.value!==confirmPassword.value){confirmPassword.focus();statusBox.textContent='Your passwords do not match. Please check them.';statusBox.classList.add('visible');return;}
- statusBox.textContent='Your sign-up page is ready. Account creation will be activated when the student portal database is connected. No account has been created and your details have not been submitted or saved.';
- statusBox.classList.add('visible');
+ if(!document.getElementById('terms').checked){statusBox.textContent='Please accept the student account declaration.';statusBox.classList.add('visible');return;}
+ const button=form.querySelector('button[type="submit"]');
+ button.disabled=true;button.textContent='Creating account...';
+ try{
+  const {data,error}=await window.supabaseClient.auth.signUp({
+   email:document.getElementById('email').value.trim(),
+   password:password.value,
+   options:{
+    emailRedirectTo:location.origin+location.pathname.replace(/signup\\.html?$/,'login.html'),
+    data:{
+     full_name:document.getElementById('fullName').value.trim(),
+     grade:document.getElementById('grade').value,
+     school_name:document.getElementById('school').value.trim()
+    }
+   }
+  });
+  if(error)throw error;
+  if(data.session){
+   statusBox.textContent='Your ILM student account has been created. Opening your Student Portal...';
+   statusBox.classList.add('visible');
+   setTimeout(()=>location.assign('student-dashboard.html'),1000);
+  }else{
+   statusBox.textContent='Account created successfully. Please check your email and click the confirmation link. After confirming, return to the Student Login page.';
+   statusBox.classList.add('visible');
+   form.reset();strengthBar.style.width='0%';strengthLabel.textContent='Use at least 8 characters.';
+  }
+ }catch(error){
+  statusBox.textContent=error.message||'Account creation failed. Please try again.';
+  statusBox.classList.add('visible');
+ }finally{
+  button.disabled=false;button.textContent='Create Student Account';
+ }
 });
 </script>
 </body>
