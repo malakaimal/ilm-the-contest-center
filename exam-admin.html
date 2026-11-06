@@ -11,7 +11,8 @@
 </head>
 <body>
 <header id="site-header"></header>
-<main>
+<div id="adminAccessGate" class="exam-dashboard-container" style="padding:70px 20px;text-align:center"><h2>Verifying administrator access…</h2><p>Please wait while ILM checks your account.</p></div>
+<main id="adminContent" style="display:none">
   <section class="exam-dashboard-hero">
     <div class="exam-dashboard-container">
       <span class="exam-kicker">ILM MANAGEMENT WORKSPACE</span>
@@ -20,6 +21,8 @@
       <div class="exam-hero-actions">
         <a class="btn btn-primary" href="https://docs.google.com/spreadsheets/d/1Br10xPDn65lSm-tL0YxlPAA0nvaQ_xhZSE_iKnfOC6k/edit" target="_blank" rel="noopener">Open Exam Database</a>
         <a class="btn btn-outline" href="exam-student.html">Student Portal Preview</a>
+        <a class="btn btn-outline" id="adminLogout" href="#">Sign out</a>
+        <p id="adminAccessStatus" aria-live="polite"></p>
       </div>
     </div>
   </section>
@@ -61,6 +64,9 @@
   </div>
 </main>
 <footer id="site-footer"></footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
 <script src="script.js"></script>
+<script src="admin-auth.js"></script>
 </body>
 </html>
