@@ -1,1 +1,66 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Exam Administration | ILM</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="exam-portal.css"></head><body><header id="site-header"></header><main><div class="exam-wrap"><section class="exam-hero"><span class="eyebrow">ILM Management</span><h1>Exam Administration</h1><p>Manage examination sessions, student assignments, question banks and results using the separate ILM Exam Database.</p></section><div class="exam-grid"><section class="exam-card"><h2>Database setup</h2><p class="exam-muted">Create the new spreadsheet by running setupExamDatabase() in the separate Google Apps Script project. The script returns the spreadsheet link in its execution log.</p><a class="btn btn-blue" href="https://script.google.com/home" target="_blank" rel="noopener">Open Google Apps Script</a></section><section class="exam-card"><h2>Admin workflow</h2><ol><li>Create a test session in Test Sessions.</li><li>Add questions in Test Questions.</li><li>Assign students in Student Test Access.</li><li>Publish the session by setting Status to Published.</li><li>Review Student Responses and Test Results.</li></ol></section></div><div class="exam-card" style="margin-top:18px"><h2>Important security note</h2><p class="exam-muted">Do not publish this page as an admin login or place a private admin password in browser JavaScript. Restrict spreadsheet sharing to authorized ILM administrators. This initial release does not yet provide a secure online admin editing interface or AI proctoring.</p><a class="btn btn-light" href="exam-student.html">Open Student Exam Portal</a></div></div></main><footer id="site-footer"></footer><script src="script.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="ILM Examination Administration Workspace">
+<title>Exam Admin Workspace | ILM The Contest Center</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="exam-portal.css">
+<link rel="stylesheet" href="exam-dashboard.css">
+</head>
+<body>
+<header id="site-header"></header>
+<main>
+  <section class="exam-dashboard-hero">
+    <div class="exam-dashboard-container">
+      <span class="exam-kicker">ILM MANAGEMENT WORKSPACE</span>
+      <h1>Examination Administration</h1>
+      <p>Organise test sessions, question banks, student access and result reviews from one clear workspace.</p>
+      <div class="exam-hero-actions">
+        <a class="btn btn-primary" href="https://docs.google.com/spreadsheets/d/1Br10xPDn65lSm-tL0YxlPAA0nvaQ_xhZSE_iKnfOC6k/edit" target="_blank" rel="noopener">Open Exam Database</a>
+        <a class="btn btn-outline" href="exam-student.html">Student Portal Preview</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="exam-dashboard-container exam-dashboard-content">
+    <div class="exam-notice">
+      <strong>Setup status:</strong> Your separate exam database has been created with seven tabs. This website workspace is the frontend foundation. Secure admin sign-in and admin-to-database actions still need to be implemented before online editing is enabled.
+    </div>
+
+    <div class="exam-section-heading">
+      <div><span class="exam-kicker dark">DATABASE CONTROL CENTRE</span><h2>Manage examination records</h2></div>
+      <span class="exam-status-pill">7 database sections</span>
+    </div>
+
+    <div class="exam-module-grid">
+      <a class="exam-module" href="https://docs.google.com/spreadsheets/d/1Br10xPDn65lSm-tL0YxlPAA0nvaQ_xhZSE_iKnfOC6k/edit" target="_blank" rel="noopener"><span class="exam-module-icon">01</span><span><strong>Test Sessions</strong><small>Create test schedules, duration, instructions and publication status in the database.</small></span><b>↗</b></a>
+      <a class="exam-module" href="https://docs.google.com/spreadsheets/d/1Br10xPDn65lSm-tL0YxlPAA0nvaQ_xhZSE_iKnfOC6k/edit" target="_blank" rel="noopener"><span class="exam-module-icon">02</span><span><strong>Student Test Access</strong><small>Assign a test and issue a unique private access code to each student.</small></span><b>↗</b></a>
+      <a class="exam-module" href="https://docs.google.com/spreadsheets/d/1Br10xPDn65lSm-tL0YxlPAA0nvaQ_xhZSE_iKnfOC6k/edit" target="_blank" rel="noopener"><span class="exam-module-icon">03</span><span><strong>Question Bank</strong><small>Store MCQs, four options, correct option and marks for each question.</small></span><b>↗</b></a>
+      <a class="exam-module" href="https://docs.google.com/spreadsheets/d/1Br10xPDn65lSm-tL0YxlPAA0nvaQ_xhZSE_iKnfOC6k/edit" target="_blank" rel="noopener"><span class="exam-module-icon">04</span><span><strong>Student Responses</strong><small>Review submitted answers recorded by the examination service.</small></span><b>↗</b></a>
+      <a class="exam-module" href="https://docs.google.com/spreadsheets/d/1Br10xPDn65lSm-tL0YxlPAA0nvaQ_xhZSE_iKnfOC6k/edit" target="_blank" rel="noopener"><span class="exam-module-icon">05</span><span><strong>Test Results</strong><small>Check calculated marks, percentages and pending review status.</small></span><b>↗</b></a>
+      <a class="exam-module" href="https://docs.google.com/spreadsheets/d/1Br10xPDn65lSm-tL0YxlPAA0nvaQ_xhZSE_iKnfOC6k/edit" target="_blank" rel="noopener"><span class="exam-module-icon">06</span><span><strong>Monitoring Events</strong><small>Review recorded technical events and consent status.</small></span><b>↗</b></a>
+      <a class="exam-module" href="https://docs.google.com/spreadsheets/d/1Br10xPDn65lSm-tL0YxlPAA0nvaQ_xhZSE_iKnfOC6k/edit" target="_blank" rel="noopener"><span class="exam-module-icon">07</span><span><strong>Recording Records</strong><small>Reserved for future consent-based recording records. Recording is not active.</small></span><b>↗</b></a>
+    </div>
+
+    <div class="exam-section-heading exam-gap-top">
+      <div><span class="exam-kicker dark">ADMIN WORKFLOW</span><h2>Prepare and publish a test</h2></div>
+    </div>
+    <div class="exam-workflow">
+      <article><span>01</span><h3>Create a session</h3><p>Add a unique Test ID, title, class, schedule, duration and instructions in Test Sessions.</p></article>
+      <article><span>02</span><h3>Add questions</h3><p>Add each MCQ in Test Questions. Keep the correct option in the admin-only spreadsheet.</p></article>
+      <article><span>03</span><h3>Assign students</h3><p>Add each student's Registration ID, Test ID, unique access code and Assigned status.</p></article>
+      <article><span>04</span><h3>Publish and review</h3><p>Publish only when ready, then review submissions and results after the test.</p></article>
+    </div>
+
+    <div class="exam-security-panel">
+      <div><span class="exam-kicker dark">SECURITY & STUDENT PRIVACY</span><h2>Before enabling live exams</h2><p>The current backend is an early foundation, not a production-secure examination service. Admin authentication, exam-window enforcement, stronger student verification and server-side request validation must be completed before public deployment. Camera and screen checks are not AI monitoring, and this version does not record or upload video.</p></div>
+      <a class="btn btn-blue" href="EXAM-PORTAL-SETUP.md">Read setup notes</a>
+    </div>
+  </div>
+</main>
+<footer id="site-footer"></footer>
+<script src="script.js"></script>
+</body>
+</html>
