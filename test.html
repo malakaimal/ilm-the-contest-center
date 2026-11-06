@@ -3,41 +3,47 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Access official ILM online tests and assessment information.">
+<meta name="description" content="Prepare your device for an ILM online assessment.">
 <meta name="theme-color" content="#073b46">
 <title>Online Test | ILM The Contest Center</title>
 <link rel="stylesheet" href="style.css">
 <style>
 .test-intro{max-width:850px;margin:auto;text-align:center}
-.test-panel{max-width:850px;margin:34px auto 0;background:#fff;border:1px solid #dce9e2;border-radius:20px;padding:clamp(24px,5vw,42px);box-shadow:0 20px 55px #082d5012}
-.test-panel h2{color:#092f48;font-size:27px;margin-bottom:10px}
-.test-panel>p{color:var(--muted)}
-.test-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin:27px 0}
-.test-step{padding:18px;border:1px solid #e1eae5;border-radius:13px;background:#f8fbf9}
-.test-step strong{display:block;color:#08734f;margin-bottom:5px}
-.test-step span{font-size:13px;color:var(--muted)}
-.test-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:25px}
-.test-note{margin-top:22px;padding:14px 16px;border-radius:10px;background:#fff8e7;border:1px solid #f0dfb7;color:#77591d;font-size:13px}
-@media(max-width:650px){.test-steps{grid-template-columns:1fr}.test-step{display:flex;gap:12px;align-items:flex-start}.test-step strong{min-width:92px}}
+.test-panel{max-width:900px;margin:30px auto 0;background:#fff;border:1px solid #dce9e2;border-radius:20px;padding:clamp(22px,4vw,38px);box-shadow:0 20px 55px #082d5012}
+.test-panel h2{color:#092f48;font-size:25px;margin-bottom:10px}
+.test-panel>p,.muted-small{color:var(--muted)}
+.check-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:24px 0}
+.check-card{border:1px solid #e1eae5;border-radius:14px;padding:18px;background:#f8fbf9}
+.check-card strong{display:block;color:#092f48;margin-bottom:6px}
+.status{font-size:13px;color:#77591d}
+.status.ok{color:#08734f}
+.camera-preview{width:100%;max-width:420px;aspect-ratio:16/9;background:#102b35;border-radius:12px;display:block;margin:16px auto;object-fit:cover}
+.test-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:22px}
+.test-note{margin-top:18px;padding:14px 16px;border-radius:10px;background:#fff8e7;border:1px solid #f0dfb7;color:#77591d;font-size:13px}
+.consent{display:flex;gap:10px;align-items:flex-start;margin:18px 0;color:#344b55;font-size:14px}
+.consent input{margin-top:4px}
+.warning{display:none;margin-top:14px;padding:12px;border-radius:10px;background:#fff0ed;color:#9b3325;font-size:14px}
+@media(max-width:650px){.check-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <header id="site-header"></header>
 <main>
-<section class="page-hero"><div class="container"><span class="eyebrow">ILM Student Assessment</span><h1>Online Test</h1><p>Access official ILM online assessments and follow the instructions for your test session.</p></div></section>
+<section class="page-hero"><div class="container"><span class="eyebrow">ILM Student Assessment</span><h1>Online Test</h1><p>Prepare and check your device before an official ILM assessment.</p></div></section>
 <section class="section section-soft">
 <div class="container">
-<div class="test-intro"><span class="tag">Student Test Centre</span><h2>Prepare for your ILM online test</h2><p class="muted">Use your student account to continue. A test can only be attempted when ILM has announced or assigned an active test session for you.</p></div>
+<div class="test-intro"><span class="tag">Student Test Centre</span><h2>Secure test preparation</h2><p class="muted">Sign in with your student account. You can check your camera before an official test session begins.</p></div>
 <div class="test-panel">
-<h2>Before you begin</h2>
-<p>Please make sure you are ready before opening an assigned test session.</p>
-<div class="test-steps">
-<div class="test-step"><strong>01 · Sign in</strong><span>Use your registered student account.</span></div>
-<div class="test-step"><strong>02 · Check details</strong><span>Read the test instructions and time limit carefully.</span></div>
-<div class="test-step"><strong>03 · Begin</strong><span>Start only when your official test session is available.</span></div>
+<h2>Device readiness</h2>
+<p>Use the checks below before your scheduled test. Your browser will ask for camera permission only after you press the camera button.</p>
+<div class="check-grid">
+<div class="check-card"><strong>Camera permission</strong><span id="cameraStatus" class="status">Not checked</span><button type="button" class="btn btn-blue" id="cameraButton" style="margin-top:12px">Check Camera</button><video id="cameraPreview" class="camera-preview" autoplay muted playsinline hidden></video><p class="muted-small" id="cameraHelp">Camera preview stays on this device. It is not uploaded or recorded by this page.</p></div>
+<div class="check-card"><strong>Exam display</strong><span id="screenStatus" class="status">Full-screen mode not active</span><button type="button" class="btn btn-light" id="fullscreenButton" style="margin-top:12px">Enter Full Screen</button><p class="muted-small">Some browsers may not support full-screen mode.</p></div>
 </div>
-<div class="test-actions"><a class="btn btn-blue" href="login.html">Student Login</a><a class="btn btn-light" href="portal.html">Open Student Portal</a></div>
-<div class="test-note"><strong>Important:</strong> This page is the official entry point for online test information. Signing in does not mean a test is currently active. Follow the schedule and instructions shared by ILM.</div>
+<label class="consent"><input type="checkbox" id="privacyConsent"><span>I understand that camera access is optional for this device check and that this page does not record or upload my camera feed. Any official monitoring rules will be shown before the test starts.</span></label>
+<div id="pageWarning" class="warning" role="status"></div>
+<div class="test-note"><strong>Privacy and fairness:</strong> This page currently provides a camera check and basic browser readiness only. It does not use facial recognition, identify students, record video, or run an AI proctoring model. If an official test requires monitoring, ILM must explain what is collected, why it is needed, who can access it, and how long it is kept before asking for consent.</div>
+<div class="test-actions"><a class="btn btn-blue" href="login.html">Student Login</a><a class="btn btn-light" href="student-dashboard.html">Student Portal</a></div>
 </div>
 </div>
 </section>
@@ -45,5 +51,57 @@
 </main>
 <footer id="site-footer"></footer>
 <script src="script.js"></script>
+<script>
+(()=>{
+ const cameraButton=document.getElementById("cameraButton");
+ const cameraStatus=document.getElementById("cameraStatus");
+ const preview=document.getElementById("cameraPreview");
+ const cameraHelp=document.getElementById("cameraHelp");
+ const fullscreenButton=document.getElementById("fullscreenButton");
+ const screenStatus=document.getElementById("screenStatus");
+ const warning=document.getElementById("pageWarning");
+ let cameraStream=null;
+ function showWarning(message){warning.textContent=message;warning.style.display="block";}
+ function stopCamera(){
+   if(cameraStream){cameraStream.getTracks().forEach(track=>track.stop());cameraStream=null;}
+   preview.srcObject=null;preview.hidden=true;
+   cameraStatus.textContent="Camera stopped";cameraStatus.className="status";
+   cameraButton.textContent="Check Camera";
+ }
+ cameraButton.addEventListener("click",async()=>{
+   if(cameraStream){stopCamera();return;}
+   if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){
+     cameraStatus.textContent="Camera check unavailable in this browser";showWarning("Use an updated browser and a secure HTTPS website to check your camera.");return;
+   }
+   cameraButton.disabled=true;cameraStatus.textContent="Waiting for permission...";
+   try{
+     cameraStream=await navigator.mediaDevices.getUserMedia({video:true,audio:false});
+     preview.srcObject=cameraStream;preview.hidden=false;
+     cameraStatus.textContent="Camera ready";cameraStatus.className="status ok";
+     cameraButton.textContent="Stop Camera Preview";
+     cameraHelp.textContent="Camera preview is local to this browser tab. Press Stop Camera Preview when finished.";
+   }catch(error){
+     cameraStatus.textContent=error.name==="NotAllowedError"?"Permission denied":"Camera unavailable";
+     showWarning("Camera access was not granted. Check your browser site permissions and try again.");
+   }finally{cameraButton.disabled=false;}
+ });
+ fullscreenButton.addEventListener("click",async()=>{
+   try{
+     if(!document.fullscreenElement){await document.documentElement.requestFullscreen();}
+     else{await document.exitFullscreen();}
+   }catch(error){showWarning("Full-screen mode could not be enabled. Your browser may block this feature.");}
+ });
+ document.addEventListener("fullscreenchange",()=>{
+   const active=!!document.fullscreenElement;
+   screenStatus.textContent=active?"Full-screen mode active":"Full-screen mode not active";
+   screenStatus.className=active?"status ok":"status";
+   fullscreenButton.textContent=active?"Exit Full Screen":"Enter Full Screen";
+ });
+ document.addEventListener("visibilitychange",()=>{
+   if(document.hidden)showWarning("You left the test preparation page. No exam is running on this page yet.");
+ });
+ window.addEventListener("pagehide",stopCamera);
+})();
+</script>
 </body>
 </html>
