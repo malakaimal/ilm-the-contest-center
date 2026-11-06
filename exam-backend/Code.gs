@@ -40,7 +40,9 @@ function setupExamDatabase() {
   });
   const defaultSheet = ss.getSheetByName("Sheet1");
   if (defaultSheet && ss.getSheets().length > 1 && defaultSheet.getLastRow() === 0) ss.deleteSheet(defaultSheet);
-  return {success:true, spreadsheetUrl:ss.getUrl(), spreadsheetId:ss.getId(), message:"New ILM exam database created. Existing ILM spreadsheets were not changed."};
+  const result = {success:true, spreadsheetUrl:ss.getUrl(), spreadsheetId:ss.getId(), message:"New ILM exam database created. Existing ILM spreadsheets were not changed."};
+  Logger.log(JSON.stringify(result));
+  return result;
 }
 
 function doGet(e) {
@@ -109,6 +111,8 @@ function submitAnswers_(body) {
   const answers=Array.isArray(body.answers)?body.answers:[];
   if (!answers.length) return {success:false,error:"No answers were submitted."};
   const ss=examDb_(), sh=ss.getSheetByName("Student Responses");
+  const prior = rows_("Test Results").some(r => String(r["Registration ID"]) === reg && String(r["Test ID"]) === testId);
+  if (prior) return {success:false,error:"A submission for this test has already been received."};
   const now=new Date();
   const safe=answers.map(a=>[now,reg,testId,String(a.questionId||""),String(a.option||"")]);
   sh.getRange(sh.getLastRow()+1,1,safe.length,safe[0].length).setValues(safe);
