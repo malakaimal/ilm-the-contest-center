@@ -71,35 +71,66 @@ function doPost(e) {
 }
 
 function doGet(e) {
-  const params = (e && e.parameter) || {};
-  const callback = String(params.callback || "");
-  if (!/^[$A-Z_][0-9A-Z_$\.]{0,80}$/i.test(callback)) {
-    return ContentService.createTextOutput("Invalid callback").setMimeType(ContentService.MimeType.TEXT);
+  const params = (e && e.parameter) ? e.parameter : {};
+  // Google Apps Script's documented JSONP convention is "prefix".
+  // Accept "callback" too, for compatibility with older website versions.
+  const callback = String(params.prefix || params.callback || "").trim();
+
+  if (params.action === "health") {
+    return ContentService.createTextOutput(JSON.stringify({
+      success: true,
+      service: "ILM Admissions and Results API",
+      version: "2026-11-05"
+    })).setMimeType(ContentService.MimeType.JSON);
   }
+
+  const applicationId = clean_(params.applicationId || "", 50).toUpperCase();
+  if (!applicationId) {
+    return outputResponse_({success:false,message:"Enter your Application ID."}, callback);
+  }
+
   try {
-    const applicationId = clean_(params.applicationId || "",50).toUpperCase();
-    if (!applicationId) return jsonp_(callback,{success:false,message:"Enter your Application ID."});
     const ss = SpreadsheetApp.openById(ILM_SPREADSHEET_ID);
     const sheet = ss.getSheetByName("Student Results");
-    if (!sheet || sheet.getLastRow() < 2) return jsonp_(callback,{success:true,results:[]});
+    if (!sheet || sheet.getLastRow() < 2) {
+      return outputResponse_({success:true,results:[]}, callback);
+    }
+
     const values = sheet.getDataRange().getDisplayValues();
-    const headers = values[0].map(function(h){return String(h).trim();});
+    const headers = values[0].map(function(h) { return String(h).trim(); });
     const idCol = headers.indexOf("Application ID");
     const publishedCol = headers.indexOf("Published");
-    if (idCol < 0 || publishedCol < 0) throw new Error("Results sheet headers are missing.");
+    if (idCol < 0 || publishedCol < 0) {
+      throw new Error("Student Results must contain Application ID and Published columns.");
+    }
+
     const results = [];
-    for (let i=1;i<values.length;i++) {
+    for (let i = 1; i < values.length; i++) {
       const row = values[i];
       if (String(row[idCol]).trim().toUpperCase() !== applicationId) continue;
       if (!/^(yes|true|published)$/i.test(String(row[publishedCol]).trim())) continue;
       const item = {};
-      headers.forEach(function(h,j){ if (h && h !== "Published") item[h] = row[j]; });
+      headers.forEach(function(header, j) {
+        if (header && header !== "Published") item[header] = row[j];
+      });
       results.push(item);
     }
-    return jsonp_(callback,{success:true,results:results});
+    return outputResponse_({success:true,results:results}, callback);
   } catch (err) {
-    return jsonp_(callback,{success:false,message:"Result search is temporarily unavailable."});
+    return outputResponse_({success:false,message:String(err.message || err)}, callback);
   }
+}
+
+function outputResponse_(data, callback) {
+  // Only allow a simple JavaScript function name for JSONP.
+  // Without a valid prefix, return ordinary JSON instead of "Invalid callback".
+  if (callback && /^[A-Za-z_$][0-9A-Za-z_$]{0,80}$/.test(callback)) {
+    return ContentService.createTextOutput(
+      callback + "(" + JSON.stringify(data).replace(/</g, "\\u003c") + ");"
+    ).setMimeType(ContentService.MimeType.JAVASCRIPT);
+  }
+  return ContentService.createTextOutput(JSON.stringify(data))
+    .setMimeType(ContentService.MimeType.JSON);
 }
 
 function getRegistrationSheet_(ss) {
