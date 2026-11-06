@@ -69,6 +69,7 @@
    cameraButton.textContent="Check Camera";
  }
  cameraButton.addEventListener("click",async()=>{
+   if(!document.getElementById("privacyConsent").checked){showWarning("Please read and accept the camera privacy notice before starting the camera check.");return;}
    if(cameraStream){stopCamera();return;}
    if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){
      cameraStatus.textContent="Camera check unavailable in this browser";showWarning("Use an updated browser and a secure HTTPS website to check your camera.");return;
