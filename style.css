@@ -411,3 +411,90 @@ main>section:not(.page-hero){position:relative}
   .page-hero{background-position:center,60% center}
   .hero-panel{animation:none}
 }
+
+
+/* =========================================================
+   ILM PHOTOGRAPHIC PAGE HEROES
+   Original ILM layout, inspired by the clear education-site
+   presentation style of Great Future Pakistan.
+   ========================================================= */
+body[class*="page-"] main{position:relative}
+body[class*="page-"] .page-hero,
+body.page-exam-portal .exam-dashboard-hero,
+body.page-exam-admin .exam-dashboard-hero,
+body.page-exam-student .exam-hero{
+  position:relative;isolation:isolate;overflow:hidden;
+  background-size:cover!important;background-position:center 48%!important;
+  background-repeat:no-repeat!important;
+  min-height:270px;
+}
+body[class*="page-"] .page-hero:before,
+body.page-exam-portal .exam-dashboard-hero:before,
+body.page-exam-admin .exam-dashboard-hero:before,
+body.page-exam-student .exam-hero:before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(90deg,rgba(3,23,48,.93),rgba(5,45,78,.77) 58%,rgba(5,35,63,.38));
+}
+body.page-home .ilm-home-hero{
+  background-image:linear-gradient(90deg,rgba(3,20,43,.92),rgba(5,38,70,.58)),url("https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=2000&q=85")!important;
+  background-size:cover!important;background-position:center 42%!important;
+}
+body.page-about .page-hero{
+  background-image:url("https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1900&q=85")!important;
+}
+body.page-olympiads .page-hero{
+  background-image:url("https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1900&q=85")!important;
+}
+body.page-programs .program-hero{
+  position:relative;isolation:isolate;
+  background-image:linear-gradient(90deg,rgba(3,23,48,.94),rgba(5,45,78,.72)),url("https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1900&q=85")!important;
+  background-size:cover!important;background-position:center 45%!important;
+}
+body.page-results .page-hero{
+  background-image:url("https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1900&q=85")!important;
+}
+body.page-certificates .page-hero{
+  background-image:url("https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=1900&q=85")!important;
+}
+body.page-admission main{
+  background:linear-gradient(90deg,rgba(5,27,52,.82),rgba(5,43,72,.58)),url("https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1900&q=85") center/cover fixed;
+  padding:65px 0;
+}
+body.page-contact .page-hero{
+  background-image:url("https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1900&q=85")!important;
+}
+body.page-login main,
+body.page-admin-login main,
+body.page-signup main,
+body.page-portal main{
+  background:linear-gradient(90deg,rgba(4,25,48,.86),rgba(7,55,78,.60)),url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1900&q=85") center/cover;
+}
+body.page-signup .signup-page{background:transparent}
+body.page-portal .portal-section{background:transparent}
+body.page-admin-dashboard,
+body.page-student-dashboard{
+  background:linear-gradient(90deg,rgba(4,24,47,.86),rgba(5,49,75,.58)),url("https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1900&q=85") center/cover fixed;
+}
+body.page-admin-dashboard .admin-main,
+body.page-student-dashboard .dashboard-main{
+  background:rgba(246,250,253,.91);border-radius:18px;margin:22px;
+  box-shadow:0 18px 50px rgba(0,0,0,.12);backdrop-filter:blur(10px);
+}
+body.page-exam-portal .exam-dashboard-hero{
+  background-image:url("https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1900&q=85")!important;
+}
+body.page-exam-admin .exam-dashboard-hero{
+  background-image:url("https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1900&q=85")!important;
+}
+body.page-exam-student .exam-hero{
+  background-image:url("https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1900&q=85")!important;
+}
+body.page-exam-portal .exam-dashboard-hero,
+body.page-exam-admin .exam-dashboard-hero,
+body.page-exam-student .exam-hero{background-size:cover!important;background-position:center!important}
+@media(max-width:760px){
+  body.page-admission main{background-attachment:scroll;padding:35px 0}
+  body.page-admin-dashboard .admin-main,
+  body.page-student-dashboard .dashboard-main{margin:10px;padding:20px}
+  body[class*="page-"] .page-hero{min-height:220px}
+}
