@@ -517,3 +517,90 @@ body.page-admin-dashboard .page-hero{
 body.page-student-dashboard .page-hero{
  background-image:url("https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1900&q=85")!important;
 }
+
+
+/* ILM HOME: education-portal layout */
+.page-home .ilm-news-strip{background:#082b50;color:#fff;border-bottom:3px solid #d7a83e}
+.page-home .ilm-news-inner{min-height:44px;display:flex;align-items:center;gap:18px;font-size:13px}
+.page-home .ilm-news-inner strong{background:#d7a83e;color:#102b47;padding:7px 12px;letter-spacing:.08em;font-size:11px}
+.page-home .ilm-news-inner span{flex:1;color:#e7eff8}
+.page-home .ilm-news-inner a{color:#f4c75c;font-weight:700;text-decoration:none;white-space:nowrap}
+.page-home .ilm-gfp-hero{min-height:560px;position:relative;isolation:isolate;display:flex;align-items:center;overflow:hidden;background:#092747 url("https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=2200&q=88") center 42%/cover no-repeat}
+.page-home .ilm-gfp-hero-shade{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(3,22,45,.94) 0%,rgba(4,34,63,.83) 48%,rgba(4,35,61,.28) 100%)}
+.page-home .ilm-gfp-hero-content{padding-top:90px;padding-bottom:105px;color:white;max-width:1200px}
+.page-home .ilm-gfp-kicker{display:inline-block;color:#f3c65b;font-size:12px;font-weight:800;letter-spacing:.19em;margin-bottom:22px}
+.page-home .ilm-gfp-hero h1{font-size:clamp(38px,6vw,68px);line-height:1.08;max-width:800px;color:#fff;margin:0 0 22px;font-weight:800}
+.page-home .ilm-gfp-hero h1 em{font-style:normal;color:#f0c45c}
+.page-home .ilm-gfp-hero-content p{font-size:17px;line-height:1.8;color:#edf4fb;max-width:650px;margin:0 0 28px}
+.page-home .ilm-gfp-hero .btn-outline{border:1px solid rgba(255,255,255,.8);color:white;background:rgba(255,255,255,.08)}
+.page-home .ilm-gfp-hero-label{position:absolute;right:max(4vw,calc((100vw - 1160px)/2));bottom:34px;color:white;display:flex;gap:12px;align-items:center;font-size:11px;font-weight:800;letter-spacing:.18em}
+.page-home .ilm-gfp-hero-label b{color:#e7b84e}
+.page-home .ilm-quick-links{background:#fff;position:relative;z-index:2;box-shadow:0 12px 35px rgba(5,32,58,.10)}
+.page-home .ilm-quick-grid{display:grid;grid-template-columns:repeat(5,1fr);padding:0}
+.page-home .ilm-quick-grid>a{min-height:142px;padding:23px 14px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;text-decoration:none;border-right:1px solid #e7edf3;color:#102c4b;transition:.2s}
+.page-home .ilm-quick-grid>a:last-child{border-right:0}
+.page-home .ilm-quick-grid>a:hover{background:#f3f8fc;transform:translateY(-3px)}
+.page-home .ilm-quick-icon{width:42px;height:42px;display:grid;place-items:center;border-radius:50%;background:#edf4fa;color:#0d4774;font-size:21px;margin-bottom:10px}
+.page-home .ilm-quick-grid strong{font-size:14px}
+.page-home .ilm-quick-grid small{font-size:11px;color:#718096;margin-top:5px}
+.page-home .ilm-who-section{padding-top:90px;padding-bottom:90px}
+.page-home .ilm-who-grid{display:grid;grid-template-columns:1fr 1fr;gap:65px;align-items:center}
+.page-home .ilm-who-image{min-height:390px;border-radius:8px;background:url("https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1100&q=85") center/cover;box-shadow:20px 20px 0 #e9bd55}
+.page-home .ilm-who-copy h2,.page-home .ilm-resources-grid h2{font-size:clamp(29px,3.6vw,43px);line-height:1.18;color:#102d4c;margin:14px 0 18px}
+.page-home .ilm-who-copy p,.page-home .ilm-resources-grid p{color:#64748b;line-height:1.85}
+.page-home .ilm-updates-section{background:#f4f7fa}
+.page-home .ilm-heading-row{display:flex;justify-content:space-between;align-items:end;gap:20px;text-align:left}
+.page-home .ilm-view-all{font-weight:700;color:#0c4775;text-decoration:none;white-space:nowrap}
+.page-home .ilm-updates-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:30px}
+.page-home .ilm-update-card{background:#fff;border:1px solid #e5ebf1;border-radius:9px;padding:27px;box-shadow:0 8px 24px rgba(13,43,71,.045)}
+.page-home .ilm-update-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:23px}
+.page-home .ilm-update-top span,.page-home .ilm-programme-body>span{font-size:10px;letter-spacing:.14em;color:#a47a22;font-weight:800}
+.page-home .ilm-update-top b{font-size:23px;color:#dce6ef}
+.page-home .ilm-update-card h3{font-size:20px;color:#102d4c;margin:0 0 10px}
+.page-home .ilm-update-card p{color:#6b7888;line-height:1.7;font-size:14px;min-height:72px}
+.page-home .ilm-update-card>a,.page-home .ilm-programme-body>a{display:inline-block;color:#0c4b78;font-weight:800;text-decoration:none;margin-top:10px}
+.page-home .ilm-programmes-section{padding-top:88px;padding-bottom:88px}
+.page-home .ilm-programme-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:23px;margin-top:30px}
+.page-home .ilm-programme-card{background:#fff;border-radius:9px;overflow:hidden;border:1px solid #e5ebf1;box-shadow:0 12px 32px rgba(13,43,71,.07)}
+.page-home .ilm-programme-photo{height:205px;background-size:cover;background-position:center}
+.page-home .ilm-photo-math{background-image:url("https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=900&q=85")}
+.page-home .ilm-photo-contest{background-image:url("https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=900&q=85")}
+.page-home .ilm-photo-club{background-image:url("https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=900&q=85")}
+.page-home .ilm-programme-body{padding:24px}
+.page-home .ilm-programme-body h3{font-size:21px;color:#102d4c;margin:10px 0}
+.page-home .ilm-programme-body p{font-size:14px;color:#6b7888;line-height:1.7;min-height:70px}
+.page-home .ilm-resources-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:65px;align-items:center}
+.page-home .ilm-resource-links{border-top:1px solid #e5ebf1}
+.page-home .ilm-resource-links a{display:flex;align-items:center;gap:18px;padding:19px 4px;border-bottom:1px solid #e5ebf1;text-decoration:none;color:#153653}
+.page-home .ilm-resource-links a span{color:#c49a3b;font-size:12px;font-weight:800}
+.page-home .ilm-resource-links a b{flex:1}
+.page-home .ilm-resource-links a i{font-style:normal;font-size:20px;color:#0c4b78}
+.page-home .ilm-home-cta{background:linear-gradient(110deg,#082849,#0b4b73);padding:58px 0;color:white}
+.page-home .ilm-home-cta-inner{display:flex;align-items:center;justify-content:space-between;gap:28px}
+.page-home .ilm-home-cta-inner>div>span{font-size:11px;letter-spacing:.17em;color:#f1c45b;font-weight:800}
+.page-home .ilm-home-cta h2{font-size:clamp(25px,3vw,36px);margin:10px 0;color:white}
+.page-home .ilm-home-cta p{color:#d9e7f3;margin:0}
+.page-home .ilm-home-cta .btn{white-space:nowrap}
+@media(max-width:800px){
+ .page-home .ilm-quick-grid{grid-template-columns:repeat(3,1fr)}
+ .page-home .ilm-quick-grid>a{border-bottom:1px solid #e7edf3}
+ .page-home .ilm-who-grid,.page-home .ilm-resources-grid{grid-template-columns:1fr;gap:35px}
+ .page-home .ilm-who-image{min-height:280px}
+ .page-home .ilm-updates-grid,.page-home .ilm-programme-grid{grid-template-columns:1fr 1fr}
+ .page-home .ilm-gfp-hero{min-height:520px}
+}
+@media(max-width:540px){
+ .page-home .ilm-news-inner{gap:9px;font-size:11px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
+ .page-home .ilm-news-inner strong{padding:5px 7px}
+ .page-home .ilm-news-inner span{flex-basis:65%}
+ .page-home .ilm-gfp-hero{min-height:560px;background-position:58% center}
+ .page-home .ilm-gfp-hero-content{padding-top:70px;padding-bottom:85px}
+ .page-home .ilm-gfp-hero-content p{font-size:15px}
+ .page-home .ilm-gfp-hero-label{left:22px;right:auto;font-size:9px}
+ .page-home .ilm-quick-grid{grid-template-columns:repeat(2,1fr)}
+ .page-home .ilm-quick-grid>a{min-height:125px}
+ .page-home .ilm-updates-grid,.page-home .ilm-programme-grid{grid-template-columns:1fr}
+ .page-home .ilm-heading-row,.page-home .ilm-home-cta-inner{align-items:flex-start;flex-direction:column}
+ .page-home .ilm-who-section,.page-home .ilm-programmes-section{padding-top:60px;padding-bottom:60px}
+ .page-home .ilm-update-card p,.page-home .ilm-programme-body p{min-height:0}
+}
