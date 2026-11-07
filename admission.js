@@ -61,3 +61,11 @@ document.getElementById("nextAdmissionStep")?.addEventListener("click",()=>{
  ilmSetAdmissionStep(2);
 });
 document.getElementById("backAdmissionStep")?.addEventListener("click",()=>ilmSetAdmissionStep(1));
+const ilmPaymentGuideButton=document.getElementById("viewPaymentInstructions");
+const ilmPaymentGuide=document.getElementById("paymentInstructions");
+ilmPaymentGuideButton?.addEventListener("click",()=>{
+ const willOpen=ilmPaymentGuide.classList.contains("hidden");
+ ilmPaymentGuide.classList.toggle("hidden",!willOpen);
+ ilmPaymentGuideButton.setAttribute("aria-expanded",String(willOpen));
+ ilmPaymentGuideButton.textContent=willOpen?"Hide Payment Instructions":"View Payment Instructions";
+});
