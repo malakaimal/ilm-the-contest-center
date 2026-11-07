@@ -11,11 +11,12 @@
 <div class="section-heading"><span class="tag">ILM Student Admissions</span><h2>Student Admission & Registration</h2><p>Complete this form to apply for an ILM programme. Your admission details and payment proof will be sent to ILM.</p></div>
 <div class="notice">Please enter accurate information. Your payment screenshot is required. It will be saved in ILM Google Drive, and its file link will be recorded in the admissions spreadsheet.</div>
 <form id="signupForm">
-<h3>Student Information</h3><div class="form-grid">
+<section class="ilm-form-panel" id="admissionStep1"><h3>Personal / Academic Information</h3><div class="form-grid">
 <div class="field"><label for="fullName">Student Full Name *</label><input id="fullName" name="fullName" required maxlength="120" autocomplete="name"></div>
 <div class="field"><label for="fatherName">Father's / Guardian's Name *</label><input id="fatherName" name="fatherName" required maxlength="120"></div>
 <div class="field"><label for="dateOfBirth">Date of Birth *</label><input id="dateOfBirth" name="dateOfBirth" type="date" required></div>
 <div class="field"><label for="email">Student / Parent Email Address *</label><input id="email" name="email" type="email" required maxlength="180" autocomplete="email"></div>
+<div class="field"><label for="confirmEmail">Confirm Email Address *</label><input id="confirmEmail" name="confirmEmail" type="email" required maxlength="180" autocomplete="email"></div>
 <div class="field"><label for="phone">Contact Phone Number *</label><input id="phone" name="phone" type="tel" required maxlength="30" placeholder="03XXXXXXXXX"></div>
 <div class="field"><label for="area">Tehsil / Area *</label><input id="area" name="area" required maxlength="100" placeholder="e.g. Chakesar"></div>
 <div class="field"><label for="school">School Name *</label><input id="school" name="school" required maxlength="180"></div>
@@ -23,13 +24,15 @@
 <div class="field"><label for="program">Programme Applying For *</label><select id="program" name="program" required><option value="">Select programme</option><option>ILM Math Olympiad 1</option><option>ILM Math Olympiad 2</option><option>ILM Talent Olympiad 2026</option><option>Annual Mega Contest</option><option>Regional Math Clubs</option><option>Practice Books</option></select></div>
 <div class="field"><label for="previousTest">Have you attempted an ILM online test before? *</label><select id="previousTest" name="previousTest" required><option value="">Please select</option><option>Yes</option><option>No</option></select></div>
 </div>
-<h3 class="spacer-top">Payment Information</h3><div class="form-grid">
+<div class="ilm-form-actions"><button class="btn btn-blue" type="button" id="nextAdmissionStep">Continue to Payment Details →</button></div></section>
+<section class="ilm-form-panel hidden" id="admissionStep2"><h3 class="spacer-top">Payment Details</h3><div class="form-grid">
+<div class="field"><label for="paymentMethod">Payment Method *</label><select id="paymentMethod" name="paymentMethod" required><option value="">Select method</option><option>Easypaisa</option><option>JazzCash</option><option>Bank Transfer</option><option>Other</option></select></div>
 <div class="field"><label for="paymentReference">Payment Reference / Transaction ID</label><input id="paymentReference" name="paymentReference" maxlength="100" placeholder="Enter transaction reference if already paid"></div>
 <div class="field"><label for="paymentDate">Payment Date</label><input id="paymentDate" name="paymentDate" type="date"></div>
 <div class="field"><label for="paymentScreenshot">Payment Screenshot *</label><input id="paymentScreenshot" name="paymentScreenshot" type="file" accept="image/jpeg,image/png,image/webp" required aria-describedby="paymentScreenshotHelp"><small id="paymentScreenshotHelp" class="muted">Required. Upload a clear JPG, PNG or WebP image, maximum 5 MB.</small></div>
 </div>
 <label class="muted" style="display:flex;gap:10px;align-items:flex-start;margin:18px 0 20px"><input type="checkbox" id="terms" required style="margin-top:4px">I confirm that the information is accurate and agree that ILM may contact me or my parent/guardian about this application.</label>
-<button class="btn btn-blue" type="submit">Submit Admission Application</button>
+<div class="ilm-form-actions"><button class="btn btn-outline" type="button" id="backAdmissionStep">← Back</button><button class="btn btn-blue" type="submit">Submit Admission Application</button></div></section>
 </form>
 <div id="formMessage" class="form-message" role="status" aria-live="polite"></div>
 
