@@ -604,3 +604,57 @@ body.page-student-dashboard .page-hero{
  .page-home .ilm-who-section,.page-home .ilm-programmes-section{padding-top:60px;padding-bottom:60px}
  .page-home .ilm-update-card p,.page-home .ilm-programme-body p{min-height:0}
 }
+
+
+/* ILM full-page photographic backgrounds: visible behind page content,
+   not limited to the top banner. Each page has its own education image. */
+body[class*="page-"]{position:relative;isolation:isolate;background:transparent!important}
+body[class*="page-"]::before{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background-position:center;background-size:cover;background-repeat:no-repeat;
+  opacity:.22;
+}
+body.page-home::before{background-image:url("https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=2000&q=85")}
+body.page-about::before{background-image:url("https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=2000&q=85")}
+body.page-olympiads::before{background-image:url("https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=2000&q=85")}
+body.page-program::before,body.page-programs::before{background-image:url("https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=2000&q=85")}
+body.page-contests::before{background-image:url("https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=2000&q=85")}
+body.page-results::before,body.page-result::before{background-image:url("https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=2000&q=85")}
+body.page-certificates::before{background-image:url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=2000&q=85")}
+body.page-admission::before{background-image:url("https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=2000&q=85")}
+body.page-contact::before,body.page-faqs::before{background-image:url("https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=2000&q=85")}
+body.page-login::before,body.page-signup::before,body.page-reset-password::before{background-image:url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=2000&q=85")}
+body.page-portal::before,body.page-exam-portal::before,body.page-exam-student::before{background-image:url("https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=2000&q=85")}
+body.page-admin-dashboard::before,body.page-admin-dashbord::before,body.page-exam-admin::before{background-image:url("https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=2000&q=85")}
+body.page-student-dashboard::before,body.page-student-dashbord::before{background-image:url("https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=2000&q=85")}
+body[class*="page-"] main>.section,
+body[class*="page-"] main>section.section{background-color:rgba(255,255,255,.78)!important;backdrop-filter:blur(2px)}
+body[class*="page-"] main>.section-soft,
+body[class*="page-"] main>section.section-soft{background:rgba(239,245,251,.84)!important}
+body.page-home .ilm-quick-links{background:rgba(255,255,255,.91)}
+body.page-home .ilm-updates-section{background:rgba(244,247,250,.86)!important}
+body.page-home .ilm-programmes-section{background:rgba(239,245,251,.83)!important}
+body.page-home .ilm-resources-section{background:rgba(255,255,255,.80)!important}
+body[class*="page-"] .card,
+body[class*="page-"] .ilm-update-card,
+body[class*="page-"] .ilm-programme-card,
+body[class*="page-"] .form-card{background:rgba(255,255,255,.94)}
+body[class*="page-"] .site-header{background:rgba(255,255,255,.96)}
+body[class*="page-"] .site-footer{background:rgba(5,26,51,.97)}
+@media(max-width:760px){body[class*="page-"]::before{background-attachment:scroll;opacity:.17}}
+/* ILM Talent Olympiad feature */
+.ilm-talent-feature{padding:70px 0 35px;background:rgba(244,248,252,.82)}
+.ilm-talent-banner{display:grid;grid-template-columns:1.2fr .8fr;overflow:hidden;border-radius:20px;background:linear-gradient(125deg,#082849,#0e527e);box-shadow:0 22px 55px rgba(5,34,61,.18);color:#fff}
+.ilm-talent-copy{padding:clamp(26px,5vw,55px)}
+.ilm-talent-kicker{font-size:11px;letter-spacing:.16em;color:#f3ca69;font-weight:900}
+.ilm-talent-copy h2{font-size:clamp(30px,4vw,46px);line-height:1.15;margin:12px 0;color:#fff}
+.ilm-talent-lead{color:#e1edf7;max-width:700px;line-height:1.8}
+.ilm-talent-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:28px 0}
+.ilm-talent-facts div{padding:14px;border:1px solid #ffffff30;border-radius:10px;background:#ffffff0d}
+.ilm-talent-facts strong,.ilm-talent-facts span{display:block}
+.ilm-talent-facts strong{font-size:18px;color:#f4cd70}
+.ilm-talent-facts span{font-size:11px;color:#e2edf7;margin-top:4px}
+.ilm-talent-art{min-height:360px;background:linear-gradient(90deg,rgba(8,40,73,.1),rgba(8,40,73,.05)),url("https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1200&q=85") center/cover}
+.ilm-talent-details{padding-top:55px}
+.ilm-photo-talent{background-image:url("https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=900&q=85")}
+@media(max-width:760px){.ilm-talent-banner{grid-template-columns:1fr}.ilm-talent-art{min-height:230px;grid-row:1}.ilm-talent-facts{grid-template-columns:1fr}.ilm-talent-copy{padding:25px}}
