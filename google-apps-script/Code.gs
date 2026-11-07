@@ -11,7 +11,7 @@ const ILM_SPREADSHEET_ID = "1l19BknEPDSQmxzUYsz9k0WRWZ486FwdAutLSSxKgqPQ";
 const REGISTRATION_HEADERS = [
   "Application ID","Application Date","Student Full Name","Father / Guardian Name",
   "Date of Birth","Email","Contact Phone","Tehsil / Area","School Name","Current Class",
-  "Programme","Attempted Online Test Before","Payment Reference / Trx ID","Payment Date",
+  "Programme","Attempted Online Test Before","Payment Method","Payment Reference / Trx ID","Payment Date",
   "Payment Screenshot Link","Payment Screen Shot","Payment Screenshot (Google Drive)","Password","Payment Status","Application Status","Admin Notes"
 ];
 const RESULT_HEADERS = [
@@ -48,6 +48,7 @@ function doPost(e) {
         "Current Class": clean_(data.grade,30),
         "Programme": clean_(data.program,100),
         "Attempted Online Test Before": clean_(data.previousTest,10),
+        "Payment Method": clean_(data.paymentMethod,40),
         "Payment Reference / Trx ID": clean_(data.paymentReference,100),
         "Payment Date": clean_(data.paymentDate,20),
         "Payment Screenshot Link": screenshotUrl,
@@ -227,6 +228,10 @@ function getRegistrationSheet_(ss) {
   if (sheet.getLastRow() === 0) {
     sheet.getRange(1,1,1,REGISTRATION_HEADERS.length).setValues([REGISTRATION_HEADERS]);
     sheet.setFrozenRows(1);
+  } else {
+    const existing = sheet.getRange(1,1,1,sheet.getLastColumn()).getDisplayValues()[0].map(function(h){return String(h).trim();});
+    const missing = REGISTRATION_HEADERS.filter(function(h){return existing.indexOf(h)<0;});
+    if (missing.length) sheet.getRange(1,sheet.getLastColumn()+1,1,missing.length).setValues([missing]);
   }
   return sheet;
 }
