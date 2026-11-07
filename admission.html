@@ -25,7 +25,28 @@
 <div class="field"><label for="previousTest">Have you attempted an ILM online test before? *</label><select id="previousTest" name="previousTest" required><option value="">Please select</option><option>Yes</option><option>No</option></select></div>
 </div>
 <div class="ilm-form-actions"><button class="btn btn-blue" type="button" id="nextAdmissionStep">Continue to Payment Details →</button></div></section>
-<section class="ilm-form-panel hidden" id="admissionStep2"><h3 class="spacer-top">Payment Details</h3><div class="form-grid">
+<section class="ilm-form-panel hidden" id="admissionStep2"><h3 class="spacer-top">Payment Details</h3>
+<div class="ilm-payment-account">
+  <div class="ilm-payment-account-top"><div><span class="tag">JazzCash Payment</span><h4>Send your programme fee</h4><p>Use the account details below, then upload your payment receipt.</p></div>
+  <button class="btn btn-light" type="button" id="viewPaymentInstructions" aria-expanded="false" aria-controls="paymentInstructions">View Payment Instructions</button></div>
+  <div class="ilm-payment-details">
+    <div><span>Account Name</span><strong>Muddasar</strong></div>
+    <div><span>JazzCash Account Number</span><strong>0342 2001282</strong></div>
+    <div><span>Payment Service</span><strong>JazzCash</strong></div>
+  </div>
+  <div class="ilm-payment-instructions hidden" id="paymentInstructions">
+    <h5>How to complete your payment</h5>
+    <ol>
+      <li>Open JazzCash and choose the money transfer option.</li>
+      <li>Enter the recipient number shown above and the fee for your selected programme.</li>
+      <li>Before confirming, carefully check that the recipient name and number match the details shown here.</li>
+      <li>After the transfer, save the transaction receipt or screenshot.</li>
+      <li>Enter your transaction reference and payment date below, then upload the screenshot with your application.</li>
+    </ol>
+    <p><strong>Safety:</strong> Never share your JazzCash MPIN, password or OTP with anyone.</p>
+  </div>
+</div>
+<div class="form-grid">
 <div class="field"><label for="paymentMethod">Payment Method *</label><select id="paymentMethod" name="paymentMethod" required><option value="">Select method</option><option>Easypaisa</option><option>JazzCash</option><option>Bank Transfer</option><option>Other</option></select></div>
 <div class="field"><label for="paymentReference">Payment Reference / Transaction ID</label><input id="paymentReference" name="paymentReference" maxlength="100" placeholder="Enter transaction reference if already paid"></div>
 <div class="field"><label for="paymentDate">Payment Date</label><input id="paymentDate" name="paymentDate" type="date"></div>
