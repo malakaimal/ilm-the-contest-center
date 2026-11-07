@@ -670,3 +670,9 @@ body[class*="page-"] .site-footer{background:rgba(5,26,51,.97)}
 .ilm-special-programme h2{color:#fff;margin:10px 0}
 .ilm-special-programme p{color:#e1edf7;max-width:680px;line-height:1.7}
 @media(max-width:650px){.ilm-special-programme{align-items:flex-start;flex-direction:column;padding:25px}}
+
+/* ILM two-step admission form */
+.ilm-form-panel h3{color:var(--navy);font-size:22px;margin:12px 0 20px}
+.ilm-form-actions{display:flex;justify-content:flex-end;gap:12px;flex-wrap:wrap;margin-top:24px}
+.btn-outline{background:#fff;border:1px solid var(--line);color:var(--navy);padding:12px 20px;border-radius:9px;font-weight:800;cursor:pointer}
+@media(max-width:480px){.ilm-form-actions>*{width:100%;text-align:center}}
