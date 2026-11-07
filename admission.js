@@ -10,6 +10,7 @@ if(ilmForm) ilmForm.addEventListener("submit",async e=>{
  const btn=ilmForm.querySelector('button[type="submit"]');
  const file=document.getElementById("paymentScreenshot").files[0];
  if(!file){ilmShowFormMessage("Payment screenshot is required.","error");return;}
+ if(document.getElementById("email").value.trim().toLowerCase()!==document.getElementById("confirmEmail").value.trim().toLowerCase()){ilmShowFormMessage("Email addresses do not match.","error");return;}
  if(!["image/jpeg","image/png","image/webp"].includes(file.type)||file.size>5*1024*1024){
   ilmShowFormMessage("Choose a JPG, PNG or WebP image up to 5 MB.","error");return;
  }
@@ -21,6 +22,7 @@ if(ilmForm) ilmForm.addEventListener("submit",async e=>{
    reader.onload=()=>resolve(String(reader.result).split(",")[1]);reader.readAsDataURL(file);
   });
   const payload={
+   paymentMethod:document.getElementById("paymentMethod").value,
    fullName:document.getElementById("fullName").value.trim(),
    fatherName:document.getElementById("fatherName").value.trim(),
    dateOfBirth:document.getElementById("dateOfBirth").value,
@@ -43,3 +45,19 @@ if(ilmForm) ilmForm.addEventListener("submit",async e=>{
   ilmShowFormMessage("We could not send your application. Check your connection and try again. "+(err.message||""),"error");
  }finally{btn.disabled=false;btn.textContent="Submit Admission";}
 });
+
+function ilmSetAdmissionStep(step){
+ const one=document.getElementById("admissionStep1"),two=document.getElementById("admissionStep2");
+ one.classList.toggle("hidden",step!==1);two.classList.toggle("hidden",step!==2);
+}
+document.getElementById("nextAdmissionStep")?.addEventListener("click",()=>{
+ const panel=document.getElementById("admissionStep1");
+ const fields=Array.from(panel.querySelectorAll("input[required],select[required]"));
+ const bad=fields.find(x=>!x.checkValidity());
+ if(bad){bad.reportValidity();return;}
+ const a=document.getElementById("email").value.trim().toLowerCase();
+ const b=document.getElementById("confirmEmail").value.trim().toLowerCase();
+ if(a!==b){ilmShowFormMessage("Email addresses do not match. Please check both fields.","error");return;}
+ ilmSetAdmissionStep(2);
+});
+document.getElementById("backAdmissionStep")?.addEventListener("click",()=>ilmSetAdmissionStep(1));
