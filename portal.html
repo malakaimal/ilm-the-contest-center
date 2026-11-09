@@ -11,7 +11,7 @@
 .portal-heading{text-align:center;max-width:760px;margin:0 auto 42px}
 .portal-heading h1{font-size:clamp(34px,5vw,50px);color:#092f48;line-height:1.12;margin:10px 0 14px}
 .portal-heading p{color:var(--muted)}
-.portal-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;max-width:900px;margin:auto}
+.portal-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;max-width:1120px;margin:auto}
 .portal-option{position:relative;overflow:hidden;background:#fff;border:1px solid #dce8e3;border-radius:20px;padding:36px;box-shadow:0 18px 48px #082d5012;transition:transform .2s,box-shadow .2s}
 .portal-option:hover{transform:translateY(-5px);box-shadow:0 25px 55px #082d5020}
 .portal-icon{width:58px;height:58px;border-radius:16px;display:grid;place-items:center;font-size:25px;background:linear-gradient(135deg,#e2f3e9,#eaf1fc);color:#08734f;margin-bottom:23px}
@@ -19,7 +19,7 @@
 .portal-option p{font-size:14px;color:var(--muted);min-height:70px}
 .portal-option .btn{margin-top:22px;width:100%}
 .portal-option.login{border-top:5px solid #1557a6}
-.portal-option.signup{border-top:5px solid #087f5b}
+.portal-option.signup{border-top:5px solid #087f5b}\n.portal-option.etest{border-top:5px solid #c9a24e}\n.portal-option.etest .portal-icon{background:linear-gradient(135deg,#fff2d4,#f5e6bf);color:#765615}
 .portal-note{text-align:center;margin:28px auto 0;color:var(--muted);font-size:13px}
 .portal-note a{color:#08734f;font-weight:800}
 @media(max-width:650px){.portal-section{padding:48px 0 60px}.portal-options{grid-template-columns:1fr}.portal-option{padding:27px}.portal-option p{min-height:0}}
@@ -30,10 +30,10 @@
 <main>
 <section class="page-hero"><div class="container"><span class="eyebrow">ILM Student Services</span><h1>Student Portal</h1><p>Your personal space for the ILM learning journey.</p></div></section>
 <section class="portal-section"><div class="container">
-<div class="portal-heading"><span class="tag">Welcome to your portal</span><h1>How would you like to continue?</h1><p>Choose one of the options below. New students can create an account, while existing students can sign in.</p></div>
+<div class="portal-heading"><span class="tag">Welcome to your portal</span><h1>How would you like to continue?</h1><p>Choose the service you need. Your ILM profile and ETest login are separate services.</p></div>
 <div class="portal-options">
 <article class="portal-option login"><div class="portal-icon">↪</div><h2>Student Login</h2><p>Already have an ILM Student Portal account? Sign in with your registered email address and password.</p><a class="btn btn-blue" href="login.html">Login to Student Portal</a></article>
-<article class="portal-option signup"><div class="portal-icon">＋</div><h2>Create New Account</h2><p>New to the portal? Create your student account to prepare for access to learning and practice services.</p><a class="btn btn-primary" href="signup.html">Sign Up as a Student</a></article>
+<article class="portal-option signup"><div class="portal-icon">＋</div><h2>Create New Account</h2><p>New to the portal? Create your student account to prepare for access to learning and practice services.</p><a class="btn btn-primary" href="signup.html">Sign Up as a Student</a></article>\n<article class="portal-option etest"><div class="portal-icon">▣</div><h2>Online Test (ETest)</h2><p>Open the ILM online examination system. Sign in with your existing ETest student account to view and take assigned tests.</p><a class="btn btn-primary" href="https://malakaimal.github.io/etest/" target="_blank" rel="noopener noreferrer">Open ETest Service</a></article>
 </div>
 <p class="portal-note">Programme admission is separate. <a href="admission.html">Open the Olympiad & Contest Admission Form</a>.</p>
 </div></section>
