@@ -1,7 +1,7 @@
 const siteNav = [
   ["Home","index.html"],["About Us","about.html"],["Programs","programs.html"],
   ["Olympiads","olympiads.html"],["Admission","admission.html"],["Contests","contests.html"],
-  ["Results","results.html"],["Certificates","certificates.html"],["Online Test","https://malakaimal.github.io/etest/"],["FAQs","faqs.html"],["Contact","contact.html"]
+  ["Results","results.html"],["Certificates","certificates.html"],["FAQs","faqs.html"],["Contact","contact.html"]
 ];
 const currentFile = location.pathname.split("/").pop() || "index.html";
 const header = document.getElementById("site-header");
