@@ -355,7 +355,7 @@ main>section:not(.page-hero){position:relative}
 
 /* ILM emblem logo */
 .brand{display:flex;align-items:center;flex:0 0 auto;line-height:1}
-.brand img{display:block;width:176px;height:72px;object-fit:contain}
+.brand img{display:block;width:176px;height:72px;object-fit:contain}\n.footer-brand img{display:block;width:220px;max-width:100%;height:auto;max-height:110px;object-fit:contain}
 .footer-brand>a{display:inline-block}
 .footer-brand>a img{display:block;width:166px;height:auto;max-height:150px;object-fit:contain;margin:0 0 12px}
 @media(max-width:900px){.brand img{width:150px;height:64px}}
