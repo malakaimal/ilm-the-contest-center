@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 150" role="img" aria-labelledby="t d">
+<title id="t">ILM The Contest Center</title>
+<desc id="d">A clean white and gold ILM wordmark designed for the dark website footer.</desc>
+<path d="M8 18V126" stroke="#D8B45D" stroke-width="5"/>
+<text x="30" y="91" fill="#FFFFFF" font-family="Georgia, 'Times New Roman', serif" font-size="91" font-weight="700" letter-spacing="2">ILM</text>
+<path d="M235 34V112" stroke="#D8B45D" stroke-width="2" opacity=".9"/>
+<text x="258" y="66" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" letter-spacing="1.5">THE CONTEST</text>
+<text x="258" y="99" fill="#E0BD6C" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" letter-spacing="2.1">CENTER</text>
+<path d="M258 115H505" stroke="#D8B45D" stroke-width="2" opacity=".8"/>
+</svg>
