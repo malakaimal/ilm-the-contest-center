@@ -1,6 +1,6 @@
 // ILM admission form: Google Sheets + Google Drive via the ILM Apps Script web app.
 
-// District-dependent tehsil dropdown
+// Searchable district and tehsil selectors
 const ilmDistrictTehsils = {
  Shangla: ["Alpuri", "Besham", "Chakesar", "Martung", "Puran"],
  Buner: ["Daggar", "Gagra", "Gadezai", "Chagharzai", "Khado Khel", "Mandanr"],
@@ -8,20 +8,56 @@ const ilmDistrictTehsils = {
 };
 const ilmDistrictSelect = document.getElementById("district");
 const ilmTehsilSelect = document.getElementById("tehsil");
+const ilmDistrictSearch = document.getElementById("districtSearch");
+const ilmTehsilSearch = document.getElementById("tehsilSearch");
+const ilmDistrictNames = Object.keys(ilmDistrictTehsils);
+let ilmAvailableTehsils = [];
+
+function ilmRenderSearchableOptions(select, items, searchText, placeholder) {
+ const query = (searchText || "").trim().toLocaleLowerCase();
+ const selected = select.value;
+ const matches = items.filter(item => item.toLocaleLowerCase().includes(query));
+ // Keep the current choice visible while searching, so typing does not erase it.
+ if (selected && items.includes(selected) && !matches.includes(selected)) matches.unshift(selected);
+ select.replaceChildren();
+ const first = document.createElement("option");
+ first.value = "";
+ first.textContent = placeholder;
+ select.appendChild(first);
+ matches.forEach(item => {
+  const option = document.createElement("option");
+  option.value = item;
+  option.textContent = item;
+  select.appendChild(option);
+ });
+ if (selected && matches.includes(selected)) select.value = selected;
+}
+
+ilmDistrictSearch?.addEventListener("input", () => {
+ ilmRenderSearchableOptions(ilmDistrictSelect, ilmDistrictNames, ilmDistrictSearch.value, "Select district");
+});
+ilmTehsilSearch?.addEventListener("input", () => {
+ ilmRenderSearchableOptions(ilmTehsilSelect, ilmAvailableTehsils, ilmTehsilSearch.value, "Select tehsil");
+});
+
 ilmDistrictSelect?.addEventListener("change", () => {
  const district = ilmDistrictSelect.value;
- const tehsils = ilmDistrictTehsils[district] || [];
- ilmTehsilSelect.innerHTML = '<option value="">Select tehsil</option>';
- tehsils.forEach(tehsil => {
-  const option = document.createElement("option");
-  option.value = tehsil;
-  option.textContent = tehsil;
-  ilmTehsilSelect.appendChild(option);
- });
- ilmTehsilSelect.disabled = tehsils.length === 0;
+ ilmAvailableTehsils = ilmDistrictTehsils[district] || [];
+ if (ilmTehsilSearch) {
+  ilmTehsilSearch.value = "";
+  ilmTehsilSearch.disabled = ilmAvailableTehsils.length === 0;
+  ilmTehsilSearch.placeholder = ilmAvailableTehsils.length ? "Type a tehsil name to find it..." : "Select a district first...";
+ }
+ ilmTehsilSelect.value = "";
+ ilmRenderSearchableOptions(ilmTehsilSelect, ilmAvailableTehsils, "", "Select tehsil");
+ ilmTehsilSelect.disabled = ilmAvailableTehsils.length === 0;
  ilmTehsilSelect.required = true;
 });
 
+// Initialize searchable district list without changing the selected value.
+if (ilmDistrictSelect) {
+ ilmRenderSearchableOptions(ilmDistrictSelect, ilmDistrictNames, "", "Select district");
+}
 const ILM_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwGvXpTiN2DBwio0NdnSqAgQBdG1SFV3ISkrFet-mO86UUPUXIyfC1AlmrOdxPGaviF/exec";
 function ilmShowFormMessage(text,type){
  const el=document.getElementById("formMessage");
