@@ -1,4 +1,27 @@
 // ILM admission form: Google Sheets + Google Drive via the ILM Apps Script web app.
+
+// District-dependent tehsil dropdown
+const ilmDistrictTehsils = {
+ Shangla: ["Alpuri", "Besham", "Chakesar", "Martung", "Puran"],
+ Buner: ["Daggar", "Gagra", "Gadezai", "Chagharzai", "Khado Khel", "Mandanr"],
+ Swat: ["Babuzai", "Barikot", "Bahrain", "Charbagh", "Kabal", "Khwazakhela", "Matta"]
+};
+const ilmDistrictSelect = document.getElementById("district");
+const ilmTehsilSelect = document.getElementById("tehsil");
+ilmDistrictSelect?.addEventListener("change", () => {
+ const district = ilmDistrictSelect.value;
+ const tehsils = ilmDistrictTehsils[district] || [];
+ ilmTehsilSelect.innerHTML = '<option value="">Select tehsil</option>';
+ tehsils.forEach(tehsil => {
+  const option = document.createElement("option");
+  option.value = tehsil;
+  option.textContent = tehsil;
+  ilmTehsilSelect.appendChild(option);
+ });
+ ilmTehsilSelect.disabled = tehsils.length === 0;
+ ilmTehsilSelect.required = true;
+});
+
 const ILM_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwGvXpTiN2DBwio0NdnSqAgQBdG1SFV3ISkrFet-mO86UUPUXIyfC1AlmrOdxPGaviF/exec";
 function ilmShowFormMessage(text,type){
  const el=document.getElementById("formMessage");
@@ -28,7 +51,10 @@ if(ilmForm) ilmForm.addEventListener("submit",async e=>{
    dateOfBirth:document.getElementById("dateOfBirth").value,
    email:document.getElementById("email").value.trim(),
    phone:document.getElementById("phone").value.trim(),
-   area:document.getElementById("area").value.trim(),
+   district:document.getElementById("district").value,
+   tehsil:document.getElementById("tehsil").value,
+   // Keep the combined area value for compatibility with the existing admissions sheet.
+   area:document.getElementById("tehsil").value+", "+document.getElementById("district").value,
    school:document.getElementById("school").value.trim(),
    grade:document.getElementById("grade").value,
    program:document.getElementById("program").value,
