@@ -27,7 +27,29 @@
 <div class="field"><label for="tehsil">Tehsil *</label><select id="tehsil" name="tehsil" required disabled>
 <option value="">Select district first</option>
 </select></div>
-<div class="field"><label for="school">School Name *</label><input id="school" name="school" required maxlength="180"></div>
+<div class="field"><label for="schoolSector">School Type *</label><select id="schoolSector" name="schoolSector" required>
+<option value="">Select school type</option><option value="Government">Government</option><option value="Private">Private</option>
+</select></div>
+<div class="field"><label for="schoolLevel">School Level *</label><select id="schoolLevel" name="schoolLevel" required>
+<option value="">Select school level</option><option>Primary</option><option>Elementary</option><option>Middle</option><option>High</option><option>Higher Secondary</option></select></div>
+<div class="field"><label for="school">School Name *</label><input id="school" name="school" required maxlength="180" list="swatSchoolSuggestions" placeholder="Search or type your school name" autocomplete="organization">
+<datalist id="swatSchoolSuggestions">
+<option value="Government High School No. 1 Mingora"></option>
+<option value="Government Higher Secondary School Balogram"></option>
+<option value="Government Primary School Burhanabad Barama"></option>
+<option value="Government Primary School Dakorak"></option>
+<option value="Government High School Seer"></option>
+<option value="Government Primary/Middle/High School Kota"></option>
+<option value="Iqra Academy Swat"></option>
+<option value="The Asian School and College Campus 1"></option>
+<option value="Beaconhouse School System Swat Branch"></option>
+<option value="The Learners School Swat"></option>
+<option value="Swat English Academy School and College"></option>
+<option value="Swat Valley School System Kanju"></option>
+<option value="Allied School Swat Campus"></option>
+<option value="The Peace Group of Schools and Colleges Swat"></option>
+</datalist>
+<small class="muted">Start typing to see suggestions. If your school is not listed, type its full name.</small></div>
 <div class="field"><label for="grade">Current Class *</label><select id="grade" name="grade" required><option value="">Select class</option><option>Class 3</option><option>Class 4</option><option>Class 5</option><option>Class 6</option><option>Class 7</option><option>Class 8</option><option>Class 9</option><option>Class 10</option><option>Other</option></select></div>
 <div class="field"><label for="program">Programme Applying For *</label><select id="program" name="program" required><option value="">Select programme</option><option>ILM Math Olympiad 1</option><option>ILM Math Olympiad 2</option><option>ILM Talent Olympiad 2026</option><option>Annual Mega Contest</option><option>Regional Math Clubs</option><option>Practice Books</option></select></div>
 <div class="field"><label for="previousTest">Have you attempted an ILM online test before? *</label><select id="previousTest" name="previousTest" required><option value="">Please select</option><option>Yes</option><option>No</option></select></div>
