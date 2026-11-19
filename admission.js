@@ -56,6 +56,8 @@ if(ilmForm) ilmForm.addEventListener("submit",async e=>{
    // Keep the combined area value for compatibility with the existing admissions sheet.
    area:document.getElementById("tehsil").value+", "+document.getElementById("district").value,
    school:document.getElementById("school").value.trim(),
+   schoolSector:document.getElementById("schoolSector").value,
+   schoolLevel:document.getElementById("schoolLevel").value,
    grade:document.getElementById("grade").value,
    program:document.getElementById("program").value,
    previousTest:document.getElementById("previousTest").value,
