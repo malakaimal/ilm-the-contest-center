@@ -25,7 +25,7 @@ function ilmUpdateSchoolOptions() {
  const district = ilmDistrictSelect?.value || "";
 
  const selected = ilmSchoolSelect.value;
- let options = ilmSchoolNames[district] || [];
+ let options = [...new Set(ilmSchoolNames[district] || [])];
  ilmSchoolSelect.replaceChildren(new Option("Select your school", ""));
  options.forEach(name => ilmSchoolSelect.add(new Option(name, name)));
  ilmSchoolSelect.add(new Option("Other / Not Listed", "__other__"));
