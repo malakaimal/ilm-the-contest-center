@@ -1,6 +1,6 @@
 // ILM admission form: Google Sheets + Google Drive via the ILM Apps Script web app.
 
-// Searchable district and tehsil selectors
+// District and tehsil remain standard dropdowns. Only School Name uses search suggestions.
 const ilmDistrictTehsils = {
  Shangla: ["Alpuri", "Besham", "Chakesar", "Martung", "Puran"],
  Buner: ["Daggar", "Gagra", "Gadezai", "Chagharzai", "Khado Khel", "Mandanr"],
@@ -8,56 +8,30 @@ const ilmDistrictTehsils = {
 };
 const ilmDistrictSelect = document.getElementById("district");
 const ilmTehsilSelect = document.getElementById("tehsil");
-const ilmDistrictSearch = document.getElementById("districtSearch");
-const ilmTehsilSearch = document.getElementById("tehsilSearch");
-const ilmDistrictNames = Object.keys(ilmDistrictTehsils);
-let ilmAvailableTehsils = [];
-
-function ilmRenderSearchableOptions(select, items, searchText, placeholder) {
- const query = (searchText || "").trim().toLocaleLowerCase();
- const selected = select.value;
- const matches = items.filter(item => item.toLocaleLowerCase().includes(query));
- // Keep the current choice visible while searching, so typing does not erase it.
- if (selected && items.includes(selected) && !matches.includes(selected)) matches.unshift(selected);
- select.replaceChildren();
- const first = document.createElement("option");
- first.value = "";
- first.textContent = placeholder;
- select.appendChild(first);
- matches.forEach(item => {
-  const option = document.createElement("option");
-  option.value = item;
-  option.textContent = item;
-  select.appendChild(option);
- });
- if (selected && matches.includes(selected)) select.value = selected;
+const ilmSchoolList = document.getElementById("ilmSchoolSuggestions");
+const ilmSchoolNames = {"Swat":["THE MODEL SCHOOL SWAT","ABASIN CHILDREN ACADEMY","ABASYN INTERNATIONAL SCHOOL KABAL SWAT","ABASIN PUBLIC SCHOOL AND COLLEGE","ABDAL EDUCATION ACADEMY","ABDALI GIRLS SCHOOL & COLLEGE","ABDALI PUBLIC SCHOOL MATTA","AFAQ MODEL SCHOOL KOKARAI SWAT","AL - RAZI SCHOOL & COLLEGE KANJU SWAT","AL MADINA PUBLIC SCHOOL KABAL SWAT","THE ASIAN SCHOOL AND COLLEGE CAMPUS 1","BEACONHOUSE SCHOOL SYSTEM SWAT BRANCH","THE LEARNERS SCHOOL SWAT","SWAT ENGLISH ACADEMY SCHOOL AND COLLEGE","SWAT VALLEY SCHOOL SYSTEM KANJU","ALLIED SCHOOL SWAT CAMPUS","THE PEACE GROUP OF SCHOOLS AND COLLEGES SWAT","Government High School No. 1 Mingora","Government Higher Secondary School Balogram","Government Primary School Burhanabad Barama","Government Primary School Dakorak","Government High School Seer","Government Primary/Middle/High School Kota"],"Buner":["ABASIA PUBLIC SCHOOL JOWAR BUNER","ABBOTTABAD INTERNATIONAL MODEL SCHOOL & COLLEGE (BUNER CAMPUS)","ABDALI GIRLS SCHOOL & COLLAGE JOWAR BUNER","AFAQ PUBLIC SCHOOL","AIM COLLEGE OF MODERN SCIENCES (GIRLS)","AISHA MODEL SCHOOL BUDAL","AL QALAM EDUCATION ACADEMY","AL BAHAR GROUP OF SCHOOLS AND COLLEGES","AL FARABI PUBLIC SCHOOL","BUNER CHILDREN ACADEMY","BUNER EDUCATION ACADEMY","BUNER GRAMMAR SCHOOL","BUNER MODEL SCHOOL & COLLEGE REGA"],"Shangla":["A ONE PUBLIC SCHOOL","ABASEEN PUBLIC SCHOOL DEDAL","ABASIN MODEL SCHOOL","ABDULLAH IBNE ABBAS ACADMY MANDORYA","ABU HURAIRA MODEL SCHOOL","AFAQ MODEL SCHOOL","AFAQ MODEL SCHOOL SHEPNAI","AHMAD PUBLIC SCHOOL BARKANA","AL HUDA PUBLIC SCHOOL FAIZA","AL MEEZAN PUBLIC SCHOOL JATKOOL","CHAKESAR EDUCATION ACADEMY","CHAKESAR MODEL SCHOOL","CHAKESAR PUBLIC SCHOOL & COLLEGE","BESHAM MODEL SCHOOL & COLLEGE","ENGLISH GRAMMAR SCHOOL BESHAM","IQRA USMANIA PUBLIC SCHOOL DANAKOOL"]};
+function ilmUpdateTehsils() {
+ const names = ilmDistrictTehsils[ilmDistrictSelect?.value] || [];
+ if (!ilmTehsilSelect) return;
+ const selected = ilmTehsilSelect.value;
+ ilmTehsilSelect.replaceChildren(new Option("Select tehsil", ""));
+ names.forEach(name => ilmTehsilSelect.add(new Option(name, name)));
+ ilmTehsilSelect.disabled = names.length === 0;
+ if (names.includes(selected)) ilmTehsilSelect.value = selected;
 }
-
-ilmDistrictSearch?.addEventListener("input", () => {
- ilmRenderSearchableOptions(ilmDistrictSelect, ilmDistrictNames, ilmDistrictSearch.value, "Select district");
-});
-ilmTehsilSearch?.addEventListener("input", () => {
- ilmRenderSearchableOptions(ilmTehsilSelect, ilmAvailableTehsils, ilmTehsilSearch.value, "Select tehsil");
-});
-
-ilmDistrictSelect?.addEventListener("change", () => {
- const district = ilmDistrictSelect.value;
- ilmAvailableTehsils = ilmDistrictTehsils[district] || [];
- if (ilmTehsilSearch) {
-  ilmTehsilSearch.value = "";
-  ilmTehsilSearch.disabled = ilmAvailableTehsils.length === 0;
-  ilmTehsilSearch.placeholder = ilmAvailableTehsils.length ? "Type a tehsil name to find it..." : "Select a district first...";
- }
- ilmTehsilSelect.value = "";
- ilmRenderSearchableOptions(ilmTehsilSelect, ilmAvailableTehsils, "", "Select tehsil");
- ilmTehsilSelect.disabled = ilmAvailableTehsils.length === 0;
- ilmTehsilSelect.required = true;
-});
-
-// Initialize searchable district list without changing the selected value.
-if (ilmDistrictSelect) {
- ilmRenderSearchableOptions(ilmDistrictSelect, ilmDistrictNames, "", "Select district");
+function ilmUpdateSchoolSuggestions() {
+ if (!ilmSchoolList) return;
+ const district = ilmDistrictSelect?.value || "";
+ const sector = document.getElementById("schoolSector")?.value || "";
+ let options = ilmSchoolNames[district] || [];
+ if (sector === "Government") options = options.filter(name => name.startsWith("Government"));
+ if (sector === "Private") options = options.filter(name => !name.startsWith("Government"));
+ ilmSchoolList.replaceChildren(...options.map(name => new Option(name, name)));
 }
+ilmDistrictSelect?.addEventListener("change", () => { ilmUpdateTehsils(); ilmUpdateSchoolSuggestions(); });
+document.getElementById("schoolSector")?.addEventListener("change", ilmUpdateSchoolSuggestions);
+ilmUpdateTehsils();
+ilmUpdateSchoolSuggestions();
 const ILM_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwGvXpTiN2DBwio0NdnSqAgQBdG1SFV3ISkrFet-mO86UUPUXIyfC1AlmrOdxPGaviF/exec";
 function ilmShowFormMessage(text,type){
  const el=document.getElementById("formMessage");

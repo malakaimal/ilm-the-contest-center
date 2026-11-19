@@ -18,14 +18,12 @@
 <div class="field"><label for="email">Student / Parent Email Address *</label><input id="email" name="email" type="email" required maxlength="180" autocomplete="email"></div>
 <div class="field"><label for="confirmEmail">Confirm Email Address *</label><input id="confirmEmail" name="confirmEmail" type="email" required maxlength="180" autocomplete="email"></div>
 <div class="field"><label for="phone">Contact Phone Number *</label><input id="phone" name="phone" type="tel" required maxlength="30" placeholder="03XXXXXXXXX"></div>
-<div class="field"><label for="districtSearch">Search district</label><input id="districtSearch" type="search" placeholder="Type Shangla, Buner or Swat..." autocomplete="off" aria-controls="district"></div>
 <div class="field"><label for="district">District *</label><select id="district" name="district" required>
 <option value="">Select district</option>
 <option value="Shangla">Shangla</option>
 <option value="Buner">Buner</option>
 <option value="Swat">Swat</option>
 </select></div>
-<div class="field"><label for="tehsilSearch">Search tehsil</label><input id="tehsilSearch" type="search" placeholder="Select a district first..." autocomplete="off" aria-controls="tehsil" disabled></div>
 <div class="field"><label for="tehsil">Tehsil *</label><select id="tehsil" name="tehsil" required disabled>
 <option value="">Select district first</option>
 </select></div>
@@ -34,24 +32,62 @@
 </select></div>
 <div class="field"><label for="schoolLevel">School Level *</label><select id="schoolLevel" name="schoolLevel" required>
 <option value="">Select school level</option><option>Primary</option><option>Elementary</option><option>Middle</option><option>High</option><option>Higher Secondary</option></select></div>
-<div class="field"><label for="school">School Name *</label><input id="school" name="school" required maxlength="180" list="swatSchoolSuggestions" placeholder="Search or type your school name" autocomplete="organization">
-<datalist id="swatSchoolSuggestions">
+<div class="field"><label for="school">School Name *</label><input id="school" name="school" required maxlength="180" list="ilmSchoolSuggestions" placeholder="Search or type your school name" autocomplete="organization">
+<datalist id="ilmSchoolSuggestions">
+<option value="THE MODEL SCHOOL SWAT"></option>
+<option value="ABASIN CHILDREN ACADEMY"></option>
+<option value="ABASYN INTERNATIONAL SCHOOL KABAL SWAT"></option>
+<option value="ABASIN PUBLIC SCHOOL AND COLLEGE"></option>
+<option value="ABDAL EDUCATION ACADEMY"></option>
+<option value="ABDALI GIRLS SCHOOL &amp; COLLEGE"></option>
+<option value="ABDALI PUBLIC SCHOOL MATTA"></option>
+<option value="AFAQ MODEL SCHOOL KOKARAI SWAT"></option>
+<option value="AL - RAZI SCHOOL &amp; COLLEGE KANJU SWAT"></option>
+<option value="AL MADINA PUBLIC SCHOOL KABAL SWAT"></option>
+<option value="THE ASIAN SCHOOL AND COLLEGE CAMPUS 1"></option>
+<option value="BEACONHOUSE SCHOOL SYSTEM SWAT BRANCH"></option>
+<option value="THE LEARNERS SCHOOL SWAT"></option>
+<option value="SWAT ENGLISH ACADEMY SCHOOL AND COLLEGE"></option>
+<option value="SWAT VALLEY SCHOOL SYSTEM KANJU"></option>
+<option value="ALLIED SCHOOL SWAT CAMPUS"></option>
+<option value="THE PEACE GROUP OF SCHOOLS AND COLLEGES SWAT"></option>
 <option value="Government High School No. 1 Mingora"></option>
 <option value="Government Higher Secondary School Balogram"></option>
 <option value="Government Primary School Burhanabad Barama"></option>
 <option value="Government Primary School Dakorak"></option>
 <option value="Government High School Seer"></option>
 <option value="Government Primary/Middle/High School Kota"></option>
-<option value="Iqra Academy Swat"></option>
-<option value="The Asian School and College Campus 1"></option>
-<option value="Beaconhouse School System Swat Branch"></option>
-<option value="The Learners School Swat"></option>
-<option value="Swat English Academy School and College"></option>
-<option value="Swat Valley School System Kanju"></option>
-<option value="Allied School Swat Campus"></option>
-<option value="The Peace Group of Schools and Colleges Swat"></option>
+<option value="ABASIA PUBLIC SCHOOL JOWAR BUNER"></option>
+<option value="ABBOTTABAD INTERNATIONAL MODEL SCHOOL &amp; COLLEGE (BUNER CAMPUS)"></option>
+<option value="ABDALI GIRLS SCHOOL &amp; COLLAGE JOWAR BUNER"></option>
+<option value="AFAQ PUBLIC SCHOOL"></option>
+<option value="AIM COLLEGE OF MODERN SCIENCES (GIRLS)"></option>
+<option value="AISHA MODEL SCHOOL BUDAL"></option>
+<option value="AL QALAM EDUCATION ACADEMY"></option>
+<option value="AL BAHAR GROUP OF SCHOOLS AND COLLEGES"></option>
+<option value="AL FARABI PUBLIC SCHOOL"></option>
+<option value="BUNER CHILDREN ACADEMY"></option>
+<option value="BUNER EDUCATION ACADEMY"></option>
+<option value="BUNER GRAMMAR SCHOOL"></option>
+<option value="BUNER MODEL SCHOOL &amp; COLLEGE REGA"></option>
+<option value="A ONE PUBLIC SCHOOL"></option>
+<option value="ABASEEN PUBLIC SCHOOL DEDAL"></option>
+<option value="ABASIN MODEL SCHOOL"></option>
+<option value="ABDULLAH IBNE ABBAS ACADMY MANDORYA"></option>
+<option value="ABU HURAIRA MODEL SCHOOL"></option>
+<option value="AFAQ MODEL SCHOOL"></option>
+<option value="AFAQ MODEL SCHOOL SHEPNAI"></option>
+<option value="AHMAD PUBLIC SCHOOL BARKANA"></option>
+<option value="AL HUDA PUBLIC SCHOOL FAIZA"></option>
+<option value="AL MEEZAN PUBLIC SCHOOL JATKOOL"></option>
+<option value="CHAKESAR EDUCATION ACADEMY"></option>
+<option value="CHAKESAR MODEL SCHOOL"></option>
+<option value="CHAKESAR PUBLIC SCHOOL &amp; COLLEGE"></option>
+<option value="BESHAM MODEL SCHOOL &amp; COLLEGE"></option>
+<option value="ENGLISH GRAMMAR SCHOOL BESHAM"></option>
+<option value="IQRA USMANIA PUBLIC SCHOOL DANAKOOL"></option>
 </datalist>
-<small class="muted">Start typing to see suggestions. If your school is not listed, type its full name.</small></div>
+<small class="muted">Search the available suggestions. If your school is not listed, type its full name.</small></div>
 <div class="field"><label for="grade">Current Class *</label><select id="grade" name="grade" required><option value="">Select class</option><option>Class 3</option><option>Class 4</option><option>Class 5</option><option>Class 6</option><option>Class 7</option><option>Class 8</option><option>Class 9</option><option>Class 10</option><option>Other</option></select></div>
 <div class="field"><label for="program">Programme Applying For *</label><select id="program" name="program" required><option value="">Select programme</option><option>ILM Math Olympiad 1</option><option>ILM Math Olympiad 2</option><option>ILM Talent Olympiad 2026</option><option>Annual Mega Contest</option><option>Regional Math Clubs</option><option>Practice Books</option></select></div>
 <div class="field"><label for="previousTest">Have you attempted an ILM online test before? *</label><select id="previousTest" name="previousTest" required><option value="">Please select</option><option>Yes</option><option>No</option></select></div>
