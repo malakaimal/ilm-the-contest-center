@@ -18,7 +18,15 @@
 <div class="field"><label for="email">Student / Parent Email Address *</label><input id="email" name="email" type="email" required maxlength="180" autocomplete="email"></div>
 <div class="field"><label for="confirmEmail">Confirm Email Address *</label><input id="confirmEmail" name="confirmEmail" type="email" required maxlength="180" autocomplete="email"></div>
 <div class="field"><label for="phone">Contact Phone Number *</label><input id="phone" name="phone" type="tel" required maxlength="30" placeholder="03XXXXXXXXX"></div>
-<div class="field"><label for="area">Tehsil / Area *</label><input id="area" name="area" required maxlength="100" placeholder="e.g. Chakesar"></div>
+<div class="field"><label for="district">District *</label><select id="district" name="district" required>
+<option value="">Select district</option>
+<option value="Shangla">Shangla</option>
+<option value="Buner">Buner</option>
+<option value="Swat">Swat</option>
+</select></div>
+<div class="field"><label for="tehsil">Tehsil *</label><select id="tehsil" name="tehsil" required disabled>
+<option value="">Select district first</option>
+</select></div>
 <div class="field"><label for="school">School Name *</label><input id="school" name="school" required maxlength="180"></div>
 <div class="field"><label for="grade">Current Class *</label><select id="grade" name="grade" required><option value="">Select class</option><option>Class 3</option><option>Class 4</option><option>Class 5</option><option>Class 6</option><option>Class 7</option><option>Class 8</option><option>Class 9</option><option>Class 10</option><option>Other</option></select></div>
 <div class="field"><label for="program">Programme Applying For *</label><select id="program" name="program" required><option value="">Select programme</option><option>ILM Math Olympiad 1</option><option>ILM Math Olympiad 2</option><option>ILM Talent Olympiad 2026</option><option>Annual Mega Contest</option><option>Regional Math Clubs</option><option>Practice Books</option></select></div>
