@@ -81,7 +81,6 @@ if(ilmForm) ilmForm.addEventListener("submit",async e=>{
    area:document.getElementById("tehsil").value+", "+document.getElementById("district").value,
    school:(document.getElementById("school").value === "__other__" ? document.getElementById("schoolOther").value.trim() : document.getElementById("school").value.trim()),
    schoolSector:document.getElementById("schoolSector").value,
-   schoolLevel:document.getElementById("schoolLevel").value,
    grade:document.getElementById("grade").value,
    program:document.getElementById("program").value,
    previousTest:document.getElementById("previousTest").value,
