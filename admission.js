@@ -14,11 +14,9 @@ const ilmSchoolNames = {"Shangla":["A ONE PUBLIC SCHOOL","ABASEEN PUBLIC SCHOOL 
 function ilmUpdateTehsils() {
  const names = ilmDistrictTehsils[ilmDistrictSelect?.value] || [];
  if (!ilmTehsilSelect) return;
- const selected = ilmTehsilSelect.value;
  ilmTehsilSelect.replaceChildren(new Option("Select tehsil", ""));
  names.forEach(name => ilmTehsilSelect.add(new Option(name, name)));
  ilmTehsilSelect.disabled = names.length === 0;
- if (names.includes(selected)) ilmTehsilSelect.value = selected;
 }
 function ilmUpdateSchoolOptions() {
  if (!ilmSchoolOptions) return;
@@ -34,16 +32,9 @@ ilmDistrictSelect?.addEventListener("change", () => {
  ilmUpdateSchoolOptions();
 });
 ilmSchoolInput?.addEventListener("input", ilmUpdateSchoolOptions);
-ilmUpdateTehsils(); ilmUpdateSchoolOptions(); });
-ilmSchoolSearch?.addEventListener("input", ilmUpdateSchoolOptions);
-ilmSchoolSelect?.addEventListener("change", () => {
- const isOther = ilmSchoolSelect.value === "__other__";
- ilmSchoolOther.hidden = !isOther;
- ilmSchoolOther.required = isOther;
- if (!isOther) ilmSchoolOther.value = "";
-});
 ilmUpdateTehsils();
 ilmUpdateSchoolOptions();
+
 const ILM_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwGvXpTiN2DBwio0NdnSqAgQBdG1SFV3ISkrFet-mO86UUPUXIyfC1AlmrOdxPGaviF/exec";
 function ilmShowFormMessage(text,type){
  const el=document.getElementById("formMessage");
