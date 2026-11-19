@@ -27,12 +27,14 @@
 <div class="field"><label for="tehsil">Tehsil *</label><select id="tehsil" name="tehsil" required disabled>
 <option value="">Select district first</option>
 </select></div>
-<div class="field"><label for="school">School Name *</label>
+<div class="field"><label for="schoolSearch">Search School Name</label>
+<input id="schoolSearch" type="search" maxlength="100" placeholder="Type school name to search..." autocomplete="off">
+<label for="school">School Name *</label>
 <select id="school" name="school" required>
 <option value="">Select your school</option>
 </select>
 <input id="schoolOther" name="schoolOther" maxlength="180" placeholder="Enter your school name" autocomplete="organization" hidden>
-<small class="muted">Choose your school from the list. Select “Other / Not Listed” if you cannot find it.</small></div>
+<small class="muted">Type to filter the school list, then select your school. Select “Other / Not Listed” if you cannot find it.</small></div>
 <div class="field"><label for="grade">Current Class *</label><select id="grade" name="grade" required><option value="">Select class</option><option>Class 3</option><option>Class 4</option><option>Class 5</option><option>Class 6</option><option>Class 7</option><option>Class 8</option><option>Class 9</option><option>Class 10</option><option>Other</option></select></div>
 <div class="field"><label for="program">Programme Applying For *</label><select id="program" name="program" required><option value="">Select programme</option><option>ILM Math Olympiad 1</option><option>ILM Math Olympiad 2</option><option>ILM Talent Olympiad 2026</option><option>Annual Mega Contest</option><option>Regional Math Clubs</option><option>Practice Books</option></select></div>
 <div class="field"><label for="previousTest">Have you attempted an ILM online test before? *</label><select id="previousTest" name="previousTest" required><option value="">Please select</option><option>Yes</option><option>No</option></select></div>

@@ -20,13 +20,15 @@ function ilmUpdateTehsils() {
  ilmTehsilSelect.disabled = names.length === 0;
  if (names.includes(selected)) ilmTehsilSelect.value = selected;
 }
+const ilmSchoolSearch = document.getElementById("schoolSearch");
 function ilmUpdateSchoolOptions() {
  if (!ilmSchoolSelect) return;
  const district = ilmDistrictSelect?.value || "";
-
  const selected = ilmSchoolSelect.value;
- let options = [...new Set(ilmSchoolNames[district] || [])];
- ilmSchoolSelect.replaceChildren(new Option("Select your school", ""));
+ const query = (ilmSchoolSearch?.value || "").trim().toLowerCase();
+ const allOptions = [...new Set(ilmSchoolNames[district] || [])];
+ const options = query ? allOptions.filter(name => name.toLowerCase().includes(query)) : allOptions;
+ ilmSchoolSelect.replaceChildren(new Option(options.length ? "Select your school" : "No matching schools", ""));
  options.forEach(name => ilmSchoolSelect.add(new Option(name, name)));
  ilmSchoolSelect.add(new Option("Other / Not Listed", "__other__"));
  if (options.includes(selected)) ilmSchoolSelect.value = selected;
@@ -34,7 +36,8 @@ function ilmUpdateSchoolOptions() {
  ilmSchoolOther.hidden = ilmSchoolSelect.value !== "__other__";
  ilmSchoolOther.required = ilmSchoolSelect.value === "__other__";
 }
-ilmDistrictSelect?.addEventListener("change", () => { ilmUpdateTehsils(); ilmUpdateSchoolOptions(); });
+ilmDistrictSelect?.addEventListener("change", () => { if (ilmSchoolSearch) ilmSchoolSearch.value = ""; ilmUpdateTehsils(); ilmUpdateSchoolOptions(); });
+ilmSchoolSearch?.addEventListener("input", ilmUpdateSchoolOptions);
 ilmSchoolSelect?.addEventListener("change", () => {
  const isOther = ilmSchoolSelect.value === "__other__";
  ilmSchoolOther.hidden = !isOther;
