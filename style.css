@@ -1181,3 +1181,108 @@ blockquote{border-left:4px solid var(--ilm-gold);padding:12px 20px;background:#f
  .site-header .nav-actions .btn{padding:0 10px!important;font-size:11px!important}
  .site-header .menu-toggle{width:40px!important;height:40px!important}
 }
+
+
+
+/* ILM GLOBAL HEADER REFRESH: shared by every page using script.js */
+.site-header{
+  position:sticky!important;top:0!important;z-index:1500!important;width:100%!important;
+  padding:0!important;background:rgba(255,255,255,.97)!important;
+  border-bottom:1px solid #e7edf4!important;box-shadow:0 8px 28px rgba(10,35,64,.065)!important;
+  backdrop-filter:blur(16px)!important;
+}
+.ilm-header-shell{
+  width:min(1320px,calc(100% - 56px));min-height:86px;margin:0 auto;
+  display:flex;align-items:center;gap:34px;
+}
+.site-header .brand{display:flex;align-items:center;flex:0 0 auto;margin:0}
+.site-header .brand img{display:block;width:178px;max-width:178px;height:auto;max-height:62px;object-fit:contain}
+.site-header .nav-links{
+  display:flex!important;align-items:center;justify-content:center;gap:clamp(18px,2.2vw,34px);
+  flex:1 1 auto;width:auto;padding:0;margin:0;
+}
+.ilm-nav-link{
+  min-height:44px;display:inline-flex;align-items:center;gap:7px;padding:8px 0!important;
+  color:#334a63!important;background:transparent!important;border:0!important;border-radius:0!important;
+  font:650 14px/1.2 Inter,"Segoe UI",Arial,sans-serif!important;text-decoration:none!important;
+  white-space:nowrap;cursor:pointer;position:relative;
+}
+.ilm-nav-link:after{
+  content:"";position:absolute;left:0;right:0;bottom:3px;height:2px;background:#c9a24d;
+  transform:scaleX(0);transform-origin:left;transition:transform .2s ease;
+}
+.ilm-nav-link:hover,.ilm-nav-link.active,.ilm-nav-dropdown.is-active>.ilm-nav-link{color:#0b3763!important}
+.ilm-nav-link:hover:after,.ilm-nav-link.active:after,.ilm-nav-dropdown.is-active>.ilm-nav-link:after{transform:scaleX(1)}
+.ilm-nav-dropdown{position:relative;display:flex;align-items:center}
+.ilm-dropdown-trigger span{font-size:17px;color:#9a7b3d;transition:transform .2s ease}
+.ilm-nav-dropdown.dropdown-open .ilm-dropdown-trigger span{transform:rotate(180deg)}
+.ilm-dropdown-menu{
+  display:none;position:absolute;top:calc(100% + 4px);left:-18px;min-width:228px;padding:9px;
+  background:#fff;border:1px solid #e6edf4;border-radius:13px;
+  box-shadow:0 18px 45px rgba(7,29,57,.15);z-index:1600;
+}
+.ilm-nav-dropdown:hover .ilm-dropdown-menu,.ilm-nav-dropdown:focus-within .ilm-dropdown-menu,.ilm-nav-dropdown.dropdown-open .ilm-dropdown-menu{display:block}
+.ilm-dropdown-menu a{
+  display:flex;padding:11px 13px;border-radius:8px;color:#42566e!important;
+  font-size:13px;font-weight:600;text-decoration:none;white-space:nowrap;
+}
+.ilm-dropdown-menu a:hover,.ilm-dropdown-menu a.active{background:#f1f6fb;color:#0d5b9d!important}
+.site-header .nav-actions{display:flex!important;align-items:center;gap:18px;flex:0 0 auto;margin:0!important}
+.site-header .ilm-login-link{color:#29445f!important;font-size:13px;font-weight:700;text-decoration:none;white-space:nowrap}
+.site-header .ilm-login-link:hover{color:#1267ad!important}
+.site-header .nav-actions .btn{
+  display:inline-flex!important;align-items:center;justify-content:center;gap:9px;
+  min-height:46px;padding:0 20px!important;border-radius:8px!important;
+  background:#1267ad!important;border:1px solid #1267ad!important;color:#fff!important;
+  font-size:13px!important;font-weight:750!important;box-shadow:0 6px 16px rgba(18,103,173,.16)!important;
+}
+.site-header .nav-actions .btn:hover{background:#0a2c50!important;border-color:#0a2c50!important;transform:translateY(-1px)}
+.site-header .menu-toggle{display:none!important}
+@media(max-width:1080px){
+  .ilm-header-shell{width:calc(100% - 36px);gap:20px}
+  .site-header .brand img{width:150px;max-width:150px}
+  .site-header .nav-links{gap:16px}
+  .ilm-nav-link{font-size:13px!important}
+  .site-header .nav-actions{gap:12px}
+  .site-header .nav-actions .btn{padding:0 14px!important}
+}
+@media(max-width:850px){
+  .ilm-header-shell{width:calc(100% - 30px);min-height:76px;gap:12px;flex-wrap:wrap;padding:10px 0}
+  .site-header .brand img{width:155px;max-width:155px}
+  .site-header .menu-toggle{
+    display:flex!important;flex-direction:column;justify-content:center;gap:5px;
+    width:42px;height:42px;margin-left:auto;padding:10px!important;
+    border:1px solid #e0e8f1!important;border-radius:9px!important;background:#fff!important;
+  }
+  .site-header .menu-toggle span{display:block;width:20px;height:2px;background:#12395f;border-radius:2px;transition:.2s}
+  .site-header .menu-toggle.is-open span:first-child{transform:translateY(7px) rotate(45deg)}
+  .site-header .menu-toggle.is-open span:nth-child(2){opacity:0}
+  .site-header .menu-toggle.is-open span:last-child{transform:translateY(-7px) rotate(-45deg)}
+  .site-header .nav-actions{order:2;gap:10px}
+  .site-header .ilm-login-link{font-size:12px}
+  .site-header .nav-actions .btn{min-height:40px;padding:0 12px!important;font-size:11px!important}
+  .site-header .nav-links{
+    display:none!important;order:3;flex:0 0 100%;width:100%!important;
+    flex-direction:column;align-items:stretch;gap:3px;padding:10px 0 5px!important;
+    border-top:1px solid #edf1f5;
+  }
+  .site-header .nav-links.open{display:flex!important}
+  .site-header .nav-links>.ilm-nav-link,.site-header .nav-links>.ilm-nav-dropdown>.ilm-nav-link{
+    display:flex;width:100%;min-height:43px;padding:11px 12px!important;
+    justify-content:space-between;border-radius:8px!important;background:#f6f8fb!important;
+  }
+  .ilm-nav-link:after{display:none}
+  .ilm-nav-dropdown{display:block;width:100%}
+  .ilm-dropdown-menu{position:static;min-width:0;margin:4px 0 7px 10px;padding:4px 8px;
+    border:0;border-left:2px solid #d4b66d;border-radius:0;box-shadow:none;background:#fff}
+  .ilm-dropdown-menu a{white-space:normal;padding:10px 12px}
+}
+@media(max-width:430px){
+  .ilm-header-shell{width:calc(100% - 22px)}
+  .site-header .brand img{width:128px;max-width:128px}
+  .site-header .nav-actions{gap:8px}
+  .site-header .nav-actions .btn{padding:0 9px!important;font-size:10px!important}
+  .site-header .ilm-login-link{font-size:11px}
+  .site-header .menu-toggle{width:38px;height:38px}
+}
+@media(prefers-reduced-motion:reduce){.ilm-nav-link:after,.ilm-dropdown-trigger span{transition:none}}
