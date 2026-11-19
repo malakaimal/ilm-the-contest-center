@@ -1,6 +1,6 @@
 // ILM admission form: Google Sheets + Google Drive via the ILM Apps Script web app.
 
-// District and tehsil remain standard dropdowns. Only School Name uses search suggestions.
+// District and tehsil remain standard dropdowns. School names appear as dropdown options.
 const ilmDistrictTehsils = {
  Shangla: ["Alpuri", "Besham", "Chakesar", "Martung", "Puran"],
  Buner: ["Daggar", "Gagra", "Gadezai", "Chagharzai", "Khado Khel", "Mandanr"],
@@ -8,8 +8,9 @@ const ilmDistrictTehsils = {
 };
 const ilmDistrictSelect = document.getElementById("district");
 const ilmTehsilSelect = document.getElementById("tehsil");
-const ilmSchoolList = document.getElementById("ilmSchoolSuggestions");
-const ilmSchoolNames = {"Swat":["THE MODEL SCHOOL SWAT","ABASIN CHILDREN ACADEMY","ABASYN INTERNATIONAL SCHOOL KABAL SWAT","ABASIN PUBLIC SCHOOL AND COLLEGE","ABDAL EDUCATION ACADEMY","ABDALI GIRLS SCHOOL & COLLEGE","ABDALI PUBLIC SCHOOL MATTA","AFAQ MODEL SCHOOL KOKARAI SWAT","AL - RAZI SCHOOL & COLLEGE KANJU SWAT","AL MADINA PUBLIC SCHOOL KABAL SWAT","THE ASIAN SCHOOL AND COLLEGE CAMPUS 1","BEACONHOUSE SCHOOL SYSTEM SWAT BRANCH","THE LEARNERS SCHOOL SWAT","SWAT ENGLISH ACADEMY SCHOOL AND COLLEGE","SWAT VALLEY SCHOOL SYSTEM KANJU","ALLIED SCHOOL SWAT CAMPUS","THE PEACE GROUP OF SCHOOLS AND COLLEGES SWAT","Government High School No. 1 Mingora","Government Higher Secondary School Balogram","Government Primary School Burhanabad Barama","Government Primary School Dakorak","Government High School Seer","Government Primary/Middle/High School Kota"],"Buner":["ABASIA PUBLIC SCHOOL JOWAR BUNER","ABBOTTABAD INTERNATIONAL MODEL SCHOOL & COLLEGE (BUNER CAMPUS)","ABDALI GIRLS SCHOOL & COLLAGE JOWAR BUNER","AFAQ PUBLIC SCHOOL","AIM COLLEGE OF MODERN SCIENCES (GIRLS)","AISHA MODEL SCHOOL BUDAL","AL QALAM EDUCATION ACADEMY","AL BAHAR GROUP OF SCHOOLS AND COLLEGES","AL FARABI PUBLIC SCHOOL","BUNER CHILDREN ACADEMY","BUNER EDUCATION ACADEMY","BUNER GRAMMAR SCHOOL","BUNER MODEL SCHOOL & COLLEGE REGA"],"Shangla":["A ONE PUBLIC SCHOOL","ABASEEN PUBLIC SCHOOL DEDAL","ABASIN MODEL SCHOOL","ABDULLAH IBNE ABBAS ACADMY MANDORYA","ABU HURAIRA MODEL SCHOOL","AFAQ MODEL SCHOOL","AFAQ MODEL SCHOOL SHEPNAI","AHMAD PUBLIC SCHOOL BARKANA","AL HUDA PUBLIC SCHOOL FAIZA","AL MEEZAN PUBLIC SCHOOL JATKOOL","CHAKESAR EDUCATION ACADEMY","CHAKESAR MODEL SCHOOL","CHAKESAR PUBLIC SCHOOL & COLLEGE","BESHAM MODEL SCHOOL & COLLEGE","ENGLISH GRAMMAR SCHOOL BESHAM","IQRA USMANIA PUBLIC SCHOOL DANAKOOL"]};
+const ilmSchoolSelect = document.getElementById("school");
+const ilmSchoolOther = document.getElementById("schoolOther");
+const ilmSchoolNames =  {"Swat":["THE MODEL SCHOOL SWAT","ABASIN CHILDREN ACADEMY","ABASYN INTERNATIONAL SCHOOL KABAL SWAT","ABASIN PUBLIC SCHOOL AND COLLEGE","ABDAL EDUCATION ACADEMY","ABDALI GIRLS SCHOOL & COLLEGE","ABDALI PUBLIC SCHOOL MATTA","AFAQ MODEL SCHOOL KOKARAI SWAT","AL - RAZI SCHOOL & COLLEGE KANJU SWAT","AL MADINA PUBLIC SCHOOL KABAL SWAT","THE ASIAN SCHOOL AND COLLEGE CAMPUS 1","BEACONHOUSE SCHOOL SYSTEM SWAT BRANCH","THE LEARNERS SCHOOL SWAT","SWAT ENGLISH ACADEMY SCHOOL AND COLLEGE","SWAT VALLEY SCHOOL SYSTEM KANJU","ALLIED SCHOOL SWAT CAMPUS","THE PEACE GROUP OF SCHOOLS AND COLLEGES SWAT","Government High School No. 1 Mingora","Government Higher Secondary School Balogram","Government Primary School Burhanabad Barama","Government Primary School Dakorak","Government High School Seer","Government Primary/Middle/High School Kota"],"Buner":["ABASIA PUBLIC SCHOOL JOWAR BUNER","ABBOTTABAD INTERNATIONAL MODEL SCHOOL & COLLEGE (BUNER CAMPUS)","ABDALI GIRLS SCHOOL & COLLAGE JOWAR BUNER","AFAQ PUBLIC SCHOOL","AIM COLLEGE OF MODERN SCIENCES (GIRLS)","AISHA MODEL SCHOOL BUDAL","AL QALAM EDUCATION ACADEMY","AL BAHAR GROUP OF SCHOOLS AND COLLEGES","AL FARABI PUBLIC SCHOOL","BUNER CHILDREN ACADEMY","BUNER EDUCATION ACADEMY","BUNER GRAMMAR SCHOOL","BUNER MODEL SCHOOL & COLLEGE REGA"],"Shangla":["A ONE PUBLIC SCHOOL","ABASEEN PUBLIC SCHOOL DEDAL","ABASIN MODEL SCHOOL","ABDULLAH IBNE ABBAS ACADMY MANDORYA","ABU HURAIRA MODEL SCHOOL","AFAQ MODEL SCHOOL","AFAQ MODEL SCHOOL SHEPNAI","AHMAD PUBLIC SCHOOL BARKANA","AL HUDA PUBLIC SCHOOL FAIZA","AL MEEZAN PUBLIC SCHOOL JATKOOL","CHAKESAR EDUCATION ACADEMY","CHAKESAR MODEL SCHOOL","CHAKESAR PUBLIC SCHOOL & COLLEGE","BESHAM MODEL SCHOOL & COLLEGE","ENGLISH GRAMMAR SCHOOL BESHAM","IQRA USMANIA PUBLIC SCHOOL DANAKOOL"]};
 function ilmUpdateTehsils() {
  const names = ilmDistrictTehsils[ilmDistrictSelect?.value] || [];
  if (!ilmTehsilSelect) return;
@@ -19,19 +20,32 @@ function ilmUpdateTehsils() {
  ilmTehsilSelect.disabled = names.length === 0;
  if (names.includes(selected)) ilmTehsilSelect.value = selected;
 }
-function ilmUpdateSchoolSuggestions() {
- if (!ilmSchoolList) return;
+function ilmUpdateSchoolOptions() {
+ if (!ilmSchoolSelect) return;
  const district = ilmDistrictSelect?.value || "";
  const sector = document.getElementById("schoolSector")?.value || "";
+ const selected = ilmSchoolSelect.value;
  let options = ilmSchoolNames[district] || [];
  if (sector === "Government") options = options.filter(name => name.startsWith("Government"));
  if (sector === "Private") options = options.filter(name => !name.startsWith("Government"));
- ilmSchoolList.replaceChildren(...options.map(name => new Option(name, name)));
+ ilmSchoolSelect.replaceChildren(new Option("Select your school", ""));
+ options.forEach(name => ilmSchoolSelect.add(new Option(name, name)));
+ ilmSchoolSelect.add(new Option("Other / Not Listed", "__other__"));
+ if (options.includes(selected)) ilmSchoolSelect.value = selected;
+ else if (selected === "__other__") ilmSchoolSelect.value = selected;
+ ilmSchoolOther.hidden = ilmSchoolSelect.value !== "__other__";
+ ilmSchoolOther.required = ilmSchoolSelect.value === "__other__";
 }
-ilmDistrictSelect?.addEventListener("change", () => { ilmUpdateTehsils(); ilmUpdateSchoolSuggestions(); });
-document.getElementById("schoolSector")?.addEventListener("change", ilmUpdateSchoolSuggestions);
+ilmDistrictSelect?.addEventListener("change", () => { ilmUpdateTehsils(); ilmUpdateSchoolOptions(); });
+document.getElementById("schoolSector")?.addEventListener("change", ilmUpdateSchoolOptions);
+ilmSchoolSelect?.addEventListener("change", () => {
+ const isOther = ilmSchoolSelect.value === "__other__";
+ ilmSchoolOther.hidden = !isOther;
+ ilmSchoolOther.required = isOther;
+ if (!isOther) ilmSchoolOther.value = "";
+});
 ilmUpdateTehsils();
-ilmUpdateSchoolSuggestions();
+ilmUpdateSchoolOptions();
 const ILM_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwGvXpTiN2DBwio0NdnSqAgQBdG1SFV3ISkrFet-mO86UUPUXIyfC1AlmrOdxPGaviF/exec";
 function ilmShowFormMessage(text,type){
  const el=document.getElementById("formMessage");
@@ -65,7 +79,7 @@ if(ilmForm) ilmForm.addEventListener("submit",async e=>{
    tehsil:document.getElementById("tehsil").value,
    // Keep the combined area value for compatibility with the existing admissions sheet.
    area:document.getElementById("tehsil").value+", "+document.getElementById("district").value,
-   school:document.getElementById("school").value.trim(),
+   school:(document.getElementById("school").value === "__other__" ? document.getElementById("schoolOther").value.trim() : document.getElementById("school").value.trim()),
    schoolSector:document.getElementById("schoolSector").value,
    schoolLevel:document.getElementById("schoolLevel").value,
    grade:document.getElementById("grade").value,
