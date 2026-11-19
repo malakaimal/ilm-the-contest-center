@@ -1286,3 +1286,67 @@ blockquote{border-left:4px solid var(--ilm-gold);padding:12px 20px;background:#f
   .site-header .menu-toggle{width:38px;height:38px}
 }
 @media(prefers-reduced-motion:reduce){.ilm-nav-link:after,.ilm-dropdown-trigger span{transition:none}}
+
+/* INTERNATIONAL ACADEMIC HEADER: white, navy and restrained gold */
+.site-header{background:#fff!important;border:0!important;border-bottom:1px solid #e4e9ef!important;border-radius:0!important;box-shadow:0 5px 22px rgba(9,31,55,.07)!important;backdrop-filter:none!important}
+.ilm-academic-topbar{background:#092747!important;color:#dce6ef!important;font-size:11px!important;letter-spacing:.55px!important}
+.ilm-academic-topbar-inner{width:min(1260px,calc(100% - 56px));height:36px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.ilm-academic-topbar-inner>span{font-weight:750;letter-spacing:1.1px}
+.ilm-academic-topbar-inner i{display:inline-block;width:4px;height:4px;margin:0 9px 2px;border-radius:50%;background:#c5a35d}
+.ilm-academic-topbar-inner>div{display:flex;align-items:center;gap:24px}
+.ilm-academic-topbar-inner a{color:#e7edf4!important;text-decoration:none!important;font-size:11px!important}
+.ilm-academic-topbar-inner a:hover{color:#e3c77e!important}
+.ilm-header-shell{width:min(1260px,calc(100% - 56px))!important;min-height:94px!important;margin:auto!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:30px!important}
+.site-header .brand img{width:190px!important;max-width:190px!important;max-height:70px!important}
+.site-header .nav-links{display:flex!important;align-items:center!important;justify-content:center!important;gap:clamp(17px,2vw,29px)!important;flex:1 1 auto!important}
+.ilm-nav-link{font-family:Georgia,"Times New Roman",serif!important;font-size:15px!important;font-weight:600!important;color:#193653!important;letter-spacing:.1px!important;min-height:48px!important}
+.ilm-nav-link:after{height:2px!important;background:#b99a57!important;bottom:4px!important}
+.ilm-nav-link:hover,.ilm-nav-link.active,.ilm-nav-dropdown.is-active>.ilm-nav-link{color:#a27e35!important}
+.ilm-dropdown-menu{top:calc(100% + 2px)!important;border-radius:2px!important;border-top:3px solid #b99a57!important;box-shadow:0 14px 34px rgba(8,31,55,.14)!important}
+.ilm-dropdown-menu a{font-family:Arial,sans-serif!important;font-size:13px!important;color:#29435d!important;border-radius:2px!important}
+.ilm-dropdown-menu a:hover,.ilm-dropdown-menu a.active{background:#f4f1e9!important;color:#8a692d!important}
+.site-header .nav-actions{gap:20px!important}
+.site-header .ilm-login-link{font-family:Arial,sans-serif!important;color:#1c3c5b!important;font-size:13px!important;font-weight:700!important}
+.site-header .nav-actions .btn{min-height:47px!important;padding:0 21px!important;border-radius:2px!important;background:#b18e49!important;border:1px solid #b18e49!important;color:#fff!important;font-family:Arial,sans-serif!important;font-size:12px!important;font-weight:750!important;letter-spacing:.55px!important;text-transform:uppercase!important;box-shadow:none!important}
+.site-header .nav-actions .btn:hover{background:#092747!important;border-color:#092747!important;transform:translateY(-1px)!important}
+.site-header .menu-toggle{display:none!important}
+@media(max-width:1050px){
+ .ilm-header-shell{width:calc(100% - 36px)!important;gap:17px!important}
+ .site-header .brand img{width:160px!important;max-width:160px!important}
+ .site-header .nav-links{gap:13px!important}
+ .ilm-nav-link{font-size:14px!important}
+ .site-header .nav-actions{gap:12px!important}
+ .site-header .nav-actions .btn{padding:0 13px!important}
+}
+@media(max-width:850px){
+ .ilm-academic-topbar-inner{width:calc(100% - 30px);height:32px}
+ .ilm-academic-topbar-inner>div{gap:12px}
+ .ilm-academic-topbar-inner a{font-size:10px!important}
+ .ilm-header-shell{width:calc(100% - 30px)!important;min-height:78px!important;gap:12px!important;flex-wrap:wrap!important;padding:10px 0!important}
+ .site-header .brand img{width:158px!important;max-width:158px!important}
+ .site-header .menu-toggle{display:flex!important;flex-direction:column!important;justify-content:center!important;gap:5px!important;width:42px!important;height:42px!important;margin-left:auto!important;padding:10px!important;border:1px solid #d9e0e8!important;border-radius:2px!important;background:#fff!important}
+ .site-header .menu-toggle span{display:block;width:20px;height:2px;background:#092747;border-radius:0;transition:.2s}
+ .site-header .menu-toggle.is-open span:first-child{transform:translateY(7px) rotate(45deg)}
+ .site-header .menu-toggle.is-open span:nth-child(2){opacity:0}
+ .site-header .menu-toggle.is-open span:last-child{transform:translateY(-7px) rotate(-45deg)}
+ .site-header .nav-actions{order:2!important;gap:10px!important}
+ .site-header .nav-actions .btn{min-height:40px!important;padding:0 12px!important;font-size:10px!important}
+ .site-header .nav-links{display:none!important;order:3!important;flex:0 0 100%!important;width:100%!important;flex-direction:column!important;align-items:stretch!important;gap:3px!important;padding:12px 0 4px!important;border-top:1px solid #e7ebef!important}
+ .site-header .nav-links.open{display:flex!important}
+ .site-header .nav-links>.ilm-nav-link,.site-header .nav-links>.ilm-nav-dropdown>.ilm-nav-link{display:flex!important;width:100%!important;min-height:43px!important;justify-content:space-between!important;padding:10px 12px!important;background:#f7f8fa!important;border-radius:0!important}
+ .ilm-nav-link:after{display:none!important}
+ .ilm-nav-dropdown{display:block!important;width:100%!important}
+ .ilm-dropdown-menu{position:static!important;min-width:0!important;margin:3px 0 8px 12px!important;padding:4px 8px!important;border:0!important;border-left:2px solid #b99a57!important;border-radius:0!important;box-shadow:none!important}
+}
+@media(max-width:480px){
+ .ilm-academic-topbar-inner{width:calc(100% - 22px)!important}
+ .ilm-academic-topbar-inner>span{font-size:9px!important;letter-spacing:.5px!important}
+ .ilm-academic-topbar-inner>div{gap:8px!important}
+ .ilm-academic-topbar-inner a{font-size:9px!important}
+ .ilm-header-shell{width:calc(100% - 22px)!important}
+ .site-header .brand img{width:132px!important;max-width:132px!important}
+ .site-header .ilm-login-link{font-size:11px!important}
+ .site-header .nav-actions{gap:8px!important}
+ .site-header .nav-actions .btn{padding:0 9px!important;font-size:9px!important}
+ .site-header .menu-toggle{width:38px!important;height:38px!important}
+}
