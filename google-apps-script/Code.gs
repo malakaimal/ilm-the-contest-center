@@ -159,21 +159,21 @@ function authorizeAdmissionEmail() {
 
 function doGet(e) {
   const params = (e && e.parameter) ? e.parameter : {};
-  // Google Apps Script's documented JSONP convention is "prefix".
-  // Accept "callback" too, for compatibility with older website versions.
+  // JSONP is used by the static website to avoid cross-origin fetch restrictions.
   const callback = String(params.prefix || params.callback || "").trim();
 
   if (params.action === "health") {
     return ContentService.createTextOutput(JSON.stringify({
       success: true,
       service: "ILM Admissions and Results API",
-      version: "2026-11-05"
+      version: "2026-11-22-form-number"
     })).setMimeType(ContentService.MimeType.JSON);
   }
 
-  const applicationId = clean_(params.applicationId || "", 50).toUpperCase();
-  if (!applicationId) {
-    return outputResponse_({success:false,message:"Enter your Application ID."}, callback);
+  // Keep the old parameter as a backward-compatible alias.
+  const formNumber = clean_(params.formNumber || params.applicationId || params.rollNumber || "", 50).toUpperCase();
+  if (!formNumber) {
+    return outputResponse_({success:false,message:"Enter your Form Number."}, callback);
   }
 
   try {
@@ -185,27 +185,62 @@ function doGet(e) {
 
     const values = sheet.getDataRange().getDisplayValues();
     const headers = values[0].map(function(h) { return String(h).trim(); });
-    const idCol = headers.indexOf("Application ID");
-    const publishedCol = headers.indexOf("Published");
-    if (idCol < 0 || publishedCol < 0) {
-      throw new Error("Student Results must contain Application ID and Published columns.");
+    const formCol = findHeaderIndex_(headers, [
+      "Form Number", "Form No", "Form No.", "Form #",
+      "Roll Number", "Roll No", "Roll No.", "Application ID", "Registration ID"
+    ]);
+    const publishedCol = findHeaderIndex_(headers, ["Published", "Is Published", "Publication Status"]);
+
+    if (formCol < 0 || publishedCol < 0) {
+      throw new Error("The Student Results sheet needs a Form Number (or Application ID) column and a Published column.");
     }
 
     const results = [];
     for (let i = 1; i < values.length; i++) {
       const row = values[i];
-      if (String(row[idCol]).trim().toUpperCase() !== applicationId) continue;
-      if (!/^(yes|true|published)$/i.test(String(row[publishedCol]).trim())) continue;
-      const item = {};
-      headers.forEach(function(header, j) {
-        if (header && header !== "Published") item[header] = row[j];
+      if (String(row[formCol] || "").trim().toUpperCase() !== formNumber) continue;
+      if (!/^(yes|true|published)$/i.test(String(row[publishedCol] || "").trim())) continue;
+
+      // Return only fields intended for a published result. Never expose
+      // admission contacts, date of birth, payment details, passwords or notes.
+      const item = {
+        "Form Number": getCellByHeaders_(row, headers, ["Form Number", "Form No", "Form No.", "Form #", "Roll Number", "Roll No", "Roll No.", "Application ID", "Registration ID"]),
+        "Student Name": getCellByHeaders_(row, headers, ["Student Name", "Student Full Name"]),
+        "Class": getCellByHeaders_(row, headers, ["Class", "Current Class", "Grade"]),
+        "Programme": getCellByHeaders_(row, headers, ["Programme", "Competition", "Test"]),
+        "Total Marks": getCellByHeaders_(row, headers, ["Total Marks", "Maximum Marks", "total_marks"]),
+        "Obtained Marks": getCellByHeaders_(row, headers, ["Obtained Marks", "Marks Obtained", "Score", "score"]),
+        "Percentage": getCellByHeaders_(row, headers, ["Percentage", "percentage"]),
+        "Grade": getCellByHeaders_(row, headers, ["Result Grade", "Grade Award"]),
+        "Position": getCellByHeaders_(row, headers, ["Position", "Rank", "rank"]),
+        "Result Status": getCellByHeaders_(row, headers, ["Result Status", "Remarks", "Status"])
+      };
+
+      // Do not send blank keys to the browser.
+      Object.keys(item).forEach(function(key) {
+        if (item[key] === "") delete item[key];
       });
       results.push(item);
     }
+
     return outputResponse_({success:true,results:results}, callback);
   } catch (err) {
     return outputResponse_({success:false,message:String(err.message || err)}, callback);
   }
+}
+
+function findHeaderIndex_(headers, candidates) {
+  const normalized = headers.map(function(h) { return String(h).trim().toLowerCase(); });
+  for (let i = 0; i < candidates.length; i++) {
+    const index = normalized.indexOf(String(candidates[i]).trim().toLowerCase());
+    if (index >= 0) return index;
+  }
+  return -1;
+}
+
+function getCellByHeaders_(row, headers, candidates) {
+  const index = findHeaderIndex_(headers, candidates);
+  return index >= 0 ? String(row[index] == null ? "" : row[index]).trim() : "";
 }
 
 function outputResponse_(data, callback) {
