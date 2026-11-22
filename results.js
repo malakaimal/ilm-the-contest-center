@@ -1,12 +1,16 @@
-// ILM published-results lookup. Uses the Apps Script JSONP "prefix" parameter.
+// ILM published-results lookup by Form Number.
+// The API returns only result fields for records marked as Published.
 (function () {
   "use strict";
+
   const API_URL = "https://script.google.com/macros/s/AKfycbwGvXpTiN2DBwio0NdnSqAgQBdG1SFV3ISkrFet-mO86UUPUXIyfC1AlmrOdxPGaviF/exec";
   const CALLBACK = "ilmResultCallback";
   const form = document.getElementById("resultLookup");
   const message = document.getElementById("resultMessage");
   const output = document.getElementById("resultOutput");
-  if (!form || !message || !output) return;
+  const input = document.getElementById("formNumber");
+
+  if (!form || !message || !output || !input) return;
 
   function showMessage(text, type) {
     message.textContent = text;
@@ -23,12 +27,12 @@
     card.appendChild(p);
   }
 
-  function requestResult(applicationId) {
+  function requestResult(formNumber) {
     return new Promise(function (resolve, reject) {
       const script = document.createElement("script");
       let finished = false;
       const timeout = window.setTimeout(function () {
-        finish(new Error("The results service did not respond. Check the Apps Script deployment."));
+        finish(new Error("The results service did not respond. Please try again later."));
       }, 20000);
 
       function finish(error, data) {
@@ -43,10 +47,11 @@
 
       window[CALLBACK] = function (data) { finish(null, data); };
       script.onerror = function () {
-        finish(new Error("Could not load the results service. Confirm the latest Apps Script deployment URL and access setting."));
+        finish(new Error("Could not connect to the ILM results service. Please try again later."));
       };
+
       const url = new URL(API_URL);
-      url.searchParams.set("applicationId", applicationId);
+      url.searchParams.set("formNumber", formNumber);
       url.searchParams.set("prefix", CALLBACK);
       url.searchParams.set("_", String(Date.now()));
       script.src = url.toString();
@@ -54,12 +59,15 @@
     });
   }
 
-  function renderResult(result) {
+  function renderResult(result, formNumber) {
     const card = document.createElement("article");
     card.className = "card";
+
     const title = document.createElement("h3");
     title.textContent = result.Programme || "ILM Examination Result";
     card.appendChild(title);
+
+    addRow(card, "Form Number", result["Form Number"] || formNumber);
     addRow(card, "Student", result["Student Name"] || result["Student Full Name"]);
     addRow(card, "Class", result.Class || result["Current Class"]);
     addRow(card, "Programme", result.Programme);
@@ -76,13 +84,13 @@
     downloadButton.textContent = "Download Result PDF";
     downloadButton.style.marginTop = "18px";
     downloadButton.addEventListener("click", function () {
-      downloadResultPDF(result);
+      downloadResultPDF(result, formNumber);
     });
     card.appendChild(downloadButton);
     output.appendChild(card);
   }
 
-  function downloadResultPDF(result) {
+  function downloadResultPDF(result, formNumber) {
     const JsPDF = window.jspdf && window.jspdf.jsPDF;
     if (!JsPDF) {
       showMessage("PDF generator did not load. Refresh the page and try again.", "error");
@@ -91,8 +99,6 @@
 
     const doc = new JsPDF({ unit: "mm", format: "a4" });
     const pageWidth = doc.internal.pageSize.getWidth();
-    const studentName = result["Student Name"] || result["Student Full Name"] || "Student";
-    const applicationId = document.getElementById("applicationId").value.trim().toUpperCase();
 
     doc.setFillColor(8, 39, 68);
     doc.rect(0, 0, pageWidth, 42, "F");
@@ -109,8 +115,8 @@
     doc.text("Examination Result", 16, 57);
 
     const rows = [
-      ["Student Name", studentName],
-      ["Application ID", applicationId],
+      ["Form Number", formNumber],
+      ["Student Name", result["Student Name"] || result["Student Full Name"] || ""],
       ["Class", result.Class || result["Current Class"] || ""],
       ["Programme", result.Programme || ""],
       ["Total Marks", result["Total Marks"] || ""],
@@ -145,37 +151,44 @@
     doc.setTextColor(100, 112, 126);
     doc.text("This document reflects the result published by ILM The Contest Center.", 16, y + 17);
     doc.text("Generated: " + new Date().toLocaleString(), 16, y + 23);
-    doc.save("ILM-Result-" + applicationId.replace(/[^A-Z0-9_-]/g, "") + ".pdf");
+    doc.save("ILM-Result-" + formNumber.replace(/[^A-Z0-9_-]/gi, "") + ".pdf");
   }
 
   form.addEventListener("submit", async function (event) {
     event.preventDefault();
     output.replaceChildren();
-    const input = document.getElementById("applicationId");
-    const button = document.getElementById("resultButton");
-    const applicationId = input.value.trim().toUpperCase();
-    if (!applicationId) {
-      showMessage("Please enter your Application ID.", "error");
+
+    const formNumber = input.value.trim().toUpperCase();
+    if (!formNumber) {
+      showMessage("Please enter your Form Number.", "error");
+      input.focus();
       return;
     }
+
+    const button = document.getElementById("resultButton");
+    const originalText = button.textContent;
     button.disabled = true;
+    button.textContent = "Searching...";
     showMessage("Searching published results...");
+
     try {
-      const response = await requestResult(applicationId);
+      const response = await requestResult(formNumber);
       if (!response || response.success !== true) {
         throw new Error((response && response.message) || "The results service returned an error.");
       }
+
       const records = Array.isArray(response.results) ? response.results : [];
       if (!records.length) {
-        showMessage("No published result was found. Check your Application ID or contact ILM.", "");
+        showMessage("No published result was found for Form Number " + formNumber + ". Check the number or contact ILM.", "");
       } else {
-        records.forEach(renderResult);
+        records.forEach(function (record) { renderResult(record, formNumber); });
         showMessage("Official published result found.", "success");
       }
     } catch (error) {
       showMessage(error.message || "Result lookup failed.", "error");
     } finally {
       button.disabled = false;
+      button.textContent = originalText;
     }
   });
 })();
