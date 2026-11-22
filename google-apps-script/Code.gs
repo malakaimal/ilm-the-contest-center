@@ -214,7 +214,7 @@ function doGet(e) {
         "Total Marks": getCellByHeaders_(row, headers, ["Total Marks", "Maximum Marks", "total_marks"]),
         "Obtained Marks": getCellByHeaders_(row, headers, ["Obtained Marks", "Marks Obtained", "Score", "score"]),
         "Percentage": getCellByHeaders_(row, headers, ["Percentage", "percentage"]),
-        "Grade": getCellByHeaders_(row, headers, ["Result Grade", "Grade Award"]),
+        "Grade": getCellByHeaders_(row, headers, ["Result Grade", "Grade Award", "Grade"]),
         "Position": getCellByHeaders_(row, headers, ["Position", "Rank", "rank"]),
         "Result Status": getCellByHeaders_(row, headers, ["Result Status", "Remarks", "Status"])
       };
