@@ -9,7 +9,7 @@ if (header) {
       ["Annual Mega Contest","contests.html"],["Admission","admission.html"],
       ["Practice Books","practice-books.html"],["Regional Math Clubs","regional-math-clubs.html"]
     ]},
-    {label:"Results",items:[["Check Results","results.html"],["Certificates","certificates.html"]]},
+    {label:"Results",items:[["Check Results","results.html"],["Verify Certificate","certificates.html"]]},
     {label:"Contact",url:"contact.html"}
   ];
   const groupActive = group => group.items ? group.items.some(item=>item[1]===currentFile) : group.url===currentFile;
