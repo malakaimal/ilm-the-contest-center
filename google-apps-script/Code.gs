@@ -15,8 +15,8 @@ const REGISTRATION_HEADERS = [
   "Payment Screenshot Link","Payment Screen Shot","Payment Screenshot (Google Drive)","Password","Payment Status","Application Status","Admin Notes"
 ];
 const RESULT_HEADERS = [
-  "Form Number","Application ID","Student Name","Class","Programme","Total Marks","Obtained Marks",
-  "Percentage","Grade","Position","Result Status","Published"
+  "Application ID","Student Name","Class","Programme","Total Marks","Obtained Marks",
+  "Percentage","Position","Result Status","Published"
 ];
 
 function doPost(e) {
@@ -159,21 +159,21 @@ function authorizeAdmissionEmail() {
 
 function doGet(e) {
   const params = (e && e.parameter) ? e.parameter : {};
-  // JSONP is used by the static website to avoid cross-origin fetch restrictions.
+  // Google Apps Script's documented JSONP convention is "prefix".
+  // Accept "callback" too, for compatibility with older website versions.
   const callback = String(params.prefix || params.callback || "").trim();
 
   if (params.action === "health") {
     return ContentService.createTextOutput(JSON.stringify({
       success: true,
       service: "ILM Admissions and Results API",
-      version: "2026-11-22-form-number"
+      version: "2026-11-05"
     })).setMimeType(ContentService.MimeType.JSON);
   }
 
-  // Keep the old parameter as a backward-compatible alias.
-  const formNumber = clean_(params.formNumber || params.applicationId || params.rollNumber || "", 50).toUpperCase();
-  if (!formNumber) {
-    return outputResponse_({success:false,message:"Enter your Form Number."}, callback);
+  const applicationId = clean_(params.applicationId || "", 50).toUpperCase();
+  if (!applicationId) {
+    return outputResponse_({success:false,message:"Enter your Application ID."}, callback);
   }
 
   try {
@@ -185,75 +185,27 @@ function doGet(e) {
 
     const values = sheet.getDataRange().getDisplayValues();
     const headers = values[0].map(function(h) { return String(h).trim(); });
-    const formColumns = findHeaderIndices_(headers, [
-      "Form Number", "Form No", "Form No.", "Form #",
-      "Roll Number", "Roll No", "Roll No.", "Application ID", "Registration ID"
-    ]);
-    const publishedCol = findHeaderIndex_(headers, ["Published", "Is Published", "Publication Status"]);
-
-    if (!formColumns.length || publishedCol < 0) {
-      throw new Error("The Student Results sheet needs a Form Number (or Application ID) column and a Published column.");
+    const idCol = headers.indexOf("Application ID");
+    const publishedCol = headers.indexOf("Published");
+    if (idCol < 0 || publishedCol < 0) {
+      throw new Error("Student Results must contain Application ID and Published columns.");
     }
 
     const results = [];
     for (let i = 1; i < values.length; i++) {
       const row = values[i];
-      const matchedFormCol = formColumns.find(function(index) {
-        return String(row[index] || "").trim().toUpperCase() === formNumber;
-      });
-      if (matchedFormCol === undefined) continue;
-      if (!/^(yes|true|published)$/i.test(String(row[publishedCol] || "").trim())) continue;
-
-      // Return only fields intended for a published result. Never expose
-      // admission contacts, date of birth, payment details, passwords or notes.
-      const item = {
-        "Form Number": String(row[matchedFormCol] || "").trim(),
-        "Student Name": getCellByHeaders_(row, headers, ["Student Name", "Student Full Name"]),
-        "Class": getCellByHeaders_(row, headers, ["Class", "Current Class", "Grade"]),
-        "Programme": getCellByHeaders_(row, headers, ["Programme", "Competition", "Test"]),
-        "Total Marks": getCellByHeaders_(row, headers, ["Total Marks", "Maximum Marks", "total_marks"]),
-        "Obtained Marks": getCellByHeaders_(row, headers, ["Obtained Marks", "Marks Obtained", "Score", "score"]),
-        "Percentage": getCellByHeaders_(row, headers, ["Percentage", "percentage"]),
-        "Grade": getCellByHeaders_(row, headers, ["Result Grade", "Grade Award", "Grade"]),
-        "Position": getCellByHeaders_(row, headers, ["Position", "Rank", "rank"]),
-        "Result Status": getCellByHeaders_(row, headers, ["Result Status", "Remarks", "Status"])
-      };
-
-      // Do not send blank keys to the browser.
-      Object.keys(item).forEach(function(key) {
-        if (item[key] === "") delete item[key];
+      if (String(row[idCol]).trim().toUpperCase() !== applicationId) continue;
+      if (!/^(yes|true|published)$/i.test(String(row[publishedCol]).trim())) continue;
+      const item = {};
+      headers.forEach(function(header, j) {
+        if (header && header !== "Published") item[header] = row[j];
       });
       results.push(item);
     }
-
     return outputResponse_({success:true,results:results}, callback);
   } catch (err) {
     return outputResponse_({success:false,message:String(err.message || err)}, callback);
   }
-}
-
-function findHeaderIndex_(headers, candidates) {
-  const normalized = headers.map(function(h) { return String(h).trim().toLowerCase(); });
-  for (let i = 0; i < candidates.length; i++) {
-    const index = normalized.indexOf(String(candidates[i]).trim().toLowerCase());
-    if (index >= 0) return index;
-  }
-  return -1;
-}
-
-function findHeaderIndices_(headers, candidates) {
-  const normalized = headers.map(function(h) { return String(h).trim().toLowerCase(); });
-  const indexes = [];
-  candidates.forEach(function(candidate) {
-    const index = normalized.indexOf(String(candidate).trim().toLowerCase());
-    if (index >= 0 && indexes.indexOf(index) === -1) indexes.push(index);
-  });
-  return indexes;
-}
-
-function getCellByHeaders_(row, headers, candidates) {
-  const index = findHeaderIndex_(headers, candidates);
-  return index >= 0 ? String(row[index] == null ? "" : row[index]).trim() : "";
 }
 
 function outputResponse_(data, callback) {
@@ -346,28 +298,12 @@ function jsonp_(callback,obj) {
     .setMimeType(ContentService.MimeType.JAVASCRIPT);
 }
 
-/**
- * Run once from the Apps Script editor to create or safely extend the results tab.
- * Existing rows are preserved; missing headings such as Form Number are appended.
- */
+/** Run once from the Apps Script editor to create the results tab without touching existing tabs. */
 function setupILMResultsSheet() {
   const ss = SpreadsheetApp.openById(ILM_SPREADSHEET_ID);
   let sheet = ss.getSheetByName("Student Results");
   if (!sheet) sheet = ss.insertSheet("Student Results");
-
-  if (sheet.getLastRow() === 0) {
-    sheet.getRange(1,1,1,RESULT_HEADERS.length).setValues([RESULT_HEADERS]);
-  } else {
-    const lastColumn = Math.max(sheet.getLastColumn(), 1);
-    const existing = sheet.getRange(1,1,1,lastColumn).getDisplayValues()[0]
-      .map(function(h) { return String(h).trim(); });
-    const missing = RESULT_HEADERS.filter(function(h) { return existing.indexOf(h) < 0; });
-    if (missing.length) {
-      sheet.getRange(1,lastColumn + 1,1,missing.length).setValues([missing]);
-    }
-  }
-  sheet.setFrozenRows(1);
-  Logger.log("Student Results sheet is ready. Add each student's Form Number and set Published to Yes.");
+  if (sheet.getLastRow() === 0) sheet.getRange(1,1,1,RESULT_HEADERS.length).setValues([RESULT_HEADERS]);
 }
 
 /**
