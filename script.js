@@ -3,6 +3,7 @@ const header = document.getElementById("site-header");
 if (header) {
   header.className = "site-header";
   const groups = [
+    {label:"Home",url:"index.html"},
     {label:"About",url:"about.html"},
     {label:"Programmes",items:[
       ["All Programmes","programs.html"],["Math Olympiads","olympiads.html"],
