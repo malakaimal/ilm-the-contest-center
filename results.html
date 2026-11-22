@@ -2,17 +2,17 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Look up published ILM student results using your Application ID.">
+<meta name="description" content="Look up published ILM student results using your Form Number.">
 <title>Student Results | ILM The Contest Center</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body class="page-results">
 <header id="site-header"></header>
 <main>
-<section class="page-hero"><div class="container"><span class="eyebrow">ILM The Contest Center</span><h1>Student Results</h1><p>Check your published examination result securely using your Application ID.</p></div></section>
+<section class="page-hero"><div class="container"><span class="eyebrow">ILM The Contest Center</span><h1>Student Results</h1><p>Check your published examination result using your ILM Form Number.</p></div></section>
 <section class="section section-soft"><div class="container"><div class="form-card">
-<div class="section-heading"><span class="tag">Student result portal</span><h2>Find Your Result</h2><p>Enter the Application ID provided after registration. Only results marked as Published by ILM will be displayed.</p></div>
-<form id="resultLookup"><div class="field"><label for="applicationId">Application ID</label><input id="applicationId" required maxlength="50" placeholder="Example: ILM2026001" autocomplete="off"></div><button class="btn btn-blue" type="submit" id="resultButton">Search Published Result</button></form>
+<div class="section-heading"><span class="tag">Student result portal</span><h2>Find Your Result</h2><p>Enter the Form Number provided by ILM. For this lookup, the form is prefilled with 1716. Only results published by ILM will be displayed.</p></div>
+<form id="resultLookup"><div class="field"><label for="formNumber">Form Number</label><input id="formNumber" name="formNumber" type="text" inputmode="numeric" required maxlength="30" value="1716" placeholder="Example: 1716" autocomplete="off"><small class="field-hint">Enter the form number printed on your ILM registration slip.</small></div><button class="btn btn-blue" type="submit" id="resultButton">Search Published Result</button></form>
 <div id="resultMessage" class="form-message" role="status" aria-live="polite"></div>
 <div id="resultOutput" class="spacer-top"></div>
 </div></div></section>
