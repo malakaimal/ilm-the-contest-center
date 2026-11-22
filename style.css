@@ -1477,3 +1477,44 @@ blockquote{border-left:4px solid var(--ilm-gold);padding:12px 20px;background:#f
 @media(prefers-reduced-motion:reduce){
   .site-header .ilm-dropdown-trigger span{transition:none!important}
 }
+
+
+/* FINAL NAV FIX: dropdown entries are a clean vertical list, one item per line */
+.site-header .ilm-dropdown-menu{
+  display:none!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  justify-content:flex-start!important;
+  white-space:normal!important;
+}
+.site-header .ilm-nav-dropdown:hover>.ilm-dropdown-menu,
+.site-header .ilm-nav-dropdown:focus-within>.ilm-dropdown-menu,
+.site-header .ilm-nav-dropdown.dropdown-open>.ilm-dropdown-menu{
+  display:flex!important;
+}
+.site-header .ilm-dropdown-menu>a{
+  display:block!important;
+  float:none!important;
+  width:100%!important;
+  min-width:100%!important;
+  max-width:100%!important;
+  clear:both!important;
+  box-sizing:border-box!important;
+  white-space:normal!important;
+  text-align:left!important;
+  line-height:1.45!important;
+}
+.site-header .ilm-dropdown-menu>a+a{
+  border-top:1px solid #edf1f5!important;
+  margin-top:2px!important;
+  padding-top:13px!important;
+}
+@media(max-width:850px){
+  .site-header .ilm-nav-dropdown:hover>.ilm-dropdown-menu{
+    display:none!important;
+  }
+  .site-header .ilm-nav-dropdown.dropdown-open>.ilm-dropdown-menu,
+  .site-header .ilm-nav-dropdown:focus-within>.ilm-dropdown-menu{
+    display:flex!important;
+  }
+}
